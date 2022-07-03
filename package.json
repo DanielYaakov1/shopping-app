@@ -1,0 +1,20 @@
+{
+     "name": "my-shopping-app",
+     "version": "1.0.0",
+     "main": "index.js",
+     "author": "DanielYaako1 <daniely@moveo.co.il>",
+     "license": "MIT",
+     "private": true,
+     "scripts": {
+          "start": "concurrently \"yarn workspace server start\" \"yarn workspace client start\"",
+          "client": "yarn workspace client start",
+          "server": "yarn workspace server start",
+          "build": "tsc --project ./"
+     },
+     "workspaces": [
+          "packages/*"
+     ],
+     "devDependencies": {
+          "concurrently": "^7.2.2"
+     }
+}
