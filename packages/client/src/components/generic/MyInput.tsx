@@ -55,7 +55,7 @@ const MyInput = ({ handleChangeValue, value, placeholder, type, required, label,
                     required={isRequired}
                     name={label}
                />
-               {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+               {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
           </div>
      );
 };
