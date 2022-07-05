@@ -5,11 +5,8 @@ const Button = styled.button`
      margin: 0.5em;
      color: palevioletred;
      background: papayawhip;
-     border: none;
      border-radius: 3px;
      width: 50%;
-     border-radius: 3px;
-     background: #fff;
      border: 1px solid #ccc;
      &:hover {
           background: #ccc;
