@@ -5,21 +5,30 @@ export interface IAppState {
      user?: any;
      isLoading?: boolean;
      isErrorMessage: string;
-     isLogin?: boolean;
+     isLoginMode?: boolean;
      isDisableSubmitButton: boolean;
      isDarkModeTheme?: boolean;
 }
 const initialState: IAppState = {
      isErrorMessage: '',
      isDisableSubmitButton: true,
+     isLoginMode: true,
 };
 
 export const appSlice = createSlice({
      name: 'app',
      initialState,
      reducers: {
-          setErrorMessage: (state, action: PayloadAction) => {},
+          setErrorMessage: (state, action: PayloadAction<string>) => {
+               state.isErrorMessage = action.payload;
+          },
+          setLoginMode: state => {
+               state.isLoginMode = !state.isLoginMode;
+          },
+          setDisableSubmitButton: (state, action: PayloadAction<boolean>) => {
+               state.isDisableSubmitButton = action.payload;
+          },
      },
 });
-export const { setErrorMessage } = appSlice.actions;
+export const { setErrorMessage, setLoginMode } = appSlice.actions;
 export const appReducer = appSlice.reducer;

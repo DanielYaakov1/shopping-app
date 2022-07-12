@@ -1,27 +1,30 @@
-import React, { useEffect } from 'react';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { Route, Router, Switch } from 'react-router-dom';
+import Header from './components/generic/Header';
+import HomePage from './pages/HomePage';
 import Login from './pages/Login';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { store } from './store';
+import PageNotFound from './pages/PageNotFound';
+import './App.css';
 
 function App() {
-     // useEffect(() => {
-     //      fetch('/test') //check this
-     //           .then(res => res.json())
-     //           .then(data => console.log(data));
-     // }, []);
-
      return (
-          <Provider store={store}>
-               {/* <BrowserRouter> */}
-               <div className='App'>
-                    <header className='App-header'>
-                         <Login></Login>
-                    </header>
-               </div>
-               {/* </BrowserRouter> */}
-          </Provider>
+          <div>
+               <Header />
+               <Switch>
+                    <Route exact path={'/'}>
+                         <header className='App-header'>
+                              <Login></Login>
+                         </header>
+                    </Route>
+
+                    <Route path={'/home'}>
+                         <HomePage />
+                    </Route>
+                    <Route path={'*'}>
+                         <PageNotFound />
+                    </Route>
+               </Switch>
+          </div>
      );
 }
 
