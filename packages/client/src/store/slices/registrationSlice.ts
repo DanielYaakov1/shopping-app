@@ -5,12 +5,14 @@ export interface IRegistrationState {
      lastName: string;
      email: string;
      password?: number;
+     isErrorMessage: string;
 }
 
 const initialState: IRegistrationState = {
      firstName: '',
      lastName: '',
      email: '',
+     isErrorMessage: '',
 };
 
 export const registrationSlice = createSlice({
@@ -18,7 +20,22 @@ export const registrationSlice = createSlice({
      initialState,
      reducers: {
           setAllRegistrationFields: (state, action: PayloadAction) => {},
+          setFirstName: (state, action: PayloadAction<string>) => {
+               state.firstName = action.payload;
+          },
+          setLastName: (state, action: PayloadAction<string>) => {
+               state.lastName = action.payload;
+          },
+          setEmail: (state, action: PayloadAction<string>) => {
+               state.email = action.payload;
+          },
+          setPassword: (state, action: PayloadAction<number>) => {
+               state.password = action.payload;
+          },
+          setErrorMessage: (state, action: PayloadAction<string>) => {
+               state.isErrorMessage = action.payload;
+          },
      },
 });
-export const { setAllRegistrationFields } = registrationSlice.actions;
+export const { setAllRegistrationFields, setErrorMessage } = registrationSlice.actions;
 export const registrationReducer = registrationSlice.reducer;

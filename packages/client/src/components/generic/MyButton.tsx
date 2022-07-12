@@ -1,21 +1,8 @@
-import styled from 'styled-components';
-
-const Button = styled.button`
-     padding: 0.5em;
-     margin: 0.5em;
-     color: palevioletred;
-     background: papayawhip;
-     border-radius: 3px;
-     width: 50%;
-     border: 1px solid #ccc;
-     &:hover {
-          background: #ccc;
-     }
-`;
+import { Button } from '../../assets/style/generic/Button';
 
 export type MyButtonProps = {
      onClick?: () => void;
-     label: string;
+     label: string | JSX.Element;
      children?: React.ReactNode;
      disabled?: boolean;
      type?: 'button' | 'submit' | 'reset';

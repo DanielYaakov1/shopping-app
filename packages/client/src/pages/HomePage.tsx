@@ -1,3 +1,6 @@
+import { Redirect } from 'react-router-dom';
+import Header from '../components/generic/Header';
+
 const HomePage = () => {
      return (
           <div>

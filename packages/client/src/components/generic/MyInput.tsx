@@ -1,18 +1,6 @@
-//Input generic component
-import styled from 'styled-components';
 import React from 'react';
 import { useState } from 'react';
-import { useRef } from 'react';
-
-const Input = styled.input`
-     padding: 0.5em;
-     margin: 0.5em;
-     color: palevioletred;
-     background: papayawhip;
-     border: none;
-     width: 100%;
-     border-radius: 3px;
-`;
+import { Input } from '../../assets/style/generic/Input';
 
 export type MyInputProps = {
      value: string;
@@ -29,7 +17,7 @@ const MyInput = ({ handleChangeValue, value, placeholder, type, required, label,
      const [valueState, setValueState] = useState(value ? value : '');
      const [errorMessage, setErrorMessage] = useState('');
      const [isRequired, setIsRequired] = useState(required);
-     const inputRef = useRef<HTMLInputElement | any>(null);
+     //const inputRef = useRef<HTMLInputElement>(null);
 
      const checkAllFiledIsValid = (userInputValue: string) => {
           const isAllValueValid: boolean = checkInputValueIsValid ? checkInputValueIsValid(userInputValue) : true;
@@ -44,7 +32,7 @@ const MyInput = ({ handleChangeValue, value, placeholder, type, required, label,
           <div>
                {label}
                <Input
-                    ref={inputRef}
+                    // ref={inputRef}
                     value={value}
                     onChange={e => {
                          handleChangeValue(e);

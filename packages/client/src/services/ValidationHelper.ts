@@ -34,12 +34,3 @@ export const checkPasswordIsValid = (password: string): boolean => {
      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
      return passwordRegex.test(password) && password !== '';
 };
-
-// export const checkPasswordStrength = (password: string): string => {
-//      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-//      if (passwordRegex.test(password)) {
-//           return 'strong';
-//      } else {
-//           return 'weak';
-//      }
-// };
