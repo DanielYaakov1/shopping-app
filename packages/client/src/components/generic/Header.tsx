@@ -1,7 +1,6 @@
 import icon from '../../assets/images/sonae-west-shopping-ag.svg';
 import MainNavigation from './MainNavigation';
 import { HeaderStyle } from '../../assets/style/generic/Header';
-import styled from 'styled-components';
 
 const Header = () => {
      return (
@@ -12,7 +11,7 @@ const Header = () => {
                <div className='header__nav'>
                     <ul>
                          <li>
-                              <MainNavigation activeClassName={'activeLink'} to={'/home'} label={'Home'}></MainNavigation>
+                              <MainNavigation activeClassName={'activeLink'} to={'/'} label={'Home'}></MainNavigation>
                          </li>
                          <li>
                               <MainNavigation to={'/about'} label={'About'}></MainNavigation>
