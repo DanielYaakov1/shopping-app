@@ -12,7 +12,6 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
                res.locals.user = decodedToken;
                next();
           } catch (err) {
-               //console.log(err);
                res.status(403).send({ message: err });
           }
      } else {

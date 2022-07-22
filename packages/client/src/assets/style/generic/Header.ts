@@ -19,41 +19,31 @@ export const HeaderStyle = styled.header`
      }
      .header__nav {
           ul {
-               display: flex;
                list-style: none;
+               display: flex;
                margin: 0;
                padding: 0;
-               li {
-                    display: inline-flex;
-                    margin-right: 1rem;
-
-                    a {
-                         color: #fff;
-                         text-decoration: none;
-                         font-size: 1.2rem;
-                         &:hover {
-                              color: #ccc;
-                         }
-                    }
-               }
           }
-     }
-     .activeLink {
-          color: #ccc;
-          text-decoration: underline;
-          box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
-          /* animation-name: activeLink;
-          animation-duration: 1s;
-          animation-timing-function: ease-in-out;
-          animation-delay: 0s;
-          animation-iteration-count: 4;
-          @keyframes activeLink {
-               0% {
-                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
-               }
-               100% {
-                    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0);
-               }
-          } */
+
+          li {
+               margin-left: 1.5rem;
+               font-size: 1.25rem;
+          }
+
+          a {
+               text-decoration: none;
+               color: #88dfdf;
+          }
+
+          a:hover,
+          a:active,
+          a.active {
+               color: #e6fcfc;
+          }
+          .activeLink {
+               box-shadow: bisque 0 0 1rem;
+               border-radius: 0.5rem;
+               color: #fff;
+          }
      }
 `;

@@ -31,6 +31,6 @@ export const checkNotNumbersOrSpecialCharacters = (props: any) => {
 };
 
 export const checkPasswordIsValid = (password: string): boolean => {
-     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
      return passwordRegex.test(password) && password !== '';
 };
