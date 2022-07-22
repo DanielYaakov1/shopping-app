@@ -1,4 +1,5 @@
 import { Redirect } from 'react-router-dom';
+import Carousel from '../components/generic/Carousel';
 import Header from '../components/generic/Header';
 
 const HomePage = () => {
