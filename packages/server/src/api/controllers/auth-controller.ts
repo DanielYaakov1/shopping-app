@@ -4,7 +4,7 @@ import { FirebaseHandler } from '../handlers/FirebaseHandler';
 
 export const refreshUser = (req: Request, res: Response) => {
      //console.log('refreshUser', res.locals.user);
-     res.send(res.locals.user);
+     res.status(200).send(res.locals.user);
 };
 
 export const loginFirebase = async (req: Request, res: Response) => {

@@ -11,13 +11,13 @@ const Header = () => {
                <div className='header__nav'>
                     <ul>
                          <li>
-                              <MainNavigation activeClassName={'activeLink'} to={'/'} label={'Home'}></MainNavigation>
+                              <MainNavigation label={'Home'} activeClassName={'activeLink'} to={'/'} exact={true}></MainNavigation>
                          </li>
                          <li>
-                              <MainNavigation to={'/about'} label={'About'}></MainNavigation>
+                              <MainNavigation activeClassName={'activeLink'} label={'About'} to={'/about'}></MainNavigation>
                          </li>
                          <li>
-                              <MainNavigation to={'/contact'} label={'Contact'}></MainNavigation>
+                              <MainNavigation activeClassName={'activeLink'} label={'Contact'} to={'/contact'}></MainNavigation>
                          </li>
                     </ul>
                </div>

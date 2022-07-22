@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Input } from '../../assets/style/generic/Input';
+import { setDisableSubmitButton } from '../../store/slices/appSlice';
 
 export type MyInputProps = {
      value: string;
@@ -14,13 +16,13 @@ export type MyInputProps = {
 };
 
 const MyInput = ({ handleChangeValue, value, placeholder, type, required, label, checkInputValueIsValid }: MyInputProps) => {
-     const [valueState, setValueState] = useState(value ? value : '');
+     //const [valueState, setValueState] = useState(value ? value : '');
      const [errorMessage, setErrorMessage] = useState('');
      const [isRequired, setIsRequired] = useState(required);
      //const inputRef = useRef<HTMLInputElement>(null);
 
      const checkAllFiledIsValid = (userInputValue: string) => {
-          const isAllValueValid: boolean = checkInputValueIsValid ? checkInputValueIsValid(userInputValue) : true;
+          const isAllValueValid = checkInputValueIsValid ? checkInputValueIsValid(userInputValue) : true;
           if (isAllValueValid && value) {
                setErrorMessage('');
           } else {
