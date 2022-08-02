@@ -7,24 +7,27 @@ export interface User {
      photoURL: string;
      token: string;
      id: string;
+     message: string;
+     code: string;
 }
 
 export interface IAppState {
      isConnected?: boolean;
      user?: User;
-     isLoading?: boolean;
+     isLoading: boolean;
      isErrorMessage: string;
      isLoginMode: boolean;
      isDisableSubmitButton: boolean;
      isDarkModeTheme?: boolean;
-     isAppAuthenticated?: boolean | null;
+     isAppAuthenticated: boolean;
 }
 const initialState: IAppState = {
      isErrorMessage: '',
+     isLoading: false,
      isDisableSubmitButton: true,
      isLoginMode: true,
      isDarkModeTheme: false,
-     isAppAuthenticated: null,
+     isAppAuthenticated: false,
 };
 
 export const appSlice = createSlice({
@@ -46,7 +49,10 @@ export const appSlice = createSlice({
           setUser(state, action: PayloadAction<User>) {
                state.user = action.payload;
           },
+          setLoading(state, action: PayloadAction<boolean>) {
+               state.isLoading = action.payload;
+          },
      },
 });
-export const { setErrorMessage, setLoginMode, setAppAuthenticated, setDisableSubmitButton, setUser } = appSlice.actions;
+export const { setLoading, setErrorMessage, setLoginMode, setAppAuthenticated, setDisableSubmitButton, setUser } = appSlice.actions;
 export const appReducer = appSlice.reducer;

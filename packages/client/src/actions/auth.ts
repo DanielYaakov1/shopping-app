@@ -1,7 +1,9 @@
 import { setStorageApi, getStorageApi } from './../services/storageApi';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setErrorMessage } from '../store/slices/registrationSlice';
+import { setAppAuthenticated, setLoading, setUser } from '../store/slices/appSlice';
+import { useHistory } from 'react-router-dom';
 
 const fetcher = (url: string, method = 'GET', body?: Record<string, any>) => {
      const bodyJson = body ? { body: JSON.stringify(body) } : {};
@@ -20,6 +22,8 @@ const fetcher = (url: string, method = 'GET', body?: Record<string, any>) => {
 
 const ActionsAuth = () => {
      const dispatch = useDispatch();
+     const history = useHistory();
+     const [getUser, setGetUser] = useState(true);
 
      const loginFirebase = useCallback(
           async (email: string, password: string, params: string) => {
@@ -46,7 +50,29 @@ const ActionsAuth = () => {
           [dispatch]
      );
 
-     return { loginFirebase };
+     // send request to server with fetcher
+     const checkTokenIsExpired = useCallback(async () => {
+          dispatch(setLoading(true));
+          try {
+               const response = await fetch('/auth/check-token-expired');
+               const user = await response.json();
+               if (response.status !== 200) {
+                    //dispatch(setUser(user.message.code));
+                    //dispatch(setErrorMessage(user.message.code));
+                    setGetUser(false);
+                    dispatch(setAppAuthenticated(response.ok));
+                    return history.replace('/login');
+               }
+               dispatch(setAppAuthenticated(response.ok));
+               dispatch(setUser(user));
+          } catch (err) {
+               console.log(err, 'this is the error');
+          } finally {
+               dispatch(setLoading(false));
+          }
+     }, [dispatch, history]);
+
+     return { loginFirebase, checkTokenIsExpired, getUser };
 };
 export default ActionsAuth;
 

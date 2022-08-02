@@ -9,6 +9,14 @@ const productSchema = new mongoose.Schema({
           type: Number,
           required: [true, 'Product price is missing'],
      },
+     description: {
+          type: String,
+          required: [true, 'Product description is missing'],
+     },
+     image: {
+          type: String,
+          required: [true, 'Product image is missing'],
+     },
 });
 
 export const Products = mongoose.model('products', productSchema);

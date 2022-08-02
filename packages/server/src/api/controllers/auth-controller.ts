@@ -2,9 +2,12 @@ import type { Request, Response } from 'express';
 import { auth } from '../../firebase';
 import { FirebaseHandler } from '../handlers/FirebaseHandler';
 
-export const refreshUser = (req: Request, res: Response) => {
-     //console.log('refreshUser', res.locals.user);
-     res.status(200).send(res.locals.user);
+export const checkUser = async (req: Request, res: Response) => {
+     try {
+          res.status(200).send(res.locals.user);
+     } catch (err) {
+          res.send(err);
+     }
 };
 
 export const loginFirebase = async (req: Request, res: Response) => {
