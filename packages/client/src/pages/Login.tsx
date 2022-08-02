@@ -1,7 +1,7 @@
 //languages:TypeScript
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { RootState } from '../store';
 import { setErrorMessage } from '../store/slices/registrationSlice';
 import { setAppAuthenticated, setLoginMode, setDisableSubmitButton, setUser } from '../store/slices/appSlice';
@@ -37,9 +37,11 @@ export const Login = () => {
                if (isEmailPasswordValid) {
                     const handleLogin = isLoginMode ? await loginFirebase(email, password, 'login') : await loginFirebase(email, password, 'signup');
                     if (handleLogin.id) {
-                         history.push('/');
+                         console.log('handleLogin', handleLogin);
                          dispatch(setUser(handleLogin));
                          dispatch(setAppAuthenticated(true));
+                         //<Redirect to={'/'} />;
+                         return history.push('/');
                     } else {
                          dispatch(setErrorMessage(handleLogin.code));
                     }

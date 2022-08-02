@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Item from './Item';
+import Product from './Product';
 
 export function SamplePrevArrow(props: any) {
      const { className, style, onClick } = props;
@@ -37,15 +37,9 @@ const Carousel = () => {
      return (
           <div style={{ textAlign: 'center' }}>
                <Slider {...settings}>
-                    <div>
-                         <Item name='Item 1' description='This is item 1' price={100} image='https://media.istockphoto.com/photos/white-wireless-overhead-monitor-headphones-lie-on-a-dark-foam-rubber-picture-id1232354934?s=612x612' />
-                    </div>
-                    <div>
-                         <Item name='Item 2' description='This is item 2' price={200} image='https://media.istockphoto.com/photos/white-wireless-overhead-monitor-headphones-lie-on-a-dark-foam-rubber-picture-id1232354934?s=612x612' />
-                    </div>
-                    <div>
-                         <Item name='Item 3' description='This is item 3' price={300} image='https://media.istockphoto.com/photos/white-wireless-overhead-monitor-headphones-lie-on-a-dark-foam-rubber-picture-id1232354934?s=612x612' />
-                    </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                </Slider>
           </div>
      );
