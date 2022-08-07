@@ -28,7 +28,7 @@ const ActionsAuth = () => {
      const loginFirebase = useCallback(
           async (email: string, password: string, params: string) => {
                try {
-                    const url = `/auth/${params}`;
+                    const url = `/api/v1/auth/${params}`;
                     const response = await fetcher(url, 'POST', {
                          email: email,
                          password: password,
@@ -54,7 +54,7 @@ const ActionsAuth = () => {
      const checkTokenIsExpired = useCallback(async () => {
           dispatch(setLoading(true));
           try {
-               const response = await fetch('/auth/check-token-expired');
+               const response = await await fetch('/api/v1/auth/check-token-expired');
                const user = await response.json();
                if (response.status !== 200) {
                     //dispatch(setUser(user.message.code));
@@ -66,7 +66,7 @@ const ActionsAuth = () => {
                dispatch(setAppAuthenticated(response.ok));
                dispatch(setUser(user));
           } catch (err) {
-               console.log(err, 'this is the error');
+               console.log(err);
           } finally {
                dispatch(setLoading(false));
           }

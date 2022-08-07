@@ -37,7 +37,6 @@ export const Login = () => {
                if (isEmailPasswordValid) {
                     const handleLogin = isLoginMode ? await loginFirebase(email, password, 'login') : await loginFirebase(email, password, 'signup');
                     if (handleLogin.id) {
-                         console.log('handleLogin', handleLogin);
                          dispatch(setUser(handleLogin));
                          dispatch(setAppAuthenticated(true));
                          //<Redirect to={'/'} />;

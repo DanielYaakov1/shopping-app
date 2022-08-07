@@ -1,6 +1,7 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from './Card';
 
-const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
      root: {
           display: 'flex',
           flexWrap: 'wrap',
@@ -10,6 +11,23 @@ const useStyles = makeStyles(theme => ({
      gridList: {
           width: '100%',
           height: '100%',
+     },
+     image: {
+          width: '75%',
+          height: '60%',
+          objectFit: 'cover',
+          objectPosition: 'center',
+          borderRadius: '5px',
+          marginBottom: '1rem',
+     },
+     title: {
+          color: theme.palette.primary.light,
+     },
+     description: {
+          color: theme.palette.primary.light,
+     },
+     price: {
+          color: theme.palette.primary.light,
      },
 }));
 
@@ -27,31 +45,16 @@ const Product = ({ name, description, price, image }: ProductProps) => {
      const classes = useStyles();
 
      return (
-          <div
-               style={{
-                    maxWidth: '30%',
-                    margin: '0 auto',
-                    border: '1px solid #ccc',
-                    boxShadow: '0 0 5px #ccc',
-                    textAlign: 'center',
-                    marginBottom: '1rem',
-               }}>
-               <h3>Name: {name}</h3>
-               <p>Description: {description}</p>
-               <p>Price: {price}</p>
-               <img
-                    style={{
-                         width: '75%',
-                         height: '60%',
-                         objectFit: 'cover',
-                         objectPosition: 'center',
-                         borderRadius: '5px',
-                         marginBottom: '1rem',
-                    }}
-                    src={image}
-                    alt={name}
-               />
-          </div>
+          <Card>
+               <div style={{}}>
+                    <h3 className={classes.title}>Name: {name}</h3>
+                    <p className={classes.description}>Description: {description}</p>
+                    <p className={classes.description}>Price: {price}</p>
+                    <div>
+                         <img className={classes.image} src={image} alt={name} />
+                    </div>
+               </div>
+          </Card>
      );
 };
 export default Product;
