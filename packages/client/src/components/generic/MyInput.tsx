@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Input } from '../../assets/style/generic/Input';
-import { setDisableSubmitButton } from '../../store/slices/appSlice';
 
 export type MyInputProps = {
      value: string;
@@ -50,10 +48,3 @@ const MyInput = ({ handleChangeValue, value, placeholder, type, required, label,
      );
 };
 export default MyInput;
-
-// onMouseEnter={() => {
-//      inputRef.current.focus();
-// }}
-// onMouseLeave={() => {
-//      inputRef.current.blur();
-// }}

@@ -5,16 +5,16 @@ import { authRouter } from './src/api/routes/auth-router';
 import { productsRouter } from './src/api/routes/products-router';
 import { requireAuth } from './src/middleware/requireAuth';
 import cookieParser from 'cookie-parser';
-import { mongooseConnect } from './db/mongooseConnect';
+import { mongooseConnect } from './src/db/mongooseConnect';
 
 const port = process.env.SHOPPING_APP_PORT;
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
-app.use('/auth', authRouter);
-app.use('/products', productsRouter);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/products', productsRouter);
 
-app.use('/test', requireAuth, (req, res) => {
+app.use('/api/v1/test', requireAuth, (req, res) => {
      res.send({ data: 'Well done and Hello from server!' });
      const userData = res.locals.user;
 });
