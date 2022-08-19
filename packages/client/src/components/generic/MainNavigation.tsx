@@ -4,9 +4,9 @@ export type MainNavigationProps = {
      label: string;
      to: string;
      exact?: boolean;
-     isActive?: any;
-     activeClassName?: any;
-     activeStyle?: any;
+     isActive?: boolean;
+     activeClassName?: string;
+     activeStyle?: string;
 };
 
 const MainNavigation = ({ label, to, activeClassName, exact }: MainNavigationProps) => {

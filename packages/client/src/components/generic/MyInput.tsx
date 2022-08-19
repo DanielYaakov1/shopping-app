@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import { useState } from 'react';
 import { Input } from '../../assets/style/generic/Input';
 
@@ -48,3 +48,10 @@ const MyInput = ({ handleChangeValue, value, placeholder, type, required, label,
      );
 };
 export default MyInput;
+
+// onMouseEnter={() => {
+//      inputRef.current.focus();
+// }}
+// onMouseLeave={() => {
+//      inputRef.current.blur();
+// }}
