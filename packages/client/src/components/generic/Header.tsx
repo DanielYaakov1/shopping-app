@@ -1,6 +1,7 @@
 import icon from '../../assets/images/sonae-west-shopping-ag.svg';
 import MainNavigation from './MainNavigation';
 import { HeaderStyle } from '../../assets/style/generic/Header';
+import CartIcon from './CartIcon';
 
 const Header = () => {
      return (

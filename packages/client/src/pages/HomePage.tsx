@@ -1,10 +1,10 @@
+import Cart from '../components/generic/Cart';
 import ProductsList from '../components/generic/ProductList';
-import Products from '../components/generic/Products';
 
 const HomePage = () => {
      return (
           <div>
-               {/* <Products /> */}
+               <Cart></Cart>
                <ProductsList></ProductsList>
           </div>
      );
