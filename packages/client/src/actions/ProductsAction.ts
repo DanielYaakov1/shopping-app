@@ -42,14 +42,3 @@ export const getProductByName = async (value: string) => {
           console.log(err);
      }
 };
-
-// export const getProductByName1 = async () => {
-//      try {
-//           const response = await fetch(`/products/tv1`);
-//           const resData = await response.json();
-//           console.log(resData);
-//           //return resData;
-//      } catch (err) {
-//           console.log(err);
-//      }
-// };
