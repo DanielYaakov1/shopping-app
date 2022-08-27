@@ -4,29 +4,29 @@ import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const useStyles = makeStyles((theme: Theme) =>
-     createStyles({
-          root: {
-               '& > *': {
-                    margin: theme.spacing(0),
-               },
-          },
-     })
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(0),
+      },
+    },
+  })
 );
 
 export interface IconProps extends Partial<HTMLButtonElement> {
-     type?: 'submit';
+  type?: 'submit';
 }
 
 const IconButtons = memo(({ type }: IconProps) => {
-     const classes = useStyles();
+  const classes = useStyles();
 
-     return (
-          <div className={classes.root}>
-               <IconButton type={type} color='primary' aria-label='add to shopping cart'>
-                    <AddShoppingCartIcon />
-               </IconButton>
-          </div>
-     );
+  return (
+    <div className={classes.root}>
+      <IconButton type={type} color="primary" aria-label="add to shopping cart">
+        <AddShoppingCartIcon />
+      </IconButton>
+    </div>
+  );
 });
 
 export default IconButtons;
