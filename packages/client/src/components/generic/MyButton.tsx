@@ -1,17 +1,17 @@
 import { Button } from '../../assets/style/generic/Button';
 
 export type MyButtonProps = {
-     onClick?: () => void;
-     label: string | JSX.Element;
-     children?: React.ReactNode;
-     disabled?: boolean;
-     type?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
+  label: string | JSX.Element;
+  children?: React.ReactNode;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
 };
 const MyButton = ({ onClick, label, disabled, type }: MyButtonProps) => {
-     return (
-          <Button onClick={onClick} disabled={disabled} type={type}>
-               {label}
-          </Button>
-     );
+  return (
+    <Button onClick={onClick} disabled={disabled} type={type}>
+      {label}
+    </Button>
+  );
 };
 export default MyButton;
