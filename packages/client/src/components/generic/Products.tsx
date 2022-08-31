@@ -14,7 +14,7 @@ const Products = () => {
   const [searchProduct, setSearchProduct] = useState('');
   const [isSortingOption, setIsSelectValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  //
+
   //   useEffect(() => {
   //     const fetchProducts = async () => {
   //       try {
@@ -109,7 +109,7 @@ const Products = () => {
             price={product.price}
             image={product.image}
             description={product.description}
-            id={i}
+            _id={product._id}
           ></Product>
         ))}
       </div>

@@ -1,22 +1,26 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import IconDrawer from './IconDrawer';
 
 const ProductForm = (props: { onAddToCart: any; id: any }) => {
   const { onAddToCart, id } = props;
   const amountInputRef = useRef<HTMLInputElement | any>();
   const [amountIsValid, setAmountIsValid] = useState(true);
+  console.log(id, 'id from ProductForm');
 
-  const submitHandler = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    const amountEntered = amountInputRef.current.value;
-    const enteredAmountNumber = +amountEntered;
-    if (amountEntered.trim().length === 0 || amountEntered < 1 || amountEntered > 5) {
-      setAmountIsValid(false);
-      return;
-    }
-    onAddToCart(enteredAmountNumber);
-    console.log('form send successfully ');
-  };
+  const submitHandler = useCallback(
+    (event: { preventDefault: () => void }) => {
+      event.preventDefault();
+      const amountEntered = amountInputRef.current.value;
+      const enteredAmountNumber = +amountEntered;
+      if (amountEntered.trim().length === 0 || amountEntered < 1 || amountEntered > 5) {
+        setAmountIsValid(false);
+        return;
+      }
+      onAddToCart(enteredAmountNumber);
+      console.log('form send successfully ');
+    },
+    [onAddToCart, amountInputRef]
+  );
 
   return (
     <form onSubmit={submitHandler}>
