@@ -1,5 +1,7 @@
-import { IItems } from '../../store/slices/cartSlice';
+import { addItemToCart, IItems } from '../../store/slices/cartSlice';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,25 +27,33 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export type props = {
-  items: IItems[];
-};
+export interface ICartItem {
+  name: string;
+  price: number;
+  amount: number;
+  onAddToCart: () => void;
+  onRemoveToCart: () => void;
+}
 
-export function CartItem(props: { items: IItems[] }) {
+export function CartItem(props: ICartItem) {
+  //const { name, amount, price, onRemoveToCart, onAddToCart } = props;
   const classes = useStyles();
+
   return (
     <li>
-      {props.items.map((item: IItems, i: any) => (
-        <div className={classes.cartItem}>
-          <div>
-            <h2>{item.name}</h2>
-            <div className={classes.summary}>
-              <span className={classes.price}>{item.price}</span>
-              <span>x{item.amount}</span>
-            </div>
+      <div className={classes.cartItem}>
+        <div>
+          <h2>{props.name}</h2>
+          <div className={classes.summary}>
+            <span className={classes.price}>{props.price}</span>
+            <span>x{props.amount}</span>
           </div>
         </div>
-      ))}
+        <div>
+          <button onClick={props.onAddToCart}>+</button>
+          <button onClick={props.onRemoveToCart}>-</button>
+        </div>
+      </div>
     </li>
   );
 }
