@@ -1,8 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Product, { IProductProps } from './Product';
 import { CartItem } from './CartItem';
+import { memo } from 'react';
+import { addItemToCart, deleteItemFromCart, IItems } from '../../store/slices/cartSlice';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -24,20 +25,33 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export const Cart = () => {
+const Cart = memo(() => {
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
-  //const dispatch = useDispatch();
+  const handleIncreaseItem = (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 }));
+  const handleDecreaseItem = (_id: string) => dispatch(deleteItemFromCart(_id));
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.cartItems}>
-      <CartItem items={items}></CartItem>
+      <ul style={{ listStyleType: 'none' }}>
+        {items.map((item: IItems, i: any) => (
+          <CartItem
+            key={item._id}
+            name={item.name}
+            price={item.price}
+            amount={item.amount}
+            onAddToCart={handleIncreaseItem.bind(null, item)}
+            onRemoveToCart={handleDecreaseItem.bind(null, item._id)}
+          ></CartItem>
+        ))}
+      </ul>
       <div className={classes.totalAmount}>
         <span>Total Amount:</span>
-        <span>{totalAmount}</span>
+        <span>{totalAmount.toFixed(2)}</span>
       </div>
     </div>
   );
-};
+});
 export default Cart;
