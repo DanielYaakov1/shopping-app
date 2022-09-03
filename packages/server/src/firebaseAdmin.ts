@@ -4,7 +4,7 @@ import admin from 'firebase-admin';
 const serviceAccountFile = require(`../apiKey.json`);
 
 const adminInit = admin.initializeApp({
-     credential: admin.credential.cert(serviceAccountFile),
+  credential: admin.credential.cert(serviceAccountFile),
 });
 
 const firebaseApp = adminInit;
