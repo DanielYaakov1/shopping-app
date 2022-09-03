@@ -17,6 +17,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Product image is missing'],
   },
+  // date: {
+  //   type: Date,
+  //   default: Date.now
+  // }
 });
 
 export const Products = mongoose.model('products', productSchema);

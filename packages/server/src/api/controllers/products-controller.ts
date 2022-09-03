@@ -84,8 +84,18 @@ export const getProductsCount = async (req: Request, res: Response) => {
     const products = await Products.find({})
       .skip((pageNumber - 1) * limit)
       .limit(limit);
-    console.log(products);
-    res.status(200).send(products);
+    const resultCount = await Products.aggregate([
+      {
+        $group: {
+          _id: null,
+          count: {
+            $count: {},
+          },
+        },
+      },
+    ]);
+
+    res.status(200).send({ totalCount: resultCount[0].count, products });
   } catch (err) {
     res.status(400).send(err);
   }

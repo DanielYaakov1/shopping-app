@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { LayoutStyle } from '../../assets/style/generic/Layout';
 
 export type LayoutProps = {
@@ -6,8 +7,8 @@ export type LayoutProps = {
   footer?: React.ReactNode;
 };
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = memo(({ children }: LayoutProps) => {
   return <LayoutStyle>{children}</LayoutStyle>;
-};
+});
 
 export default Layout;

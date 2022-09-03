@@ -1,43 +1,43 @@
 import { useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MemoryRouter, Route } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import { useEffect } from 'react';
-import { getAllProductsAction, getPageAndProductCount } from '../../actions/ProductsAction';
+import { getProductPerPage } from '../../actions/ProductsAction';
 import { setProduct } from '../../store/slices/ProductSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export function MyPagination() {
   //TODO: split component
   const location = useLocation();
   const queryLocation = new URLSearchParams(location.search);
   const currentPage: number = parseInt(queryLocation.get('page') || '1', 10);
+  const [totalCountPage, setTotalCountPage] = useState(1);
   const dispatch = useDispatch();
-  const [userCount, setUserCount] = useState([0]);
-  const [productsCount, setProductsCount] = useState([]);
+  const limitProductsPerPage: number = 2;
 
   useEffect(() => {
     async function fetchPageProductNumber() {
-      const products = await getPageAndProductCount(currentPage, 2);
-      setUserCount(products);
+      const { products, totalCount } = await getProductPerPage(currentPage, limitProductsPerPage);
+      setTotalCountPage(totalCount);
       dispatch(setProduct(products));
     }
     fetchPageProductNumber();
   }, [dispatch, currentPage]);
 
-  useEffect(() => {
-    async function fetchAllProducts() {
-      const products = await getAllProductsAction();
-      setProductsCount(products);
-    }
-    fetchAllProducts();
-  }, []);
+  // useEffect(() => {
+  //   //move this line to app.tsx
+  //   async function fetchAllProducts() {
+  //     const products = await getAllProductsAction();
+  //     setProductsCount(products);
+  //   }
+  //   fetchAllProducts();
+  // }, []);
 
   const getNumberPages = useCallback((): number => {
-    const calculateNumberPagesDisplay = productsCount.length / userCount.length;
-    return calculateNumberPagesDisplay;
-  }, [productsCount.length, userCount.length]);
+    const calculateNumberPagesDisplay = totalCountPage / limitProductsPerPage;
+    return Math.ceil(calculateNumberPagesDisplay);
+  }, [totalCountPage]);
 
   return (
     <Pagination

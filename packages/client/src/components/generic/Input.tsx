@@ -1,4 +1,6 @@
-export function Input(props: { searchProduct: string; setSearchProduct: (value: string) => void }) {
+import { memo } from 'react';
+
+const Input = memo((props: { searchProduct: string; setSearchProduct: (value: string) => void }) => {
   return (
     <input
       style={{
@@ -20,4 +22,6 @@ export function Input(props: { searchProduct: string; setSearchProduct: (value: 
       onChange={(e) => props.setSearchProduct(e.target.value)}
     ></input>
   );
-}
+});
+
+export default Input;

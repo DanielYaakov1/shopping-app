@@ -1,4 +1,4 @@
-import MyInput from './MyInput';
+import { memo } from 'react';
 
 export type SearchProps = {
   onSearch?: (value: string) => void;
@@ -10,8 +10,7 @@ export type SearchProps = {
   autoFocus?: boolean;
   autoComplete?: string;
 };
-const Search = ({ value, placeholder, className, handleChangeValue }: SearchProps) => {
-  // const { onChange, value, placeholder, className, ...otherProps } = props;
+const Search = memo(({ value, placeholder, className, handleChangeValue }: SearchProps) => {
   return (
     <input
       className={className}
@@ -23,6 +22,5 @@ const Search = ({ value, placeholder, className, handleChangeValue }: SearchProp
       }}
     />
   );
-  //<MyInput></MyInput>;
-};
+});
 export default Search;

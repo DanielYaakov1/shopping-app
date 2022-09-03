@@ -47,7 +47,7 @@ const Form = () => {
     if (Object.keys(formErrors).length === 0 && isSubmitting) {
       submit();
     }
-  }, [formErrors]);
+  }, [formErrors, isSubmitting, submit]);
 
   return (
     <div className="container">

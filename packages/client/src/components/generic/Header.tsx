@@ -2,13 +2,22 @@ import icon from '../../assets/images/sonae-west-shopping-ag.svg';
 import MainNavigation from './MainNavigation';
 import { HeaderStyle } from '../../assets/style/generic/Header';
 import CartIcon from './CartIcon';
+import { RootState } from '../../store/store';
+import { useSelector } from 'react-redux';
+import { memo } from 'react';
 
-const Header = () => {
+const Header = memo(() => {
+  const items = useSelector((state: RootState) => state.cartReducer.items);
+  const numberCartItem = items.reduce((currentValue, item) => {
+    return currentValue + item.amount;
+  }, 0);
+
   return (
     <HeaderStyle className="header">
       <div className="header__logo">
         <img src={icon} alt="logo" />
       </div>
+      <CartIcon numberCartItem={numberCartItem}></CartIcon>
       <div className="header__nav">
         <ul>
           <li>
@@ -24,5 +33,5 @@ const Header = () => {
       </div>
     </HeaderStyle>
   );
-};
+});
 export default Header;

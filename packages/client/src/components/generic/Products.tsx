@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProductsAction, getProductByName } from '../../actions/ProductsAction';
-import { addProduct, setProduct } from '../../store/slices/ProductSlice';
+import { getProductByName } from '../../actions/ProductsAction';
+import { setProduct } from '../../store/slices/ProductSlice';
 import { RootState } from '../../store/store';
-import { Input } from './Input';
+import Input from './Input';
 import Product, { IProductProps } from './Product';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { Sorting } from './Sorting';
+import Sorting from './Sorting';
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -68,7 +68,6 @@ const Products = () => {
     [setSearchResults]
   );
   const handleSetSearch = useCallback(
-    //handle search if filed is empty display previous products
     async (searchValue: string) => {
       setSearchProduct(searchValue);
       if (searchValue.length > 0) {
