@@ -24,7 +24,7 @@ export const getValidationFunction = (
 };
 
 export const checkEmailIsValid = (email: string): boolean => {
-  var emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+  const emailRegex = /^([a-zA-Z0-9_\-\\.]+)@([a-zA-Z0-9_\-\\.]+)\.([a-zA-Z]{2,5})$/;
   return emailRegex.test(email);
 };
 

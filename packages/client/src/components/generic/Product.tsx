@@ -62,7 +62,7 @@ const Product = ({ name, description, price, image, _id }: IProductProps) => {
 
   return (
     <Card>
-      <div style={{}}>
+      <div>
         <h3 className={classes.title}>Name: {name}</h3>
         <p className={classes.description}>Description: {description}</p>
         <p className={classes.price}>Price: {price.toFixed(2)}</p>

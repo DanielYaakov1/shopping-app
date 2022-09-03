@@ -1,11 +1,10 @@
-import { useCallback, useRef, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import IconDrawer from './IconDrawer';
 
-const ProductForm = (props: { onAddToCart: any; id: any }) => {
+const ProductForm = memo((props: { onAddToCart: any; id: any }) => {
   const { onAddToCart, id } = props;
   const amountInputRef = useRef<HTMLInputElement | any>();
   const [amountIsValid, setAmountIsValid] = useState(true);
-  console.log(id, 'id from ProductForm');
 
   const submitHandler = useCallback(
     (event: { preventDefault: () => void }) => {
@@ -38,6 +37,6 @@ const ProductForm = (props: { onAddToCart: any; id: any }) => {
       {!amountIsValid && <p>Please Entered valid number 1-5</p>}
     </form>
   );
-};
+});
 
 export default ProductForm;
