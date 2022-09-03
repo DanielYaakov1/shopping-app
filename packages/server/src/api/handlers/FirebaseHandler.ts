@@ -1,9 +1,9 @@
-import { Authenticator } from '../interfaces/interfaces';
+import { IAuthenticator } from '../interfaces/interfaces';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { authAdmin } from '../../firebaseAdmin';
 
-export class FirebaseHandler implements Authenticator {
+export class FirebaseHandler implements IAuthenticator {
   async login(email: string, password: string) {
     const res = await signInWithEmailAndPassword(auth, email, password);
     const idToken = await res.user.getIdToken();

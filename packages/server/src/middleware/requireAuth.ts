@@ -18,3 +18,7 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
     res.status(403).send({ message: 'You are not authorized to access this page. Please sign in.' });
   }
 };
+
+// if () {
+//   throw new Error('not admin');
+// }

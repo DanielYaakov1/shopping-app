@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const PageNotFound = () => {
+const PageNotFound = memo(() => {
   //add image + background + animation  to page not found
   let location = useLocation();
 
@@ -29,5 +30,5 @@ const PageNotFound = () => {
       />
     </div>
   );
-};
+});
 export default PageNotFound;

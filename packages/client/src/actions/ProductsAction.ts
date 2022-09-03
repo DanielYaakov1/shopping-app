@@ -1,3 +1,4 @@
+import { Product } from './../interfaces/Product.interface';
 //import { getProductByName } from './../../../server/src/api/controllers/products-controller';
 export const getAllProductsAction = async () => {
   try {
@@ -43,7 +44,12 @@ export const getProductByName = async (value: string) => {
   }
 };
 
-export const getPageAndProductCount = async (pageNumber: number, limitItem?: string | number) => {
+export interface IPaginationResult {
+  products: Product[];
+  totalCount: number;
+}
+export const getProductPerPage = async (pageNumber: number, productPerPage?: string | number) => {
+  //get productPerPage
   //const paginationItem = limitItem ? parseInt(limitItem) : 2;
   try {
     const response = await fetch('/api/v1/products/get-products-count', {
@@ -53,12 +59,13 @@ export const getPageAndProductCount = async (pageNumber: number, limitItem?: str
       },
       body: JSON.stringify({
         page: pageNumber,
-        limit: limitItem,
+        limit: productPerPage,
       }),
     });
-    const resData = await response.json();
-    return resData;
+
+    const { products, totalCount } = (await response.json()) as IPaginationResult;
+    return { products, totalCount };
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };

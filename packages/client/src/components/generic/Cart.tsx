@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { CartItem } from './CartItem';
-import { memo } from 'react';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import CartItem from './CartItem';
+import { memo, useCallback } from 'react';
 import { addItemToCart, deleteItemFromCart, IItems } from '../../store/slices/cartSlice';
 
 const useStyles = makeStyles(() =>
@@ -22,20 +22,23 @@ const useStyles = makeStyles(() =>
       maxHeight: '20rem',
       overflow: 'scroll',
     },
+    cartItemList: {
+      listStyleType: 'none',
+    },
   })
 );
 
 const Cart = memo(() => {
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
-  const handleIncreaseItem = (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 }));
-  const handleDecreaseItem = (_id: string) => dispatch(deleteItemFromCart(_id));
-  const classes = useStyles();
   const dispatch = useDispatch();
+  const handleIncreaseItem = useCallback((item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })), [dispatch]);
+  const handleDecreaseItem = useCallback((id: string) => dispatch(deleteItemFromCart(id)), [dispatch]);
+  const classes = useStyles();
 
   return (
     <div className={classes.cartItems}>
-      <ul style={{ listStyleType: 'none' }}>
+      <ul className={classes.cartItemList}>
         {items.map((item: IItems, i: any) => (
           <CartItem
             key={item._id}

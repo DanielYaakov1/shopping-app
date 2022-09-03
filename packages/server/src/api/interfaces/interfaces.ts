@@ -1,9 +1,9 @@
-export interface Authenticator {
-  login: (email: string, password: string) => Promise<User>;
-  register: (email: string, password: string) => Promise<User>;
+export interface IAuthenticator {
+  login: (email: string, password: string) => Promise<IUser>;
+  register: (email: string, password: string) => Promise<IUser>;
 }
 
-export type User = {
+export type IUser = {
   token?: string;
   id: string;
 };

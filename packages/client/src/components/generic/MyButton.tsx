@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Button } from '../../assets/style/generic/Button';
 
 export type MyButtonProps = {
@@ -7,11 +8,11 @@ export type MyButtonProps = {
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
 };
-const MyButton = ({ onClick, label, disabled, type }: MyButtonProps) => {
+const MyButton = memo(({ onClick, label, disabled, type }: MyButtonProps) => {
   return (
     <Button onClick={onClick} disabled={disabled} type={type}>
       {label}
     </Button>
   );
-};
+});
 export default MyButton;

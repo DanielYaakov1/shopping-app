@@ -1,5 +1,5 @@
-import React, { MutableRefObject } from 'react';
-import { useState } from 'react';
+import React, { memo } from 'react';
+import { useState, useCallback } from 'react';
 import { Input } from '../../assets/style/generic/Input';
 
 export type MyInputProps = {
@@ -13,53 +13,38 @@ export type MyInputProps = {
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
 };
 
-const MyInput = ({
-  handleChangeValue,
-  value,
-  placeholder,
-  type,
-  required,
-  label,
-  checkInputValueIsValid,
-}: MyInputProps) => {
-  //const [valueState, setValueState] = useState(value ? value : '');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isRequired, setIsRequired] = useState(required);
-  //const inputRef = useRef<HTMLInputElement>(null);
+const MyInput = memo(
+  ({ handleChangeValue, value, placeholder, type, required, label, checkInputValueIsValid }: MyInputProps) => {
+    const [errorMessage, setErrorMessage] = useState('');
 
-  const checkAllFiledIsValid = (userInputValue: string) => {
-    const isAllValueValid = checkInputValueIsValid ? checkInputValueIsValid(userInputValue) : true;
-    if (isAllValueValid && value) {
-      setErrorMessage('');
-    } else {
-      setErrorMessage('The pattern you entered is invalid');
-    }
-  };
+    const checkAllFiledIsValid = useCallback(
+      (userInputValue: string) => {
+        const isAllValueValid = checkInputValueIsValid ? checkInputValueIsValid(userInputValue) : true;
+        if (isAllValueValid && value) {
+          setErrorMessage('');
+        } else {
+          setErrorMessage('The pattern you entered is invalid');
+        }
+      },
+      [checkInputValueIsValid, value, setErrorMessage]
+    );
 
-  return (
-    <div>
-      {label}
-      <Input
-        // ref={inputRef}
-        value={value}
-        onChange={(e) => {
-          handleChangeValue(e);
-        }}
-        onBlur={(value) => checkAllFiledIsValid(value.target.value)}
-        placeholder={placeholder}
-        type={type}
-        required={isRequired}
-        name={label}
-      />
-      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-    </div>
-  );
-};
+    return (
+      <div>
+        {label}
+        <Input
+          value={value}
+          onChange={(e) => {
+            handleChangeValue(e);
+          }}
+          onBlur={(value) => checkAllFiledIsValid(value.target.value)}
+          placeholder={placeholder}
+          type={type}
+          name={label}
+        />
+        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+      </div>
+    );
+  }
+);
 export default MyInput;
-
-// onMouseEnter={() => {
-//      inputRef.current.focus();
-// }}
-// onMouseLeave={() => {
-//      inputRef.current.blur();
-// }}

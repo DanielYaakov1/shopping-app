@@ -1,7 +1,5 @@
-import { addItemToCart, IItems } from '../../store/slices/cartSlice';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { memo } from 'react';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -35,10 +33,8 @@ export interface ICartItem {
   onRemoveToCart: () => void;
 }
 
-export function CartItem(props: ICartItem) {
-  //const { name, amount, price, onRemoveToCart, onAddToCart } = props;
+const CartItem = memo((props: ICartItem) => {
   const classes = useStyles();
-
   return (
     <li>
       <div className={classes.cartItem}>
@@ -56,4 +52,5 @@ export function CartItem(props: ICartItem) {
       </div>
     </li>
   );
-}
+});
+export default CartItem;

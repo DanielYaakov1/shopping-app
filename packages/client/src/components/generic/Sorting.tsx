@@ -9,7 +9,7 @@ export type SortingProps = {
   handleSortingChange: ((event: SelectChangeEvent<any>, child: React.ReactNode) => void) | undefined;
 };
 
-export function Sorting({ isSortingOption, handleSortingChange }: SortingProps) {
+const Sorting = ({ isSortingOption, handleSortingChange }: SortingProps) => {
   return (
     <FormControl
       style={{
@@ -37,4 +37,5 @@ export function Sorting({ isSortingOption, handleSortingChange }: SortingProps) 
       </Select>
     </FormControl>
   );
-}
+};
+export default Sorting;
