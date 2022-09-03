@@ -2,19 +2,23 @@ import { NextFunction, Request, Response } from 'express';
 import { authAdmin } from '../firebaseAdmin';
 
 export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
-     const token = req.cookies?.fbAuth;
-     //const token = req.headers['authorization-bearer'] as string;
-     if (token) {
-          // idToken comes from the client app
-          try {
-               const decodedToken = await authAdmin.verifyIdToken(token);
-               const { uid } = decodedToken;
-               res.locals.user = decodedToken;
-               next();
-          } catch (err) {
-               res.status(403).send({ message: err });
-          }
-     } else {
-          res.status(403).send({ message: 'You are not authorized to access this page. Please sign in.' });
-     }
+  const token = req.cookies?.fbAuth;
+  //const token = req.headers['authorization-bearer'] as string;
+  if (token) {
+    // idToken comes from the client app
+    try {
+      const decodedToken = await authAdmin.verifyIdToken(token);
+      const { uid } = decodedToken;
+      res.locals.user = decodedToken;
+      next();
+    } catch (err) {
+      res.status(403).send({ message: err });
+    }
+  } else {
+    res.status(403).send({ message: 'You are not authorized to access this page. Please sign in.' });
+  }
 };
+
+// if () {
+//   throw new Error('not admin');
+// }
