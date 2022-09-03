@@ -1,12 +1,12 @@
-import { Redirect } from 'react-router-dom';
-import Carousel from '../components/generic/Carousel';
-import Header from '../components/generic/Header';
+import Cart from '../components/generic/Cart';
+import ProductGrid from '../components/generic/ProductGrid';
 
 const HomePage = () => {
-     return (
-          <div>
-               <h1>Home Page</h1>
-          </div>
-     );
+  return (
+    <div>
+      <Cart></Cart>
+      <ProductGrid></ProductGrid>
+    </div>
+  );
 };
 export default HomePage;
