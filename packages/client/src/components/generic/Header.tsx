@@ -5,19 +5,27 @@ import CartIcon from './CartIcon';
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { memo } from 'react';
+import Cart from './Cart';
+import { LayoutStyle } from '../../assets/style/generic/Layout';
+import { Button } from '@mui/material';
+import BasicModal from './Modal';
 
 const Header = memo(() => {
-  const items = useSelector((state: RootState) => state.cartReducer.items);
-  const numberCartItem = items.reduce((currentValue, item) => {
-    return currentValue + item.amount;
-  }, 0);
+  // const items = useSelector((state: RootState) => state.cartReducer.items);
+  // const numberCartItem = items.reduce((currentValue, item) => {
+  //   return currentValue + item.amount;
+  // }, 0);
 
   return (
     <HeaderStyle className="header">
       <div className="header__logo">
         <img src={icon} alt="logo" />
       </div>
-      <CartIcon numberCartItem={numberCartItem}></CartIcon>
+      {/* <CartIcon numberCartItem={numberCartItem}></CartIcon> */}
+      {/* <LayoutStyle>
+        <Cart></Cart>
+      </LayoutStyle> */}
+      <BasicModal></BasicModal>
       <div className="header__nav">
         <ul>
           <li>
