@@ -14,6 +14,7 @@ const useStyles = makeStyles(() =>
       fontWeight: 'bold',
       fontSize: '1.5rem',
       margin: '1rem 0',
+      color: '#4e4c4b',
     },
     cartItems: {
       listStyle: 'none',
@@ -24,6 +25,7 @@ const useStyles = makeStyles(() =>
     },
     cartItemList: {
       listStyleType: 'none',
+      color: '#4e4c4b',
     },
   })
 );
@@ -51,7 +53,7 @@ const Cart = memo(() => {
         ))}
       </ul>
       <div className={classes.totalAmount}>
-        <span>Total Amount:</span>
+        <span>Total Amount: </span>
         <span>{totalAmount.toFixed(2)}</span>
       </div>
     </div>
