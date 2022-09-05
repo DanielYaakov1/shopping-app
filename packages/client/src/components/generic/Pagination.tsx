@@ -17,12 +17,12 @@ export function MyPagination() {
   const limitProductsPerPage: number = 2;
 
   useEffect(() => {
-    async function fetchPageProductNumber() {
+    async function fetchProductAndPage() {
       const { products, totalCount } = await getProductPerPage(currentPage, limitProductsPerPage);
       setTotalCountPage(totalCount);
       dispatch(setProduct(products));
     }
-    fetchPageProductNumber();
+    fetchProductAndPage();
   }, [dispatch, currentPage]);
 
   // useEffect(() => {
@@ -34,7 +34,7 @@ export function MyPagination() {
   //   fetchAllProducts();
   // }, []);
 
-  const getNumberPages = useCallback((): number => {
+  const getCountPages = useCallback((): number => {
     const calculateNumberPagesDisplay = totalCountPage / limitProductsPerPage;
     return Math.ceil(calculateNumberPagesDisplay);
   }, [totalCountPage]);
@@ -42,7 +42,7 @@ export function MyPagination() {
   return (
     <Pagination
       page={currentPage}
-      count={getNumberPages()}
+      count={getCountPages()}
       renderItem={(item) => (
         <PaginationItem component={Link} to={`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`} {...item} />
       )}
