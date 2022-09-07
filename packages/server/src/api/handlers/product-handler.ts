@@ -3,8 +3,10 @@ import { Products } from '../../models/products-model';
 import { IProductProps } from '../interfaces/interfaces';
 
 export class ProductHandler {
-  async getAllProducts(): Promise<IProductProps[]> {
-    const getProducts = await Products.find();
+  async getAllProducts(skip: number, limit: number): Promise<IProductProps[]> {
+    const getProducts = await Products.find()
+      .skip((skip - 1) * Number(limit))
+      .limit(Number(limit));
     return getProducts as IProductProps[];
   }
   async getProductById(_id: string): Promise<IProductProps> {
