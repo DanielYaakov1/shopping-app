@@ -1,16 +1,17 @@
-import type { Request, Response } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { auth } from '../../firebase';
 import { FirebaseHandler } from '../handlers/FirebaseHandler';
 
-export const checkUser = async (req: Request, res: Response) => {
+export const checkUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     res.status(200).send(res.locals.user);
   } catch (err) {
-    res.send(err);
+    next(err);
+    //res.send(err);
   }
 };
 
-export const loginFirebase = async (req: Request, res: Response) => {
+export const loginFirebase = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body;
     const authHandler = new FirebaseHandler();
@@ -20,11 +21,12 @@ export const loginFirebase = async (req: Request, res: Response) => {
     res.header('authorization-bearer', userCredential.token);
     res.send(userCredential);
   } catch (err) {
-    res.send(err);
+    next(err);
+    //res.send(err);
   }
 };
 
-export const signupFirebase = async (req: Request, res: Response) => {
+export const signupFirebase = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body;
     const authHandler = new FirebaseHandler();
@@ -34,17 +36,19 @@ export const signupFirebase = async (req: Request, res: Response) => {
     res.header('authorization-bearer', userCredential.token);
     res.send(userCredential);
   } catch (err) {
-    res.send(err);
+    next(err);
+    //res.send(err);
   }
 };
 
-export const checkAuth = async (req: Request, res: Response) => {
+export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.body;
     const authHandler = new FirebaseHandler();
     const response = await authHandler.checkAuth(id);
     res.send(response);
   } catch (err) {
-    res.send(err);
+    next(err);
+    //res.send(err);
   }
 };
