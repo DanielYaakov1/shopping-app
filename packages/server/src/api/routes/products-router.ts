@@ -8,6 +8,8 @@ import {
   createProduct,
   sortingProductByPrice,
   getProductsPerPage,
+  updateProduct,
+  deleteProduct,
 } from '../controllers/products-controller';
 
 export const productsRouter = Router();
@@ -17,6 +19,8 @@ productsRouter.get('/:name', getProductByName);
 productsRouter.post('/get-products-count', getProductsPerPage);
 productsRouter.get('/', getAllProducts);
 productsRouter.post('/', createProduct);
+productsRouter.put('/', updateProduct);
+productsRouter.delete('/', deleteProduct);
 
 productsRouter.get('/test/test', async function (req, res) {
   const getProductsCount = await Products.count({});

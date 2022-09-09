@@ -64,9 +64,10 @@ export const getProductByName = async (req: Request, res: Response, next: NextFu
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const productHandler = new ProductHandler();
-    const product = await productHandler.updateProduct(req.params.id, req.body);
+    const { _id } = req.body;
+    const product = await productHandler.updateProduct(_id, req.body);
     console.log(product);
-    res.send(product);
+    product ? res.send(product) : res.status(400).send({ message: 'No such user exists' });
   } catch (err) {
     next(err);
     //res.send(err);
@@ -76,9 +77,10 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
 export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const productHandler = new ProductHandler();
-    const product = await productHandler.deleteProduct(req.params.id);
+    const { _id } = req.body;
+    const product = await productHandler.deleteProduct(_id);
     console.log(product);
-    res.send(product);
+    product ? res.send({ isDeleted: true, product }) : res.status(400).send({ message: 'No such user exists' });
   } catch (err) {
     next(err);
     //res.send(err);

@@ -25,8 +25,8 @@ export class ProductHandler {
     const updateProduct = await Products.findByIdAndUpdate(_id, product, { new: true });
     return updateProduct as IProductProps;
   }
-  async deleteProduct(_id: string): Promise<IProductProps> {
-    const deleteProduct = await Products.findByIdAndDelete(_id);
+  async deleteProduct(id: string): Promise<IProductProps> {
+    const deleteProduct = await Products.findByIdAndDelete(id);
     return deleteProduct as IProductProps;
   }
   async getProductByPrice(price: number): Promise<IProductProps[]> {
