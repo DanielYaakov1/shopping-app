@@ -17,10 +17,9 @@ async function errorHandling(error: IError, request: Request, res: Response, nex
     stack: errorStack,
   };
   try {
-    res.status(status).json(resBody);
+    res.status(status).send(resBody);
   } catch (err) {
-    res.status(status);
-    res.json(err);
+    res.status(status).send(err);
   }
 }
 

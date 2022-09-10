@@ -6,8 +6,8 @@ import { productsRouter } from './src/api/routes/products-router';
 import { requireAuth } from './src/middleware/requireAuth';
 import cookieParser from 'cookie-parser';
 import { mongooseConnect } from './src/db/mongooseConnect';
-import type { Request, Response, NextFunction } from 'express';
 import errorHandling from './src/middleware/errorHandling';
+import { ordersRouter } from './src/api/routes/orders-router';
 
 const port = process.env.SHOPPING_APP_PORT;
 const app = express();
@@ -15,6 +15,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/products', productsRouter);
+app.use('/api/v1/orders', ordersRouter);
 
 app.use(errorHandling);
 
