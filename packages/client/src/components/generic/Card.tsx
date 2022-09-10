@@ -8,7 +8,7 @@ export type CardProps = {
 export const useStyles = makeStyles({
   root: {
     maxWidth: '30%',
-    margin: '0 auto',
+    margin: '1%',
     border: '1px solid #ccc',
     boxShadow: '0 0 5px #ccc',
     textAlign: 'center',

@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import CartItem from './CartItem';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { addItemToCart, deleteItemFromCart, IItems } from '../../store/slices/cartSlice';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -31,11 +32,14 @@ const useStyles = makeStyles(() =>
 );
 
 const Cart = memo(() => {
+  const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
-  const dispatch = useDispatch();
+  const checkCartItemsCount = useCallback(() => items.length > 0, [items.length]);
   const handleIncreaseItem = useCallback((item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })), [dispatch]);
   const handleDecreaseItem = useCallback((id: string) => dispatch(deleteItemFromCart(id)), [dispatch]);
+  const [isCheckoutOrder, setCheckoutOrder] = useState(false);
+
   const classes = useStyles();
 
   return (
@@ -56,6 +60,17 @@ const Cart = memo(() => {
         <span>Total Amount: </span>
         <span>{totalAmount.toFixed(2)}</span>
       </div>
+      {checkCartItemsCount() ? (
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            setCheckoutOrder(true);
+          }}
+        >
+          Buy Now
+        </Button>
+      ) : null}
     </div>
   );
 });

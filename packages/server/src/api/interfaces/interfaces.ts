@@ -17,3 +17,12 @@ export interface IProductProps {
   updatedAt?: Date;
   id: string;
 }
+
+export interface IOrder {
+  city: string;
+  street: string;
+  zipCode: string;
+  description?: string;
+  destinationDate: Date;
+  createdAt?: Date;
+}

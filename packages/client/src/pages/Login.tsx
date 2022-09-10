@@ -43,7 +43,7 @@ export const Login = () => {
           dispatch(setAppAuthenticated(true));
           return history.push('/');
         } else {
-          dispatch(setErrorMessage(handleLogin.code));
+          dispatch(setErrorMessage(handleLogin.message));
         }
       } else {
         dispatch(setErrorMessage('Please fill all fields'));
