@@ -34,8 +34,9 @@ const ActionsAuth = () => {
           password: password,
         });
         const data = await response.json();
+        console.log(data);
         if (!response.ok) {
-          dispatch(setErrorMessage(data.error.message || 'Something went wrong'));
+          dispatch(setErrorMessage(data.message || 'Something went wrong'));
           return data;
         }
         setStorageApi('token', data.token);
@@ -50,11 +51,11 @@ const ActionsAuth = () => {
     [dispatch]
   );
 
-  // send request to server with fetcher
   const checkTokenIsExpired = useCallback(async () => {
+    //The function checks if the user has an active token, if not it takes the user to the login screen
     dispatch(setLoading(true));
     try {
-      const response = await await fetch('/api/v1/auth/check-token-expired');
+      const response = await fetch('/api/v1/auth/check-token-expired');
       const user = await response.json();
       if (response.status !== 200) {
         //dispatch(setUser(user.message.code));
