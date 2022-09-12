@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Orders zipCode is missing'],
   },
-  description: {
+  notes: {
     type: String,
     required: [true, 'Orders description is missing'],
   },
@@ -23,9 +23,12 @@ const orderSchema = new mongoose.Schema({
     required: [true, 'Orders date is missing'],
   },
   items: {
-    type: Object,
-    required: [true, 'Orders Object is missing'],
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'products',
+    required: [true, 'Orders Items is missing'],
   },
+  // type: Object,
+  // required: [true, 'Orders Object is missing'],
   createdAt: {
     type: Date,
     default: Date.now,
