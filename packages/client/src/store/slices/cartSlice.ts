@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IItems {
   _id: string;
@@ -12,11 +12,13 @@ export interface IItems {
 export interface ICart {
   items: IItems[];
   totalAmount: number;
+  isCartModalOpen: boolean;
 }
 
 const initialState: ICart = {
   items: [],
   totalAmount: 0,
+  isCartModalOpen: false,
 };
 
 export const cartSlice = createSlice({
@@ -56,7 +58,10 @@ export const cartSlice = createSlice({
       state.items = updateItems;
       state.totalAmount = updatedTotalAmount;
     },
+    setCartModalOpen(state, action: PayloadAction<boolean>) {
+      state.isCartModalOpen = action.payload;
+    },
   },
 });
-export const { addItemToCart, deleteItemFromCart } = cartSlice.actions;
+export const { addItemToCart, deleteItemFromCart, setCartModalOpen } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
