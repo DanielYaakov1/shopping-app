@@ -18,7 +18,7 @@ const style = {
   p: 4,
 };
 
-const BasicModal = memo(() => {
+const CartModal = memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleModal = useCallback(() => setIsModalOpen(!isModalOpen), [isModalOpen]);
   const items = useSelector((state: RootState) => state.cartReducer.items);
@@ -42,4 +42,4 @@ const BasicModal = memo(() => {
     </div>
   );
 });
-export default BasicModal;
+export default CartModal;

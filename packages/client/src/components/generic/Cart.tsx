@@ -5,6 +5,7 @@ import CartItem from './CartItem';
 import { memo, useCallback, useState } from 'react';
 import { addItemToCart, deleteItemFromCart, IItems } from '../../store/slices/cartSlice';
 import { Button } from '@material-ui/core';
+import { setPurchaseModal } from '../../store/slices/orderSlice';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -38,8 +39,6 @@ const Cart = memo(() => {
   const checkCartItemsCount = useCallback(() => items.length > 0, [items.length]);
   const handleIncreaseItem = useCallback((item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })), [dispatch]);
   const handleDecreaseItem = useCallback((id: string) => dispatch(deleteItemFromCart(id)), [dispatch]);
-  const [isCheckoutOrder, setCheckoutOrder] = useState(false);
-
   const classes = useStyles();
 
   return (
@@ -47,7 +46,7 @@ const Cart = memo(() => {
       <ul className={classes.cartItemList}>
         {items.map((item: IItems, i: any) => (
           <CartItem
-            key={item._id}
+            key={i}
             name={item.name}
             price={item.price}
             amount={item.amount}
@@ -65,7 +64,7 @@ const Cart = memo(() => {
           variant="outlined"
           color="primary"
           onClick={() => {
-            setCheckoutOrder(true);
+            dispatch(setPurchaseModal(true));
           }}
         >
           Buy Now

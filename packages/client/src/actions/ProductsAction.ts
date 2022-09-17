@@ -1,8 +1,8 @@
 import { Product } from './../interfaces/Product.interface';
 //import { getProductByName } from './../../../server/src/api/controllers/products-controller';
-export const getAllProductsAction = async (pageNumber?: number, productPerPage?: number) => {
+export const getAllProductsAction = async (skip?: number, productPerPage?: number) => {
   try {
-    const response = await fetch(`/api/v1/products?skip=${pageNumber}&limit=${productPerPage}`);
+    const response = await fetch(`/api/v1/products?skip=${skip}&limit=${productPerPage}`);
     const resData = await response.json();
     return resData;
   } catch (err) {
