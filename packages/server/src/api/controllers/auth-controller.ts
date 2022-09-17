@@ -20,8 +20,10 @@ export const loginFirebase = async (req: Request, res: Response, next: NextFunct
     res.cookie('fbAuth', userCredential.token);
     res.header('authorization-bearer', userCredential.token);
     res.send(userCredential);
-  } catch (err) {
+  } catch (err: any) {
     next(err);
+    console.log(err);
+    //next({ status: err.statusCode, ...err });
     //res.send(err);
   }
 };

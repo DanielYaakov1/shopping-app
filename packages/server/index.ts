@@ -6,7 +6,7 @@ import { productsRouter } from './src/api/routes/products-router';
 import { requireAuth } from './src/middleware/requireAuth';
 import cookieParser from 'cookie-parser';
 import { mongooseConnect } from './src/db/mongooseConnect';
-import errorHandling from './src/middleware/errorHandling';
+import errorHandleMiddleware from './src/middleware/errorHandle';
 import { ordersRouter } from './src/api/routes/orders-router';
 
 const port = process.env.SHOPPING_APP_PORT;
@@ -17,7 +17,7 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/products', productsRouter);
 app.use('/api/v1/orders', ordersRouter);
 
-app.use(errorHandling);
+app.use(errorHandleMiddleware);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

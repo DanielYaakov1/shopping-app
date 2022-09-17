@@ -18,7 +18,10 @@ export function MyPagination() {
 
   useEffect(() => {
     async function fetchProductAndPage() {
-      const { products, totalCount } = await getAllProductsAction(currentPage, limitProductsPerPage);
+      const { products, totalCount } = await getAllProductsAction(
+        (currentPage - 1) * limitProductsPerPage,
+        limitProductsPerPage
+      );
       //const { products, totalCount } = await getProductPerPage(currentPage, limitProductsPerPage);
       setTotalCountPage(totalCount);
       dispatch(setProduct(products));
