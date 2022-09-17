@@ -1,4 +1,4 @@
-import { Products } from './products-model';
+import { IOrder } from './../api/interfaces/interfaces';
 import mongoose from 'mongoose';
 
 const orderSchema = new mongoose.Schema({
@@ -27,12 +27,10 @@ const orderSchema = new mongoose.Schema({
     ref: 'products',
     required: [true, 'Orders Items is missing'],
   },
-  // type: Object,
-  // required: [true, 'Orders Object is missing'],
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-export const Orders = mongoose.model('orders', orderSchema);
+export const Orders = mongoose.model<IOrder>('orders', orderSchema);

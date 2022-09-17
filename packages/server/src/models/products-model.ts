@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { IProductProps } from '../api/interfaces/interfaces';
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -19,4 +20,4 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-export const Products = mongoose.model('products', productSchema);
+export const Products = mongoose.model<IProductProps>('products', productSchema);

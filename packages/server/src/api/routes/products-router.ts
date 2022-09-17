@@ -17,6 +17,7 @@ export const productsRouter = Router();
 productsRouter.get('/sort', sortingProductByPrice);
 productsRouter.get('/:name', getProductByName);
 productsRouter.post('/get-products-count', getProductsPerPage);
+//delete row 17-19
 productsRouter.get('/', getAllProducts);
 productsRouter.post('/', createProduct);
 productsRouter.put('/', updateProduct);

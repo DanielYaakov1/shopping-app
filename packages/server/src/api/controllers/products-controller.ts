@@ -3,27 +3,19 @@ import { Request, Response, NextFunction } from 'express';
 import { Products } from '../../models/products-model';
 import { ProductHandler } from '../handlers/product-handler';
 
-interface IQurey {
-  skip: number;
-  limit: number;
-}
-
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // fetch query params
-    // filter objects
-    const { skip, limit } = req.query as unknown as IQurey;
+    const { skip, limit } = req.query;
     const productHandler = new ProductHandler();
-    const products = await productHandler.getAllProducts(skip, limit);
-    const totalCount = await productHandler.getProductsCount();
-    res.json({
-      products,
-      totalCount,
-    });
-    res.status(200).send({ products });
+    const parsedSkip = Number(skip);
+    const parsedLimit = Number(limit);
+    const [products, totalCount] = await Promise.all([
+      productHandler.getAllProducts(parsedSkip, parsedLimit),
+      productHandler.getProductsCount(),
+    ]);
+    res.send({ products, totalCount });
   } catch (err) {
     next(err);
-    // res.send(err);
   }
 };
 
@@ -34,7 +26,6 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
     res.send(product);
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
 
@@ -45,7 +36,6 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
     res.send(product);
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
 
@@ -57,7 +47,6 @@ export const getProductByName = async (req: Request, res: Response, next: NextFu
     res.send(product);
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
 
@@ -70,7 +59,6 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
     product ? res.send(product) : res.status(400).send({ message: 'No such user exists' });
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
 
@@ -80,10 +68,11 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
     const { _id } = req.body;
     const product = await productHandler.deleteProduct(_id);
     console.log(product);
-    product ? res.send({ isDeleted: true, product }) : res.status(400).send({ message: 'No such user exists' });
+    product
+      ? res.send({ message: 'The product has been successfully deleted ', product })
+      : res.status(400).send({ message: 'No such user exists' });
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
 
@@ -96,7 +85,6 @@ export const sortingProductByPrice = async (req: Request, res: Response, next: N
     res.send(product);
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
 
@@ -123,7 +111,3 @@ export const getProductsPerPage = async (req: Request, res: Response) => {
     res.status(400).send(err);
   }
 };
-
-//ask dave way this like this
-//const productHandler = new ProductHandler();
-//const products = await productHandler.getProductsCount()
