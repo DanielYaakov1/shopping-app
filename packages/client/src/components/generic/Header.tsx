@@ -6,7 +6,7 @@ import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { memo, useCallback } from 'react';
 import { setCartModalOpen } from '../../store/slices/cartSlice';
-import ValidationTextFields from './MyOrder';
+import MyOrderModal from './MyOrder';
 
 const Header = memo(() => {
   const dispatch = useDispatch();
@@ -19,26 +19,29 @@ const Header = memo(() => {
   }, 0);
 
   return (
-    <HeaderStyle className="header">
-      <div className="header__logo">
-        <img src={icon} alt="logo" />
-      </div>
-      <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} isModalOpen={isCartModalOpen}></CartIcon>
-      {displayOrder && <ValidationTextFields />}
-      <div className="header__nav">
-        <ul>
-          <li>
-            <MainNavigation label={'Home'} activeClassName={'activeLink'} to={'/'} exact={true}></MainNavigation>
-          </li>
-          <li>
-            <MainNavigation activeClassName={'activeLink'} label={'About'} to={'/about'}></MainNavigation>
-          </li>
-          <li>
-            <MainNavigation activeClassName={'activeLink'} label={'Contact'} to={'/contact'}></MainNavigation>
-          </li>
-        </ul>
-      </div>
-    </HeaderStyle>
+    <div>
+      {' '}
+      <HeaderStyle className="header">
+        <div className="header__logo">
+          <img src={icon} alt="logo" />
+        </div>
+        <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} isModalOpen={isCartModalOpen}></CartIcon>
+        <div className="header__nav">
+          <ul>
+            <li>
+              <MainNavigation label={'Home'} activeClassName={'activeLink'} to={'/'} exact={true}></MainNavigation>
+            </li>
+            <li>
+              <MainNavigation activeClassName={'activeLink'} label={'About'} to={'/about'}></MainNavigation>
+            </li>
+            <li>
+              <MainNavigation activeClassName={'activeLink'} label={'Contact'} to={'/contact'}></MainNavigation>
+            </li>
+          </ul>
+        </div>
+      </HeaderStyle>
+      {displayOrder && <MyOrderModal />}
+    </div>
   );
 });
 export default Header;

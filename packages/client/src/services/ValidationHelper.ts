@@ -28,11 +28,16 @@ export const checkEmailIsValid = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-export const checkNotNumbersOrSpecialCharacters = (props: any) => {
+export const checkNotNumbersOrSpecialCharacters = (props: string): boolean => {
   return !/[\d+/-]/g.test(props) && props !== '';
 };
 
 export const checkPasswordIsValid = (password: string): boolean => {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
   return passwordRegex.test(password) && password !== '';
+};
+
+export const checkNotCharacters = (props: string): boolean => {
+  const CharactersRegex = /^\d+$/;
+  return CharactersRegex.test(props) && props !== '';
 };
