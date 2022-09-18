@@ -17,7 +17,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
+//temp component not relevant
 const CartModal = memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleModal = useCallback(() => setIsModalOpen(!isModalOpen), [isModalOpen]);
