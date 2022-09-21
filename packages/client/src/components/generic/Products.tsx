@@ -15,18 +15,6 @@ const Products = () => {
   const [isSortingOption, setIsSelectValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
-  //   useEffect(() => {
-  //     const fetchProducts = async () => {
-  //       try {
-  //         const products = await getAllProductsAction();
-  //         //dispatch(setProduct(products));
-  //       } catch (err) {
-  //         console.log(err, 'this is the error');
-  //       }
-  //     };
-  //     fetchProducts();
-  //   }, [dispatch]);
-
   const handleClearSearch = useCallback(async () => {
     //function to restart search state value
     setSearchProduct('');
@@ -73,8 +61,6 @@ const Products = () => {
       if (searchValue.length > 0) {
         search(searchValue);
       } else {
-        //const getAllProducts = await getAllProductsAction();
-        //dispatch(setProduct(getAllProducts));
         dispatch(setProduct(products));
       }
     },
@@ -97,8 +83,6 @@ const Products = () => {
       <div
         style={{
           display: 'flex',
-          flexWrap: 'wrap',
-          marginTop: '10px',
         }}
       >
         {sortedProducts.map((product: IProductProps, i: number) => (

@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import { useEffect } from 'react';
-import { getProductPerPage } from '../../actions/ProductsAction';
+import { getAllProductsAction, getProductPerPage } from '../../actions/ProductsAction';
 import { setProduct } from '../../store/slices/ProductSlice';
 import { useDispatch } from 'react-redux';
 
@@ -17,12 +17,16 @@ export function MyPagination() {
   const limitProductsPerPage: number = 2;
 
   useEffect(() => {
-    async function fetchPageProductNumber() {
-      const { products, totalCount } = await getProductPerPage(currentPage, limitProductsPerPage);
+    async function fetchProductAndPage() {
+      const { products, totalCount } = await getAllProductsAction(
+        (currentPage - 1) * limitProductsPerPage,
+        limitProductsPerPage
+      );
+      //const { products, totalCount } = await getProductPerPage(currentPage, limitProductsPerPage);
       setTotalCountPage(totalCount);
       dispatch(setProduct(products));
     }
-    fetchPageProductNumber();
+    fetchProductAndPage();
   }, [dispatch, currentPage]);
 
   // useEffect(() => {
@@ -34,7 +38,7 @@ export function MyPagination() {
   //   fetchAllProducts();
   // }, []);
 
-  const getNumberPages = useCallback((): number => {
+  const getCountPages = useCallback((): number => {
     const calculateNumberPagesDisplay = totalCountPage / limitProductsPerPage;
     return Math.ceil(calculateNumberPagesDisplay);
   }, [totalCountPage]);
@@ -42,7 +46,7 @@ export function MyPagination() {
   return (
     <Pagination
       page={currentPage}
-      count={getNumberPages()}
+      count={getCountPages()}
       renderItem={(item) => (
         <PaginationItem component={Link} to={`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`} {...item} />
       )}

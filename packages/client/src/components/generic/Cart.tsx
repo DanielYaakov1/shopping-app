@@ -4,6 +4,8 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import CartItem from './CartItem';
 import { memo, useCallback } from 'react';
 import { addItemToCart, deleteItemFromCart, IItems } from '../../store/slices/cartSlice';
+import { Button } from '@material-ui/core';
+import { setPurchaseModal } from '../../store/slices/orderSlice';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -14,6 +16,7 @@ const useStyles = makeStyles(() =>
       fontWeight: 'bold',
       fontSize: '1.5rem',
       margin: '1rem 0',
+      color: '#4e4c4b',
     },
     cartItems: {
       listStyle: 'none',
@@ -24,14 +27,16 @@ const useStyles = makeStyles(() =>
     },
     cartItemList: {
       listStyleType: 'none',
+      color: '#4e4c4b',
     },
   })
 );
 
 const Cart = memo(() => {
+  const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
-  const dispatch = useDispatch();
+  const checkCartItemsCount = useCallback(() => items.length > 0, [items.length]);
   const handleIncreaseItem = useCallback((item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })), [dispatch]);
   const handleDecreaseItem = useCallback((id: string) => dispatch(deleteItemFromCart(id)), [dispatch]);
   const classes = useStyles();
@@ -41,7 +46,7 @@ const Cart = memo(() => {
       <ul className={classes.cartItemList}>
         {items.map((item: IItems, i: any) => (
           <CartItem
-            key={item._id}
+            key={i}
             name={item.name}
             price={item.price}
             amount={item.amount}
@@ -51,9 +56,20 @@ const Cart = memo(() => {
         ))}
       </ul>
       <div className={classes.totalAmount}>
-        <span>Total Amount:</span>
+        <span>Total Amount: </span>
         <span>{totalAmount.toFixed(2)}</span>
       </div>
+      {checkCartItemsCount() ? (
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            dispatch(setPurchaseModal(true));
+          }}
+        >
+          GO TO THE CHECKOUT{' '}
+        </Button>
+      ) : null}
     </div>
   );
 });
