@@ -16,9 +16,9 @@ const orderSchema = new mongoose.Schema({
   },
   notes: {
     type: String,
-    required: [true, 'Orders description is missing'],
+    required: [false, 'Orders description is missing'],
   },
-  destinationDate: {
+  shippingDate: {
     type: Date,
     required: [true, 'Orders date is missing'],
   },

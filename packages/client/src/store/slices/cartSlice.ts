@@ -61,7 +61,10 @@ export const cartSlice = createSlice({
     setCartModalOpen(state, action: PayloadAction<boolean>) {
       state.isCartModalOpen = action.payload;
     },
+    setItems(state, action: PayloadAction<any>) {
+      state.items = action.payload;
+    },
   },
 });
-export const { addItemToCart, deleteItemFromCart, setCartModalOpen } = cartSlice.actions;
+export const { addItemToCart, deleteItemFromCart, setCartModalOpen, setItems } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

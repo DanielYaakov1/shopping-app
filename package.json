@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "@material-ui/icons": "^4.11.3",
-    "@mui/icons-material": "^5.10.3"
+    "@mui/icons-material": "^5.10.3",
+    "@mui/x-date-pickers": "^5.0.2",
+    "dayjs": "^1.11.5"
   }
 }
