@@ -18,6 +18,7 @@ export const getOrderById = async (req: Request, res: Response, next: NextFuncti
     console.log(order);
     res.status(200).send({ order });
   } catch (err) {
+    //add class for error message
     next(err);
   }
 };
@@ -28,6 +29,7 @@ export const createOrder = async (req: Request, res: Response, next: NextFunctio
     console.log(order);
     res.status(200).send({ order });
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };

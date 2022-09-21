@@ -23,6 +23,6 @@ export interface IOrder {
   street: string;
   zipCode: string;
   description?: string;
-  destinationDate: Date;
+  destinationDate?: Date;
   createdAt?: Date;
 }
