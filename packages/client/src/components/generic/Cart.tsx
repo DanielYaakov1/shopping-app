@@ -67,7 +67,7 @@ const Cart = memo(() => {
             dispatch(setPurchaseModal(true));
           }}
         >
-          Buy Now
+          GO TO THE CHECKOUT{' '}
         </Button>
       ) : null}
     </div>
