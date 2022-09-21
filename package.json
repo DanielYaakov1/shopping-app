@@ -15,10 +15,14 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@types/react": "^17.0.50",
+    "@types/react-dom": "^18.0.6",
     "concurrently": "^7.2.2"
   },
   "dependencies": {
     "@material-ui/icons": "^4.11.3",
-    "@mui/icons-material": "^5.10.3"
+    "@mui/icons-material": "^5.10.3",
+    "@mui/x-date-pickers": "^5.0.2",
+    "dayjs": "^1.11.5"
   }
 }
