@@ -1,6 +1,14 @@
 import { memo } from 'react';
 
-const Input = memo((props: { searchProduct: string; setSearchProduct: (value: string) => void }) => {
+export type IInputProps = {
+  searchProduct: string;
+  setSearchProduct: (value: string) => void;
+  className?: string;
+  type: string;
+  placeholder?: string;
+};
+
+const Input = memo(({ searchProduct, setSearchProduct, type, placeholder }: IInputProps) => {
   return (
     <input
       style={{
@@ -16,10 +24,10 @@ const Input = memo((props: { searchProduct: string; setSearchProduct: (value: st
         textAlign: 'center',
         letterSpacing: '1px',
       }}
-      type="text"
-      placeholder="search"
-      value={props.searchProduct}
-      onChange={(e) => props.setSearchProduct(e.target.value)}
+      type={type}
+      placeholder={placeholder}
+      value={searchProduct}
+      onChange={(e) => setSearchProduct(e.target.value)}
     ></input>
   );
 });

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import CartItem from './CartItem';
+import CartItem from '../CartItem/CartItem';
 import { memo, useCallback } from 'react';
 import { addItemToCart, deleteItemFromCart, IItems } from '../../store/slices/cartSlice';
 import { Button } from '@material-ui/core';
@@ -56,7 +56,7 @@ const Cart = memo(() => {
         ))}
       </ul>
       <div className={classes.totalAmount}>
-        <span>Total Amount: </span>
+        <span>Total Price: </span>
         <span>{totalAmount.toFixed(2)}</span>
       </div>
       {checkCartItemsCount() ? (
