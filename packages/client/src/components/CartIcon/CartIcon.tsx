@@ -1,11 +1,10 @@
-import { memo, MouseEventHandler } from 'react';
+import { memo, MouseEventHandler, ReactChild, ReactFragment, ReactPortal } from 'react';
 import IconButton from '@mui/material/IconButton';
 
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import Badge from '@mui/material/Badge';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Cart from './Cart';
+import Cart from '../Cart/Cart';
+import { MyModal } from '../MyModal/MyModal';
 
 export type props = {
   numberCartItem: number;
@@ -15,7 +14,7 @@ export type props = {
   isModalOpen?: any;
   handleModal?: () => void;
 };
-const style = {
+export const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
@@ -29,19 +28,12 @@ const style = {
 
 const CartIcon = memo(({ numberCartItem, onClick, isModalOpen, handleModal }: props) => {
   return (
-    <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={onClick}>
+    <IconButton size="small" aria-label="show 4 new mails" color="inherit" onClick={onClick}>
       <Badge badgeContent={numberCartItem} color="success">
         <ShoppingBagOutlinedIcon />
-        <Modal
-          open={isModalOpen}
-          onClose={handleModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Cart />
-          </Box>
-        </Modal>
+        <MyModal isModalOpen={isModalOpen} handleModal={handleModal}>
+          <Cart />
+        </MyModal>
       </Badge>
     </IconButton>
   );

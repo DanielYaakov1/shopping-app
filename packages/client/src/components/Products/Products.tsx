@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductByName } from '../../actions/ProductsAction';
 import { setProduct } from '../../store/slices/ProductSlice';
 import { RootState } from '../../store/store';
-import Input from './Input';
-import Product, { IProductProps } from './Product';
+import Input from '../Input/Input';
+import Product, { IProductProps } from '../Product/Product';
 import { SelectChangeEvent } from '@mui/material/Select';
-import Sorting from './Sorting';
+import Sorting from '../Sorting/Sorting';
 
-const Products = () => {
+const Products = ({ products }: any) => {
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.productReducer.products);
+  //const products = useSelector((state: RootState) => state.productReducer.products);
   const [searchProduct, setSearchProduct] = useState('');
   const [isSortingOption, setIsSelectValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -77,15 +77,17 @@ const Products = () => {
 
   return (
     <div>
-      <Input searchProduct={searchProduct} setSearchProduct={handleSetSearch}></Input>
-      <button onClick={handleClearSearch}>Clear</button>
-      <Sorting isSortingOption={isSortingOption} handleSortingChange={handleSortingChange}></Sorting>
+      {/* <Input searchProduct={searchProduct} setSearchProduct={handleSetSearch}></Input> */}
+      {/* <button onClick={handleClearSearch}>Clear</button> */}
+      {/* <Sorting isSortingOption={isSortingOption} handleSortingChange={handleSortingChange}></Sorting> */}
       <div
         style={{
           display: 'flex',
+          flexWrap: 'wrap',
+          alignContent: 'space-around',
         }}
       >
-        {sortedProducts.map((product: IProductProps, i: number) => (
+        {products.map((product: IProductProps, i: number) => (
           <Product
             key={i}
             name={product.name}

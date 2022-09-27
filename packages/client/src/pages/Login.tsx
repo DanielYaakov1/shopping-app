@@ -6,8 +6,8 @@ import { RootState } from '../store';
 import { setErrorMessage } from '../store/slices/registrationSlice';
 import { setAppAuthenticated, setLoginMode, setDisableSubmitButton, setUser } from '../store/slices/appSlice';
 import { getValidationFunction, checkEmailIsValid } from '../services/ValidationHelper';
-import MyButton from '../components/generic/MyButton';
-import MyInput from '../components/generic/MyInput';
+import MyButton from '../components/Button/MyButton';
+import MyInput from '../components/Input/MyInput';
 import ActionsAuth from '../actions/auth';
 import { LoginStyledComponent } from '../assets/style/generic/LoginStyled';
 

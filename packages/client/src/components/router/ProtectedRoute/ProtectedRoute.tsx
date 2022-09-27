@@ -2,7 +2,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import HomePage from '../../../pages/HomePage';
 import Login from '../../../pages/Login';
 import PageNotFound from '../../../pages/PageNotFound';
-import Header from '../../generic/Header';
+import Header from '../../Header/Header';
 
 export const LoggedInRouter = () => {
   return (

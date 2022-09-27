@@ -1,5 +1,5 @@
 import { memo, useCallback, useRef, useState } from 'react';
-import IconDrawer from './IconDrawer';
+import IconDrawer from '../IconDrawer/IconDrawer';
 
 const ProductForm = memo((props: { onAddToCart: any; id: any }) => {
   const { onAddToCart, id } = props;

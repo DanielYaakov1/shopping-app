@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
-import Card from './Card';
-import ProductForm from './ProductForm';
+import Card from '../Card/Card';
+import ProductForm from '../ProductForm/ProductForm';
 import { addItemToCart } from '../../store/slices/cartSlice';
 import { useCallback } from 'react';
 
@@ -36,6 +36,14 @@ export const useStyles = makeStyles((theme) => ({
   price: {
     color: theme.palette.primary.light,
   },
+  card: {
+    maxWidth: '30%',
+    margin: '1%',
+    border: '1px solid #ccc',
+    boxShadow: '0 0 5px #ccc',
+    textAlign: 'center',
+    marginBottom: '1rem',
+  },
 }));
 
 export interface IProductProps {
@@ -61,7 +69,7 @@ const Product = ({ name, description, price, image, _id }: IProductProps) => {
   );
 
   return (
-    <Card>
+    <Card className={classes.card}>
       <div>
         <h3 className={classes.title}>Name: {name}</h3>
         <p className={classes.description}>Description: {description}</p>
