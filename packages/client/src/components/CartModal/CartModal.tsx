@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Cart from './Cart';
-import CartIcon from './CartIcon';
+import Cart from '../Cart/Cart';
+import CartIcon from '../CartIcon/CartIcon';
 
 const style = {
   position: 'absolute' as 'absolute',

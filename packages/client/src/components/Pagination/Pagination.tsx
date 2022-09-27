@@ -22,7 +22,6 @@ export function MyPagination() {
         (currentPage - 1) * limitProductsPerPage,
         limitProductsPerPage
       );
-      //const { products, totalCount } = await getProductPerPage(currentPage, limitProductsPerPage);
       setTotalCountPage(totalCount);
       dispatch(setProduct(products));
     }

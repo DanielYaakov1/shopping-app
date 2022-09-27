@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPurchaseModal } from '../../store/slices/orderSlice';
 import { useCallback, useEffect, useState } from 'react';
-import MyButton from './MyButton';
+import MyButton from '../Button/MyButton';
 import { RootState } from '../../store/store';
 import { setDisableSubmitButton } from '../../store/slices/appSlice';
 import { checkNotCharacters, checkNotNumbersOrSpecialCharacters } from '../../services/ValidationHelper';
