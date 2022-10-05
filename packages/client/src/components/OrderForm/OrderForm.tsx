@@ -8,14 +8,17 @@ import { useCallback, useEffect, useState } from 'react';
 import MyButton from '../Button/MyButton';
 import { RootState } from '../../store/store';
 import { setDisableSubmitButton } from '../../store/slices/appSlice';
-import { checkNotCharacters, checkNotNumbersOrSpecialCharacters } from '../../services/ValidationHelper';
+import {
+  checkNotCharacters,
+  checkNotNumbersOrSpecialCharacters,
+} from '../../services/ValidationHelper';
 import { setItems } from '../../store/slices/cartSlice';
 import { createOrderAction } from '../../actions/OrdersAction';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-const MyOrderModal = () => {
+const OrderForm = () => {
   const isDisableButton = useSelector((state: RootState) => state.appReducer.isDisableSubmitButton);
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const dispatch = useDispatch();
@@ -36,12 +39,25 @@ const MyOrderModal = () => {
     const validationOfAllOrderFields =
       validationCity && validationStreet && validationZipCode && shippingDate?.isValid();
     dispatch(setDisableSubmitButton(validationOfAllOrderFields ? false : true));
-  }, [dispatch, shippingDate, shippingDate?.isValid, validationCity, validationStreet, validationZipCode]);
+  }, [
+    dispatch,
+    shippingDate,
+    shippingDate?.isValid,
+    validationCity,
+    validationStreet,
+    validationZipCode,
+  ]);
 
   const submitHandler = useCallback(
     async (event: { preventDefault: () => void }) => {
       event.preventDefault();
-      await createOrderAction({ city, street, zipCode, items: getIdProductInTheCart(), shippingDate });
+      await createOrderAction({
+        city,
+        street,
+        zipCode,
+        items: getIdProductInTheCart(),
+        shippingDate,
+      });
       dispatch(setPurchaseModal(false));
       dispatch(setItems([]));
     },
@@ -56,8 +72,7 @@ const MyOrderModal = () => {
           '& > :not(style)': { m: 1, width: '25ch' },
         }}
         noValidate
-        autoComplete="off"
-      >
+        autoComplete="off">
         <TextField
           value={city}
           onChange={(e) => setCity(e.target.value)}
@@ -101,4 +116,4 @@ const MyOrderModal = () => {
     </form>
   ) : null;
 };
-export default MyOrderModal;
+export default OrderForm;

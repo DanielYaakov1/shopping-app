@@ -6,6 +6,7 @@ import ActionsAuth from './actions/auth';
 import Spinner from './components/Spinner/Spinner';
 import { getAllProductsAction } from './actions/ProductsAction';
 import { setProduct } from './store/slices/ProductSlice';
+import { setLoading } from './store/slices/appSlice';
 
 function App() {
   const { checkTokenIsExpired } = ActionsAuth();
@@ -20,14 +21,15 @@ function App() {
 
   useEffect(() => {
     async function fetchProductAndPage() {
-      const { products, totalCount } = await getAllProductsAction();
+      const { products } = await getAllProductsAction();
+      console.log(products);
       dispatch(setProduct(products));
     }
     fetchProductAndPage();
-  }, [dispatch]);
+  }, [dispatch, isLoading]);
 
   if (isLoading) {
-    return <Spinner></Spinner>;
+    return <Spinner />;
   }
 
   return getUser && appAuthenticated ? <LoggedInRouter /> : <PublicRouter />;

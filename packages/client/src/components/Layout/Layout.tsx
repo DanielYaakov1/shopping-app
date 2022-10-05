@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { LayoutStyle } from '../../assets/style/generic/Layout';
+import { LayoutStyle } from '../../assets/style/components/Layout';
 
 export type LayoutProps = {
   children: React.ReactNode;

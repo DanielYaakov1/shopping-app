@@ -23,7 +23,7 @@ export interface IAppState {
 }
 const initialState: IAppState = {
   isErrorMessage: '',
-  isLoading: false,
+  isLoading: true,
   isDisableSubmitButton: true,
   isLoginMode: true,
   isDarkModeTheme: false,
@@ -54,6 +54,12 @@ export const appSlice = createSlice({
     },
   },
 });
-export const { setLoading, setErrorMessage, setLoginMode, setAppAuthenticated, setDisableSubmitButton, setUser } =
-  appSlice.actions;
+export const {
+  setLoading,
+  setErrorMessage,
+  setLoginMode,
+  setAppAuthenticated,
+  setDisableSubmitButton,
+  setUser,
+} = appSlice.actions;
 export const appReducer = appSlice.reducer;

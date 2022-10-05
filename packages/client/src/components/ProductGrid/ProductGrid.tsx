@@ -5,16 +5,23 @@ import { MyPagination } from '../Pagination/Pagination';
 import PaginationLink from '../Pagination/PaginationLink';
 import Products from '../Products/Products';
 
-const ProductGrid = memo(() => {
+export type productGridProps = {
+  className: string;
+  children?: React.ReactNode;
+};
+
+const ProductGrid = memo(({ className }: productGridProps) => {
   const products = useSelector((state: RootState) => state.productReducer.products);
 
   return (
-    // <PaginationLink>
-    //   <MyPagination />
-    // </PaginationLink>
-
-    <Products products={products}></Products>
+    <div className={className}>
+      <Products products={products}></Products>
+    </div>
   );
 });
 
 export default ProductGrid;
+
+// <PaginationLink>
+//   <MyPagination />
+// </PaginationLink>
