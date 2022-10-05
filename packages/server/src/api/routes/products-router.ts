@@ -1,9 +1,7 @@
 import { Router } from 'express';
-import { requireAuth } from '../../middleware/requireAuth';
 import { Products } from '../../models/products-model';
 import {
   getAllProducts,
-  getProductById,
   getProductByName,
   createProduct,
   sortingProductByPrice,

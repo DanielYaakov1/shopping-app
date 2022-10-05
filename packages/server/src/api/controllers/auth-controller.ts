@@ -1,6 +1,5 @@
-import type { Request, Response, NextFunction } from 'express';
-import { auth } from '../../firebase';
 import { FirebaseHandler } from '../handlers/FirebaseHandler';
+import type { Request, Response, NextFunction } from 'express';
 
 export const checkUser = async (req: Request, res: Response, next: NextFunction) => {
   try {

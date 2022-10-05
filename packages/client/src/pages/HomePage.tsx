@@ -1,7 +1,11 @@
 import ProductGrid from '../components/ProductGrid/ProductGrid';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
 import { makeStyles } from '@material-ui/core/styles';
+import MyCarousel from '../components/MyCarousel/MyCarousel';
+import Image from '../components/MyCarousel/Image';
+import ps5Image from '../assets/images/sony5.avif';
+import microImage from '../assets/images/microware.avif';
+import sonyTvImage from '../assets/images/sony_tv.avif';
 
 export const useStyles = makeStyles((theme) => ({
   img: {
@@ -11,6 +15,11 @@ export const useStyles = makeStyles((theme) => ({
     display: 'block',
     objectFit: 'none',
   },
+  grid: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignContent: 'space-around',
+  },
 }));
 
 const HomePage = () => {
@@ -18,33 +27,12 @@ const HomePage = () => {
 
   return (
     <div>
-      <div>
-        <Carousel infiniteLoop useKeyboardArrows transitionTime={1000} showThumbs={false} showArrows={true}>
-          <div>
-            <img
-              className={classes.img}
-              src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-              alt="a"
-            />
-          </div>
-          <div>
-            <img
-              className={classes.img}
-              src="https://images.unsplash.com/photo-1593784991095-a205069470b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-              alt="b"
-            />
-          </div>
-          <div>
-            <img
-              className={classes.img}
-              src="https://images.unsplash.com/photo-1648475238015-afae3557968a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
-              alt="c"
-            />
-          </div>
-        </Carousel>
-      </div>
-
-      <ProductGrid />
+      <MyCarousel>
+        <Image img={classes.img} src={ps5Image} altName={'test'} />
+        <Image img={classes.img} src={microImage} altName={'test'} />
+        <Image img={classes.img} src={sonyTvImage} altName={'test'} />
+      </MyCarousel>
+      <ProductGrid className={classes.grid} />
     </div>
   );
 };

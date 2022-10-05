@@ -1,18 +1,18 @@
-import { NextFunction, Request, Response } from 'express';
+import { Response } from 'express';
 
 interface IError {
   status: number;
   message: string;
-  stack: any;
+  stack: string;
 }
 
-async function errorHandleMiddleware(error: IError, request: Request, res: Response, next: NextFunction) {
+async function errorHandleMiddleware(error: IError | any, res: Response) {
   const status = error.status || 500;
   try {
     const errorMessage = error.message || 'Something went wrong';
     const errorStack = error.stack;
 
-    let resBody = {
+    const resBody = {
       status: status,
       message: errorMessage,
       stack: errorStack,

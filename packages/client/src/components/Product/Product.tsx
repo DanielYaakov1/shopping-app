@@ -43,6 +43,9 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: '0 0 5px #ccc',
     textAlign: 'center',
     marginBottom: '1rem',
+    '& h1': {
+      color: 'red',
+    },
   },
 }));
 
