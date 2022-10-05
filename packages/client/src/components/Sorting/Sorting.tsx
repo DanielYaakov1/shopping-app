@@ -6,7 +6,9 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 export type SortingProps = {
   isSortingOption: any;
-  handleSortingChange: ((event: SelectChangeEvent<any>, child: React.ReactNode) => void) | undefined;
+  handleSortingChange:
+    | ((event: SelectChangeEvent<any>, child: React.ReactNode) => void)
+    | undefined;
 };
 
 const Sorting = ({ isSortingOption, handleSortingChange }: SortingProps) => {

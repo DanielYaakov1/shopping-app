@@ -15,7 +15,9 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
       res.status(403).send({ message: err });
     }
   } else {
-    res.status(403).send({ message: 'You are not authorized to access this page. Please sign in.' });
+    res
+      .status(403)
+      .send({ message: 'You are not authorized to access this page. Please sign in.' });
   }
 };
 

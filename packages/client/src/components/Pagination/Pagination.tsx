@@ -47,7 +47,11 @@ export function MyPagination() {
       page={currentPage}
       count={getCountPages()}
       renderItem={(item) => (
-        <PaginationItem component={Link} to={`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`} {...item} />
+        <PaginationItem
+          component={Link}
+          to={`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`}
+          {...item}
+        />
       )}
     />
   );

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Button } from '../../assets/style/generic/Button';
+import { Button } from '../../assets/style/components/Button';
 
 export type MyButtonProps = {
   onClick?: () => void;

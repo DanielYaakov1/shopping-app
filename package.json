@@ -9,7 +9,10 @@
     "start": "concurrently \"yarn workspace server start\" \"yarn workspace client start\"",
     "client": "yarn workspace client start",
     "server": "yarn workspace server start",
-    "build": "tsc --project ./"
+    "build": "tsc --project ./",
+    "lint": "eslint .",
+    "lint-fix": "eslint --ext .tsx --ext .ts packages/ --fix",
+    "format": "prettier --write ./packages"
   },
   "workspaces": [
     "packages/*"
@@ -17,13 +20,26 @@
   "devDependencies": {
     "@types/react": "^17.0.50",
     "@types/react-dom": "^18.0.6",
-    "concurrently": "^7.2.2"
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "concurrently": "^7.2.2",
+    "eslint": "^8.24.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-react": "^7.31.8",
+    "typescript": "^4.8.4"
   },
   "dependencies": {
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.10.3",
     "@mui/x-date-pickers": "^5.0.2",
+    "@types/node": "^18.7.23",
+    "@typescript-eslint/parser": "^5.39.0",
     "dayjs": "^1.11.5",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-nodejs": "^0.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "react-responsive-carousel": "^3.2.23"
   }
 }
