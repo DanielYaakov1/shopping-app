@@ -1,14 +1,19 @@
+import { setLoading } from '../store/slices/appSlice';
 import { Product } from './../interfaces/Product.interface';
+import { useDispatch } from 'react-redux';
 //import { getProductByName } from './../../../server/src/api/controllers/products-controller';
+
 export const getAllProductsAction = async (skip?: number, productPerPage?: number) => {
   try {
     const response = await fetch(`/api/v1/products?skip=${skip}&limit=${productPerPage}`);
     const resData = await response.json();
     return resData;
   } catch (err) {
+    //throw err;
     console.log(err, 'this is the error');
   }
 };
+
 export const getProductAction = () => {};
 
 export const createProductAction = async () => {

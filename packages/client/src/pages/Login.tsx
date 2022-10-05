@@ -4,17 +4,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from '../store';
 import { setErrorMessage } from '../store/slices/registrationSlice';
-import { setAppAuthenticated, setLoginMode, setDisableSubmitButton, setUser } from '../store/slices/appSlice';
+import {
+  setAppAuthenticated,
+  setLoginMode,
+  setDisableSubmitButton,
+  setUser,
+} from '../store/slices/appSlice';
 import { getValidationFunction, checkEmailIsValid } from '../services/ValidationHelper';
 import MyButton from '../components/Button/MyButton';
 import MyInput from '../components/Input/MyInput';
 import ActionsAuth from '../actions/auth';
-import { LoginStyledComponent } from '../assets/style/generic/LoginStyled';
+import { LoginStyledComponent } from '../assets/style/components/LoginStyled';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const isErrorMessage = useSelector((state: RootState) => state.registrationReducer.isErrorMessage);
+  const isErrorMessage = useSelector(
+    (state: RootState) => state.registrationReducer.isErrorMessage
+  );
   const isLoginMode = useSelector((state: RootState) => state.appReducer.isLoginMode);
   const isDisableButton = useSelector((state: RootState) => state.appReducer.isDisableSubmitButton);
   const isEmailPasswordValid = checkEmailIsValid(email) && password.trim().length > 0;

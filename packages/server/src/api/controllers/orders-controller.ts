@@ -1,15 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { OrderHandler } from '../handlers/order-handler';
 
-export const getAllOrders = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const orderHandler = new OrderHandler();
-    const orders = await orderHandler.getAllOrders();
-    res.status(200).send({ orders });
-  } catch (err) {
-    next(err);
-  }
+export const getAllOrders = (req: Request, res: Response, next: NextFunction) => {
+  async () => {
+    try {
+      const orderHandler = new OrderHandler();
+      const orders = await orderHandler.getAllOrders();
+      res.status(200).send({ orders });
+    } catch (err) {
+      next(err);
+    }
+  };
 };
+
 export const getOrderById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const orderHandler = new OrderHandler();
@@ -39,7 +42,9 @@ export const deleteOrder = async (req: Request, res: Response, next: NextFunctio
     const { id } = req.body;
     const order = await orderHandler.deleteOrder(id);
     console.log(order);
-    order ? res.send({ isDeleted: true, order }) : res.status(400).send({ message: 'No such order exists' });
+    order
+      ? res.send({ isDeleted: true, order })
+      : res.status(400).send({ message: 'No such order exists' });
   } catch (err) {
     next(err);
   }

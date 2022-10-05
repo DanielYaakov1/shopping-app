@@ -53,8 +53,8 @@ const ActionsAuth = () => {
 
   const checkTokenIsExpired = useCallback(async () => {
     //The function checks if the user has an active token, if not it takes the user to the login screen
-    dispatch(setLoading(true));
     try {
+      dispatch(setLoading(true));
       const response = await fetch('/api/v1/auth/check-token-expired');
       const user = await response.json();
       if (response.status !== 200) {
@@ -62,14 +62,16 @@ const ActionsAuth = () => {
         //dispatch(setErrorMessage(user.message.code));
         setGetUser(false);
         dispatch(setAppAuthenticated(response.ok));
+        dispatch(setLoading(false));
         return history.replace('/login');
       }
       dispatch(setAppAuthenticated(response.ok));
       dispatch(setUser(user));
+      dispatch(setLoading(false));
     } catch (err) {
       console.log(err);
     } finally {
-      dispatch(setLoading(false));
+      //dispatch(setLoading(false));
     }
   }, [dispatch, history]);
 
@@ -77,8 +79,4 @@ const ActionsAuth = () => {
 };
 export default ActionsAuth;
 
-//
-// headers :{
-//      ...bodyHeaders,
-//      ...{ Authorization: `Bearer ${token}` },
-// }
+//...{ Authorization: `Bearer ${token}` },

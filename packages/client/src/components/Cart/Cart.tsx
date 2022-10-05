@@ -37,22 +37,27 @@ const Cart = memo(() => {
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
   const checkCartItemsCount = useCallback(() => items.length > 0, [items.length]);
-  const handleIncreaseItem = useCallback((item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })), [dispatch]);
-  const handleDecreaseItem = useCallback((id: string) => dispatch(deleteItemFromCart(id)), [dispatch]);
+  const handleIncreaseItem = useCallback(
+    (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
+    [dispatch]
+  );
+  const handleDecreaseItem = useCallback(
+    (id: string) => dispatch(deleteItemFromCart(id)),
+    [dispatch]
+  );
   const classes = useStyles();
 
   return (
     <div className={classes.cartItems}>
       <ul className={classes.cartItemList}>
-        {items.map((item: IItems, i: any) => (
+        {items.map((item: IItems, i: number) => (
           <CartItem
             key={i}
             name={item.name}
             price={item.price}
             amount={item.amount}
             onAddToCart={handleIncreaseItem.bind(null, item)}
-            onRemoveToCart={handleDecreaseItem.bind(null, item._id)}
-          ></CartItem>
+            onRemoveToCart={handleDecreaseItem.bind(null, item._id)}></CartItem>
         ))}
       </ul>
       <div className={classes.totalAmount}>
@@ -65,9 +70,8 @@ const Cart = memo(() => {
           color="primary"
           onClick={() => {
             dispatch(setPurchaseModal(true));
-          }}
-        >
-          GO TO THE CHECKOUT{' '}
+          }}>
+          GO TO THE CHECKOUT
         </Button>
       ) : null}
     </div>

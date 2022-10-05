@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useState, useCallback } from 'react';
-import { Input } from '../../assets/style/generic/Input';
+import { Input } from '../../assets/style/components/Input';
 
 export type MyInputProps = {
   value: string;
@@ -14,12 +14,22 @@ export type MyInputProps = {
 };
 
 const MyInput = memo(
-  ({ handleChangeValue, value, placeholder, type, required, label, checkInputValueIsValid }: MyInputProps) => {
+  ({
+    handleChangeValue,
+    value,
+    placeholder,
+    type,
+    required,
+    label,
+    checkInputValueIsValid,
+  }: MyInputProps) => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const checkAllFiledIsValid = useCallback(
       (userInputValue: string) => {
-        const isAllValueValid = checkInputValueIsValid ? checkInputValueIsValid(userInputValue) : true;
+        const isAllValueValid = checkInputValueIsValid
+          ? checkInputValueIsValid(userInputValue)
+          : true;
         if (isAllValueValid && value) {
           setErrorMessage('');
         } else {
