@@ -1,19 +1,26 @@
+import { memo } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { style } from '../../assets/style/components/CartIcon';
 
-export function MyModal(props: {
+export type props = {
   isModalOpen: boolean;
-  handleModal?: ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void) | undefined;
-  children?: React.ReactNode;
-}) {
+  onClose?: (() => void) | undefined;
+  children: React.ReactNode;
+};
+
+const MyModal = memo(({ isModalOpen, onClose, children }: props) => {
   return (
     <Modal
-      open={props.isModalOpen}
-      onClose={props.handleModal}
+      open={isModalOpen}
       aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description">
-      <Box sx={style}>{props.children}</Box>
+      aria-describedby="modal-modal-description"
+      draggable={true}>
+      <Box sx={style}>
+        <button onClick={onClose}>X</button>
+        {children}
+      </Box>
     </Modal>
   );
-}
+});
+export default MyModal;

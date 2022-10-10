@@ -3,7 +3,12 @@ import { RootState } from '../../store/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import CartItem from '../CartItem/CartItem';
 import { memo, useCallback } from 'react';
-import { addItemToCart, deleteItemFromCart, IItems } from '../../store/slices/cartSlice';
+import {
+  addItemToCart,
+  deleteItemFromCart,
+  IItems,
+  setCartModalOpen,
+} from '../../store/slices/cartSlice';
 import { Button } from '@material-ui/core';
 import { setPurchaseModal } from '../../store/slices/orderSlice';
 
@@ -36,7 +41,7 @@ const Cart = memo(() => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
-  const checkCartItemsCount = useCallback(() => items.length > 0, [items.length]);
+  const checkIfTheCardIsEmpty = useCallback(() => items.length > 0, [items.length]);
   const handleIncreaseItem = useCallback(
     (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
     [dispatch]
@@ -64,7 +69,7 @@ const Cart = memo(() => {
         <span>Total Price: </span>
         <span>{totalAmount.toFixed(2)}</span>
       </div>
-      {checkCartItemsCount() ? (
+      {checkIfTheCardIsEmpty() ? (
         <Button
           variant="outlined"
           color="primary"

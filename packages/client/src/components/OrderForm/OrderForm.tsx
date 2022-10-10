@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Dayjs } from 'dayjs';
 import TextField from '@mui/material/TextField';
@@ -12,7 +11,7 @@ import {
   checkNotCharacters,
   checkNotNumbersOrSpecialCharacters,
 } from '../../services/ValidationHelper';
-import { setItems } from '../../store/slices/cartSlice';
+import { setItems, updateAllCartState } from '../../store/slices/cartSlice';
 import { createOrderAction } from '../../actions/OrdersAction';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -21,6 +20,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 const OrderForm = () => {
   const isDisableButton = useSelector((state: RootState) => state.appReducer.isDisableSubmitButton);
   const items = useSelector((state: RootState) => state.cartReducer.items);
+  const uidCreateTheOrder = useSelector((state: RootState) => state.appReducer.user?.uid);
   const dispatch = useDispatch();
   const [city, setCity] = useState('');
   const [street, setStreet] = useState('');
@@ -57,11 +57,19 @@ const OrderForm = () => {
         zipCode,
         items: getIdProductInTheCart(),
         shippingDate,
+        uId: uidCreateTheOrder,
       });
       dispatch(setPurchaseModal(false));
       dispatch(setItems([]));
+      // dispatch(
+      //   updateAllCartState({
+      //     items: [],
+      //     totalAmount: 0,
+      //     isCartModalOpen: true,
+      //   })
+      // );
     },
-    [city, dispatch, getIdProductInTheCart, shippingDate, street, zipCode]
+    [city, dispatch, getIdProductInTheCart, shippingDate, street, uidCreateTheOrder, zipCode]
   );
 
   return checkCartItemsCount() ? (
