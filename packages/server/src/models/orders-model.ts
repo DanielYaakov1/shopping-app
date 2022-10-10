@@ -10,6 +10,10 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Orders street is missing'],
   },
+  uId: {
+    type: String,
+    required: [true, 'uId is missing'],
+  },
   zipCode: {
     type: Number,
     required: [true, 'Orders zipCode is missing'],
@@ -23,7 +27,7 @@ const orderSchema = new mongoose.Schema({
     required: [true, 'Orders date is missing'],
   },
   items: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: 'products',
     required: [true, 'Orders Items is missing'],
   },

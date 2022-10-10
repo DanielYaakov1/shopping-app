@@ -3,13 +3,14 @@ import {
   deleteOrder,
   getAllOrders,
   updateOrder,
+  getOrderById,
 } from './../controllers/orders-controller';
 import { Router } from 'express';
-import { requireAuth } from '../../middleware/requireAuth';
 
 export const ordersRouter = Router();
 
-ordersRouter.get('/', requireAuth, getAllOrders);
+ordersRouter.get('/', getAllOrders);
+ordersRouter.get('/:id', getOrderById);
 ordersRouter.post('/', createOrder);
 ordersRouter.put('/', updateOrder);
 ordersRouter.delete('/', deleteOrder);

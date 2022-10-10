@@ -10,12 +10,15 @@ import OrderForm from '../OrderForm/OrderForm';
 import Input from '../Input/Input';
 import { getAllProductsAction, getProductByName } from '../../actions/ProductsAction';
 import { setProduct } from '../../store/slices/ProductSlice';
+import MyModal from '../MyModal/MyModal';
+import Cart from '../Cart/Cart';
 
 const Header = memo(() => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const isCartModalOpen = useSelector((state: RootState) => state.cartReducer.isCartModalOpen);
   const displayOrder = useSelector((state: RootState) => state.orderReducer.isPurchaseModal);
+
   const handleCartModal = useCallback(
     () => dispatch(setCartModalOpen(!isCartModalOpen)),
     [dispatch, isCartModalOpen]
@@ -23,7 +26,6 @@ const Header = memo(() => {
   const numberCartItem = items.reduce((currentValue, item) => {
     return currentValue + item.amount;
   }, 0);
-
   //const products = useSelector((state: RootState) => state.productReducer.products);
   const [searchProduct, setSearchProduct] = useState('');
 
@@ -66,16 +68,15 @@ const Header = memo(() => {
               <MainNavigation activeClassName={'activeLink'} label={'Contact'} to={'/contact'} />
             </li>
             <li>
-              <CartIcon
-                numberCartItem={numberCartItem}
-                onClick={handleCartModal}
-                isModalOpen={isCartModalOpen}
-              />
+              <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} />
             </li>
           </ul>
         </div>
       </HeaderStyle>
-      {displayOrder && <OrderForm />}
+      <MyModal isModalOpen={isCartModalOpen} onClose={handleCartModal}>
+        <Cart />
+        {displayOrder && <OrderForm />}
+      </MyModal>
     </div>
   );
 });

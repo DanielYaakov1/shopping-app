@@ -21,9 +21,6 @@ export const loginFirebase = async (req: Request, res: Response, next: NextFunct
     res.send(userCredential);
   } catch (err: any) {
     next(err);
-    console.log(err);
-    //next({ status: err.statusCode, ...err });
-    //res.send(err);
   }
 };
 
@@ -38,7 +35,6 @@ export const signupFirebase = async (req: Request, res: Response, next: NextFunc
     res.send(userCredential);
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
 
@@ -50,6 +46,5 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
     res.send(response);
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };

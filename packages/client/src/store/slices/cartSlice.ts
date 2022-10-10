@@ -61,10 +61,16 @@ export const cartSlice = createSlice({
     setCartModalOpen(state, action: PayloadAction<boolean>) {
       state.isCartModalOpen = action.payload;
     },
-    setItems(state, action: PayloadAction<any>) {
+    setItems(state, action: PayloadAction<IItems[]>) {
       state.items = action.payload;
+    },
+    updateAllCartState(state, action: PayloadAction<any>) {
+      state.items = action.payload;
+      state.totalAmount = action.payload;
+      state.isCartModalOpen = action.payload;
     },
   },
 });
-export const { addItemToCart, deleteItemFromCart, setCartModalOpen, setItems } = cartSlice.actions;
+export const { addItemToCart, deleteItemFromCart, setCartModalOpen, setItems, updateAllCartState } =
+  cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
