@@ -5,7 +5,6 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
   const token = req.cookies?.fbAuth;
   //const token = req.headers['authorization-bearer'] as string;
   if (token) {
-    // idToken comes from the client app
     try {
       const decodedToken = await authAdmin.verifyIdToken(token);
       const { uid } = decodedToken;
@@ -20,7 +19,3 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
       .send({ message: 'You are not authorized to access this page. Please sign in.' });
   }
 };
-
-// if () {
-//   throw new Error('not admin');
-// }

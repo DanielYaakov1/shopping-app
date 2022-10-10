@@ -18,8 +18,9 @@ const style = {
   p: 4,
 };
 //temp component not relevant
-const CartModal = memo(() => {
+const CartModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  console.log('modal open fun', isModalOpen);
   const handleModal = useCallback(() => setIsModalOpen(!isModalOpen), [isModalOpen]);
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const numberCartItem = items.reduce((currentValue, item) => {
@@ -33,13 +34,12 @@ const CartModal = memo(() => {
         open={isModalOpen}
         onClose={handleModal}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Cart />
         </Box>
       </Modal>
     </div>
   );
-});
+};
 export default CartModal;

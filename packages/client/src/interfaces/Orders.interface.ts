@@ -6,4 +6,5 @@ export interface IShippingOrder {
   createdAt?: Date;
   items: string[];
   shippingDate?: null | object;
+  uId: string | undefined;
 }
