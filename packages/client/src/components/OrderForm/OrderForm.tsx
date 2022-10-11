@@ -11,7 +11,7 @@ import {
   checkNotCharacters,
   checkNotNumbersOrSpecialCharacters,
 } from '../../services/ValidationHelper';
-import { setItems, updateAllCartState } from '../../store/slices/cartSlice';
+import { updateAllCartState } from '../../store/slices/cartSlice';
 import { createOrderAction } from '../../actions/OrdersAction';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -36,6 +36,7 @@ const OrderForm = () => {
   }, [items]);
 
   useEffect(() => {
+    //check validation for all fields + change submit button state according to validation fields
     const validationOfAllOrderFields =
       validationCity && validationStreet && validationZipCode && shippingDate?.isValid();
     dispatch(setDisableSubmitButton(validationOfAllOrderFields ? false : true));
@@ -49,6 +50,7 @@ const OrderForm = () => {
   ]);
 
   const submitHandler = useCallback(
+    //submit form order (create POST request to backend + change modal state + update all cart state after submit form )
     async (event: { preventDefault: () => void }) => {
       event.preventDefault();
       await createOrderAction({
@@ -60,14 +62,13 @@ const OrderForm = () => {
         uId: uidCreateTheOrder,
       });
       dispatch(setPurchaseModal(false));
-      dispatch(setItems([]));
-      // dispatch(
-      //   updateAllCartState({
-      //     items: [],
-      //     totalAmount: 0,
-      //     isCartModalOpen: true,
-      //   })
-      // );
+      dispatch(
+        updateAllCartState({
+          items: [],
+          totalAmount: 0,
+          isCartModalOpen: false,
+        })
+      );
     },
     [city, dispatch, getIdProductInTheCart, shippingDate, street, uidCreateTheOrder, zipCode]
   );

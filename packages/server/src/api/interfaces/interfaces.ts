@@ -1,5 +1,3 @@
-import { ObjectId } from 'mongodb';
-
 export interface IAuthenticator {
   login: (email: string, password: string) => Promise<IUser>;
   register: (email: string, password: string) => Promise<IUser>;
@@ -27,4 +25,10 @@ export interface IOrder {
   description?: string;
   destinationDate?: Date;
   createdAt?: Date;
+}
+
+export interface IAdmin {
+  uid: string;
+  string: string;
+  role: string;
 }
