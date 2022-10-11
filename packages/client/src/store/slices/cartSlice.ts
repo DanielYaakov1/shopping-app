@@ -64,10 +64,10 @@ export const cartSlice = createSlice({
     setItems(state, action: PayloadAction<IItems[]>) {
       state.items = action.payload;
     },
-    updateAllCartState(state, action: PayloadAction<any>) {
-      state.items = action.payload;
-      state.totalAmount = action.payload;
-      state.isCartModalOpen = action.payload;
+    updateAllCartState(state, action: PayloadAction<ICart>) {
+      state.items = action.payload.items;
+      state.totalAmount = action.payload.totalAmount;
+      state.isCartModalOpen = action.payload.isCartModalOpen;
     },
   },
 });
