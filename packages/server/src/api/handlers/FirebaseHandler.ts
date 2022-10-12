@@ -7,7 +7,7 @@ export class FirebaseHandler implements IAuthenticator {
   async login(email: string, password: string) {
     const res = await signInWithEmailAndPassword(auth, email, password);
     const idToken = await res.user.getIdToken();
-    return { token: idToken, id: res.user.uid };
+    return { token: idToken, id: res.user.uid, user: res.user };
   }
   async register(email: string, password: string) {
     const res = await createUserWithEmailAndPassword(auth, email, password);

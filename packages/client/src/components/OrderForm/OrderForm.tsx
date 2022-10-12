@@ -11,7 +11,7 @@ import {
   checkNotCharacters,
   checkNotNumbersOrSpecialCharacters,
 } from '../../services/ValidationHelper';
-import { updateAllCartState } from '../../store/slices/cartSlice';
+import { cartInitialState, updateAllCartState } from '../../store/slices/cartSlice';
 import { createOrderAction } from '../../actions/OrdersAction';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -63,11 +63,7 @@ const OrderForm = () => {
       });
       dispatch(setPurchaseModal(false));
       dispatch(
-        updateAllCartState({
-          items: [],
-          totalAmount: 0,
-          isCartModalOpen: false,
-        })
+        updateAllCartState(cartInitialState)
       );
     },
     [city, dispatch, getIdProductInTheCart, shippingDate, street, uidCreateTheOrder, zipCode]

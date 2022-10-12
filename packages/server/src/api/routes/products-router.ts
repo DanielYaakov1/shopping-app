@@ -16,6 +16,7 @@ productsRouter.get('/sort', sortingProductByPrice);
 productsRouter.get('/:name', getProductByName);
 productsRouter.post('/get-products-count', getProductsPerPage);
 //delete row 17-19
+
 productsRouter.get('/', getAllProducts);
 productsRouter.post('/', createProduct);
 productsRouter.put('/', updateProduct);
@@ -26,5 +27,3 @@ productsRouter.get('/test/test', async function (req, res) {
   console.log('count item ' + getProductsCount);
   res.send({ getProductsCount });
 });
-
-//productsRouter.post('/:name', getProductByName);
