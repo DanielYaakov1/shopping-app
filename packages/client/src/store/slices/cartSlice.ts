@@ -15,7 +15,7 @@ export interface ICart {
   isCartModalOpen: boolean;
 }
 
-const initialState: ICart = {
+export const cartInitialState: ICart = {
   items: [],
   totalAmount: 0,
   isCartModalOpen: false,
@@ -23,7 +23,7 @@ const initialState: ICart = {
 
 export const cartSlice = createSlice({
   name: 'cart',
-  initialState,
+  initialState: cartInitialState,
   reducers: {
     addItemToCart(state, { payload: product }) {
       const newTotalAmount = state.totalAmount + product.price * product.amount;

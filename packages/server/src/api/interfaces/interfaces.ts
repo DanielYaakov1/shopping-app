@@ -29,6 +29,5 @@ export interface IOrder {
 
 export interface IAdmin {
   uid: string;
-  string: string;
-  role: string;
+  email: string;
 }

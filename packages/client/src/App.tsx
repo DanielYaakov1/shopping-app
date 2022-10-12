@@ -6,7 +6,6 @@ import ActionsAuth from './actions/auth';
 import Spinner from './components/Spinner/Spinner';
 import { getAllProductsAction } from './actions/ProductsAction';
 import { setProduct } from './store/slices/ProductSlice';
-import { setLoading } from './store/slices/appSlice';
 
 function App() {
   const { checkTokenIsExpired } = ActionsAuth();
@@ -14,6 +13,8 @@ function App() {
   const getUser = useSelector((state: RootState) => state.appReducer.user);
   const isLoading = useSelector((state: RootState) => state.appReducer.isLoading);
   const dispatch = useDispatch();
+  const isAdmin = useSelector((state: RootState) => state.appReducer.user?.isAdmin);
+  console.log(isAdmin);
 
   useEffect(() => {
     checkTokenIsExpired();
