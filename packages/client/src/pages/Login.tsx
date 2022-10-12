@@ -15,6 +15,7 @@ import MyButton from '../components/Button/MyButton';
 import MyInput from '../components/Input/MyInput';
 import ActionsAuth from '../actions/auth';
 import { LoginStyledComponent } from '../assets/style/components/LoginStyled';
+import { setUser1 } from '../store/slices/userSlice';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -47,6 +48,7 @@ export const Login = () => {
           : await loginFirebase(email, password, 'signup');
         if (handleLogin.id) {
           dispatch(setUser(handleLogin));
+          dispatch(setUser1(handleLogin));
           dispatch(setAppAuthenticated(true));
           return history.push('/');
         } else {

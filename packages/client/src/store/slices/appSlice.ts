@@ -9,6 +9,7 @@ export interface User {
   id: string;
   message: string;
   code: string;
+  isAdmin: boolean;
 }
 
 export interface IAppState {

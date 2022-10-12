@@ -2,7 +2,7 @@ import { setStorageApi, getStorageApi } from './../services/storageApi';
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setErrorMessage } from '../store/slices/registrationSlice';
-import { setAppAuthenticated, setLoading, setUser } from '../store/slices/appSlice';
+import { setAppAuthenticated, setLoading, setUser, User } from '../store/slices/appSlice';
 import { useHistory } from 'react-router-dom';
 
 const fetcher = (url: string, method = 'GET', body?: Record<string, any>) => {
@@ -56,7 +56,7 @@ const ActionsAuth = () => {
     try {
       dispatch(setLoading(true));
       const response = await fetch('/api/v1/auth/check-token-expired');
-      const user = await response.json();
+      const user = (await response.json()) as User;
       if (response.status !== 200) {
         //dispatch(setUser(user.message.code));
         //dispatch(setErrorMessage(user.message.code));
@@ -78,5 +78,3 @@ const ActionsAuth = () => {
   return { loginFirebase, checkTokenIsExpired, getUser };
 };
 export default ActionsAuth;
-
-//...{ Authorization: `Bearer ${token}` },
