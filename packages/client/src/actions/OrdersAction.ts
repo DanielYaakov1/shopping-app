@@ -2,6 +2,15 @@ import { IShippingOrder } from '../interfaces/index';
 
 export const getAllOrdersAction = async () => {};
 export const getOrderAction = async () => {};
+export const getOrderById = async (uid: string) => {
+  try {
+    const response = await fetch(`api/v1/orders/${uid}`);
+    const resData = await response.json();
+    return resData;
+  } catch (err) {
+    throw err;
+  }
+};
 
 export const createOrderAction = async (userOrderData: IShippingOrder) => {
   try {

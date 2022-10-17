@@ -17,7 +17,7 @@ const Header = memo(() => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const isCartModalOpen = useSelector((state: RootState) => state.cartReducer.isCartModalOpen);
-  const displayOrder = useSelector((state: RootState) => state.orderReducer.isPurchaseModal);
+  const displayOrder = useSelector((state: RootState) => state.orderReducer.isCheckoutOpen);
 
   const handleCartModal = useCallback(
     () => dispatch(setCartModalOpen(!isCartModalOpen)),
@@ -65,7 +65,7 @@ const Header = memo(() => {
               <MainNavigation activeClassName={'activeLink'} label={'About'} to={'/about'} />
             </li>
             <li>
-              <MainNavigation activeClassName={'activeLink'} label={'Contact'} to={'/contact'} />
+              <MainNavigation activeClassName={'activeLink'} label={'Orders'} to={'/Orders'} />
             </li>
             <li>
               <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} />

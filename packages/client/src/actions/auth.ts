@@ -2,7 +2,8 @@ import { setStorageApi, getStorageApi } from './../services/storageApi';
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setErrorMessage } from '../store/slices/registrationSlice';
-import { setAppAuthenticated, setLoading, setUser, User } from '../store/slices/appSlice';
+import { setAppAuthenticated, setLoading } from '../store/slices/appSlice';
+import { setUser, IUser } from '../store/slices/userSlice';
 import { useHistory } from 'react-router-dom';
 
 const fetcher = (url: string, method = 'GET', body?: Record<string, any>) => {
@@ -33,8 +34,8 @@ const ActionsAuth = () => {
           email: email,
           password: password,
         });
+        debugger;
         const data = await response.json();
-        console.log(data);
         if (!response.ok) {
           dispatch(setErrorMessage(data.message || 'Something went wrong'));
           return data;
@@ -43,6 +44,7 @@ const ActionsAuth = () => {
         return data;
       } catch (error) {
         if (error instanceof Error) {
+          console.log(error, 'this is the error');
           dispatch(setErrorMessage(error.message));
           return error;
         }
@@ -56,7 +58,7 @@ const ActionsAuth = () => {
     try {
       dispatch(setLoading(true));
       const response = await fetch('/api/v1/auth/check-token-expired');
-      const user = (await response.json()) as User;
+      const user = (await response.json()) as IUser;
       if (response.status !== 200) {
         //dispatch(setUser(user.message.code));
         //dispatch(setErrorMessage(user.message.code));
@@ -66,7 +68,7 @@ const ActionsAuth = () => {
         return history.replace('/login');
       }
       dispatch(setAppAuthenticated(response.ok));
-      dispatch(setUser(user));
+      dispatch(setUser({ ...user }));
       dispatch(setLoading(false));
     } catch (err) {
       console.log(err);

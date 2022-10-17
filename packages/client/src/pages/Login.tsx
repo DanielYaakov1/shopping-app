@@ -8,14 +8,13 @@ import {
   setAppAuthenticated,
   setLoginMode,
   setDisableSubmitButton,
-  setUser,
 } from '../store/slices/appSlice';
 import { getValidationFunction, checkEmailIsValid } from '../services/ValidationHelper';
 import MyButton from '../components/Button/MyButton';
 import MyInput from '../components/Input/MyInput';
 import ActionsAuth from '../actions/auth';
 import { LoginStyledComponent } from '../assets/style/components/LoginStyled';
-import { setUser1 } from '../store/slices/userSlice';
+import { setUser } from '../store/slices/userSlice';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -46,13 +45,13 @@ export const Login = () => {
         const handleLogin = isLoginMode
           ? await loginFirebase(email, password, 'login')
           : await loginFirebase(email, password, 'signup');
-        if (handleLogin.id) {
+        if (handleLogin.uid) {
           dispatch(setUser(handleLogin));
-          dispatch(setUser1(handleLogin));
           dispatch(setAppAuthenticated(true));
           return history.push('/');
         } else {
-          dispatch(setErrorMessage(handleLogin.message));
+          //dispatch(setErrorMessage('Something went wrong'));
+          //dispatch(setErrorMessage(handle.message));
         }
       } else {
         dispatch(setErrorMessage('Please fill all fields'));

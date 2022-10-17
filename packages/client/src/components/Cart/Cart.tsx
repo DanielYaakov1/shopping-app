@@ -3,14 +3,10 @@ import { RootState } from '../../store/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import CartItem from '../CartItem/CartItem';
 import { memo, useCallback } from 'react';
-import {
-  addItemToCart,
-  deleteItemFromCart,
-  IItems,
-  setCartModalOpen,
-} from '../../store/slices/cartSlice';
+import { addItemToCart, deleteItemFromCart, IItems } from '../../store/slices/cartSlice';
 import { Button } from '@material-ui/core';
-import { setPurchaseModal } from '../../store/slices/orderSlice';
+import { setCheckoutOpen } from '../../store/slices/orderSlice';
+import { checkGreaterNumberInArray } from '../../services/functions';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -41,7 +37,7 @@ const Cart = memo(() => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
-  const checkIfTheCardIsEmpty = useCallback(() => items.length > 0, [items.length]);
+  const checkIfTheCardIsEmpty = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
   const handleIncreaseItem = useCallback(
     (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
     [dispatch]
@@ -62,7 +58,8 @@ const Cart = memo(() => {
             price={item.price}
             amount={item.amount}
             onAddToCart={handleIncreaseItem.bind(null, item)}
-            onRemoveToCart={handleDecreaseItem.bind(null, item._id)}></CartItem>
+            onRemoveToCart={handleDecreaseItem.bind(null, item._id)}
+          />
         ))}
       </ul>
       <div className={classes.totalAmount}>
@@ -74,7 +71,7 @@ const Cart = memo(() => {
           variant="outlined"
           color="primary"
           onClick={() => {
-            dispatch(setPurchaseModal(true));
+            dispatch(setCheckoutOpen(true));
           }}>
           GO TO THE CHECKOUT
         </Button>
