@@ -3,6 +3,7 @@ import HomePage from '../../../pages/HomePage';
 import Login from '../../../pages/Login';
 import PageNotFound from '../../../pages/PageNotFound';
 import Header from '../../Header/Header';
+import Order from '../../MyOrder/Order';
 
 export const LoggedInRouter = () => {
   return (
@@ -14,6 +15,9 @@ export const LoggedInRouter = () => {
         </Route>
         <Route exact path={'/login'}>
           <Redirect to={'/'} />
+        </Route>
+        <Route exact path={'/Orders'}>
+          <Order />
         </Route>
         <Route exact path={'*'}>
           <PageNotFound />

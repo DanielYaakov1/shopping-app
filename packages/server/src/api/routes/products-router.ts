@@ -24,6 +24,5 @@ productsRouter.delete('/', deleteProduct);
 
 productsRouter.get('/test/test', async function (req, res) {
   const getProductsCount = await Products.count({});
-  console.log('count item ' + getProductsCount);
   res.send({ getProductsCount });
 });

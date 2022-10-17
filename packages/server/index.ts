@@ -28,5 +28,5 @@ mongooseConnect();
 
 app.use('/api/v1/test', requireAuth, (req, res) => {
   res.send({ data: 'Well done and Hello from server!' });
-  const userData = res.locals.user;
+  const _userData = res.locals.user;
 });

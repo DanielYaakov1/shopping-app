@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { AdminHandler } from '../handlers/admin-handler';
 
-export const getAdminByEmail = async (req: Request, res: Response, next: NextFunction) => {
+export const checkIsAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const adminHandler = new AdminHandler();
     const { email } = req.query;
-    const admins = (await adminHandler.getAdminByEmail(String(email))) ? true : false;
-    console.log(admins, 'this is the admin');
-    res.status(200).send({ admins });
+    const isAdmin = await adminHandler.getAdminByEmail(String(email));
+    res.status(200).send({ isAdmin: !!isAdmin });
   } catch (err) {
     next(err);
   }
@@ -17,14 +16,13 @@ export const getAllAdmins = async (req: Request, res: Response, next: NextFuncti
   try {
     const adminHandler = new AdminHandler();
     const admins = await adminHandler.getAllAdmins();
-    console.log(admins, 'this is the admin');
     res.status(200).send({ admins });
   } catch (err) {
     next(err);
   }
 };
 
-export const checkIsAdmin = async (req: Request, res: Response, next: NextFunction) => {
+export const checkIsAdmin1 = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const adminHandler = new AdminHandler();
     const { email } = req.query;
