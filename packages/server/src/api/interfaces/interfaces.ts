@@ -4,8 +4,10 @@ export interface IAuthenticator {
 }
 
 export type IUser = {
-  token?: string;
-  id: string;
+  token: string;
+  uid: string;
+  user: any;
+  isAdmin?: boolean;
 };
 
 export interface IProductProps {
@@ -25,6 +27,7 @@ export interface IOrder {
   description?: string;
   destinationDate?: Date;
   createdAt?: Date;
+  uid?: string;
 }
 
 export interface IAdmin {

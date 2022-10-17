@@ -9,7 +9,6 @@ export const getAllProductsAction = async (skip?: number, productPerPage?: numbe
     const resData = await response.json();
     return resData;
   } catch (err) {
-    //throw err;
     console.log(err, 'this is the error');
   }
 };

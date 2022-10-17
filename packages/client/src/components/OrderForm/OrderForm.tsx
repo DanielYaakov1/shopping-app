@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { Dayjs } from 'dayjs';
 import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPurchaseModal } from '../../store/slices/orderSlice';
+import { setCheckoutOpen } from '../../store/slices/orderSlice';
 import { useCallback, useEffect, useState } from 'react';
 import MyButton from '../Button/MyButton';
 import { RootState } from '../../store/store';
@@ -16,11 +16,12 @@ import { createOrderAction } from '../../actions/OrdersAction';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { checkGreaterNumberInArray } from '../../services/functions';
 
 const OrderForm = () => {
   const isDisableButton = useSelector((state: RootState) => state.appReducer.isDisableSubmitButton);
   const items = useSelector((state: RootState) => state.cartReducer.items);
-  const uidCreateTheOrder = useSelector((state: RootState) => state.appReducer.user?.uid);
+  const uidCreateTheOrder = useSelector((state: RootState) => state.userReducer.uid);
   const dispatch = useDispatch();
   const [city, setCity] = useState('');
   const [street, setStreet] = useState('');
@@ -29,9 +30,9 @@ const OrderForm = () => {
   const validationCity = checkNotNumbersOrSpecialCharacters(city);
   const validationStreet = checkNotNumbersOrSpecialCharacters(street);
   const validationZipCode = checkNotCharacters(zipCode);
-  const checkCartItemsCount = useCallback(() => items.length > 0, [items.length]);
+  const checkCartItemsCount = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
 
-  const getIdProductInTheCart = useCallback((): string[] => {
+  const checkItemIdAddedToCart = useCallback((): string[] => {
     return items.map((item) => item._id);
   }, [items]);
 
@@ -57,16 +58,14 @@ const OrderForm = () => {
         city,
         street,
         zipCode,
-        items: getIdProductInTheCart(),
+        items: checkItemIdAddedToCart(),
         shippingDate,
         uId: uidCreateTheOrder,
       });
-      dispatch(setPurchaseModal(false));
-      dispatch(
-        updateAllCartState(cartInitialState)
-      );
+      dispatch(setCheckoutOpen(false));
+      dispatch(updateAllCartState(cartInitialState));
     },
-    [city, dispatch, getIdProductInTheCart, shippingDate, street, uidCreateTheOrder, zipCode]
+    [city, dispatch, checkItemIdAddedToCart, shippingDate, street, uidCreateTheOrder, zipCode]
   );
 
   return checkCartItemsCount() ? (

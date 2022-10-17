@@ -47,8 +47,8 @@ export interface ICartItem {
   name: string;
   price: number;
   amount: number;
-  onAddToCart: () => void;
-  onRemoveToCart: () => void;
+  onAddToCart?: () => void;
+  onRemoveToCart?: () => void;
 }
 
 const CartItem = memo((props: ICartItem) => {

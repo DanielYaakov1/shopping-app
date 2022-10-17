@@ -10,11 +10,10 @@ import { setProduct } from './store/slices/ProductSlice';
 function App() {
   const { checkTokenIsExpired } = ActionsAuth();
   const appAuthenticated = useSelector((state: RootState) => state.appReducer.isAppAuthenticated);
-  const getUser = useSelector((state: RootState) => state.appReducer.user);
+  const getUser = useSelector((state: RootState) => state.userReducer.uid);
   const isLoading = useSelector((state: RootState) => state.appReducer.isLoading);
   const dispatch = useDispatch();
-  const isAdmin = useSelector((state: RootState) => state.appReducer.user?.isAdmin);
-  console.log(isAdmin);
+  const isAdmin = useSelector((state: RootState) => state.userReducer.user?.isAdmin);
 
   useEffect(() => {
     checkTokenIsExpired();
@@ -23,7 +22,6 @@ function App() {
   useEffect(() => {
     async function fetchProductAndPage() {
       const { products } = await getAllProductsAction();
-      console.log(products);
       dispatch(setProduct(products));
     }
     fetchProductAndPage();

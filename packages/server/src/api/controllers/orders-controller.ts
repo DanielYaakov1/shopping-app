@@ -14,11 +14,8 @@ export const getAllOrders = async (req: Request, res: Response, next: NextFuncti
 export const getOrderById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const orderHandler = new OrderHandler();
-    //const { id } = req.query;
-    //const order = await orderHandler.getOrderById(String(id));
-    const order = await orderHandler.getOrderById(req.params.id);
-    console.log(order);
-    res.status(200).send({ order });
+    const orders = await orderHandler.getOrderById(String(req.params.id));
+    res.status(200).send({ orders });
   } catch (err) {
     //add class for error message
     next(err);
@@ -28,10 +25,8 @@ export const createOrder = async (req: Request, res: Response, next: NextFunctio
   try {
     const orderHandler = new OrderHandler();
     const order = await orderHandler.createOrder(req.body);
-    console.log(order);
     res.status(200).send({ order });
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };
@@ -40,7 +35,6 @@ export const deleteOrder = async (req: Request, res: Response, next: NextFunctio
     const orderHandler = new OrderHandler();
     const { id } = req.body;
     const order = await orderHandler.deleteOrder(id);
-    console.log(order);
     order
       ? res.send({ isDeleted: true, order })
       : res.status(400).send({ message: 'No such order exists' });
@@ -53,7 +47,6 @@ export const updateOrder = async (req: Request, res: Response, next: NextFunctio
     const orderHandler = new OrderHandler();
     const { id } = req.query;
     const order = await orderHandler.updateOrder(String(id), req.body);
-    console.log(order);
     order ? res.send(order) : res.status(400).send({ message: 'No such order exists' });
   } catch (err) {
     next(err);

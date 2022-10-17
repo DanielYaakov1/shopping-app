@@ -22,7 +22,6 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
 export const getProductById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const product = await Products.findById(req.params.id);
-    console.log(product);
     res.send(product);
   } catch (err) {
     next(err);
@@ -32,10 +31,9 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const product = await Products.create(req.body);
-    console.log(product);
     res.send(product);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -43,7 +41,6 @@ export const getProductByName = async (req: Request, res: Response, next: NextFu
   try {
     const productHandler = new ProductHandler();
     const product = await productHandler.getProductsByName(req.params.name);
-    console.log(product);
     res.send(product);
   } catch (err) {
     next(err);
@@ -55,7 +52,6 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
     const productHandler = new ProductHandler();
     const { _id } = req.body;
     const product = await productHandler.updateProduct(_id, req.body);
-    console.log(product);
     product ? res.send(product) : res.status(400).send({ message: 'No such user exists' });
   } catch (err) {
     next(err);
@@ -67,7 +63,6 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
     const productHandler = new ProductHandler();
     const { _id } = req.body;
     const product = await productHandler.deleteProduct(_id);
-    console.log(product);
     product
       ? res.send({ message: 'The product has been successfully deleted ', product })
       : res.status(400).send({ message: 'No such user exists' });
@@ -81,7 +76,6 @@ export const sortingProductByPrice = async (req: Request, res: Response, next: N
     const productHandler = new ProductHandler();
     const { sort } = req.query;
     const product = await productHandler.sortingProductByPrice(sort as SortOrder);
-    console.log(product);
     res.send(product);
   } catch (err) {
     next(err);

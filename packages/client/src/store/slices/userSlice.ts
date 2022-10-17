@@ -1,32 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IUser {
-  uid: string;
-  email?: string;
-  displayName?: string;
-  photoURL?: string;
   token: string;
-  id: string;
-  message?: string;
-  code?: string;
+  uid: string;
   isAdmin: boolean;
+  user: any;
 }
-export interface Iuse {
-  user?: IUser;
-}
-const initialState: Iuse = {
-  user: undefined,
+
+const initialState: IUser = {
+  token: '',
+  uid: '',
+  isAdmin: false,
+  user: {},
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser1(state, action: PayloadAction<IUser>) {
-      state.user = action.payload;
+    setUser(state, action: PayloadAction<IUser>) {
+      state.token = action.payload.token;
+      state.uid = action.payload.uid;
+      state.isAdmin = action.payload.isAdmin;
+      state.user = action.payload.user;
     },
   },
 });
 
-export const { setUser1 } = userSlice.actions;
+export const { setUser } = userSlice.actions;
 export const userReducer = userSlice.reducer;

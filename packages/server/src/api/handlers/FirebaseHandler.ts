@@ -1,21 +1,20 @@
-import { IAuthenticator } from '../interfaces/interfaces';
+import { IAuthenticator, IUser } from '../interfaces/interfaces';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { authAdmin } from '../../firebaseAdmin';
 
 export class FirebaseHandler implements IAuthenticator {
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<IUser> {
     const res = await signInWithEmailAndPassword(auth, email, password);
     const idToken = await res.user.getIdToken();
-    return { token: idToken, id: res.user.uid, user: res.user };
+    return { token: idToken, uid: res.user.uid, user: res.user };
   }
-  async register(email: string, password: string) {
+  async register(email: string, password: string): Promise<IUser> {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const idToken = await res.user.getIdToken();
-    return { token: idToken, id: res.user.uid };
+    return { token: idToken, uid: res.user.uid, user: null };
   }
   async checkAuth(token: string) {
-    const res = await authAdmin.verifyIdToken(token);
-    return res;
+    return await authAdmin.verifyIdToken(token);
   }
 }
