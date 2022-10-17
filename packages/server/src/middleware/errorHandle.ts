@@ -1,15 +1,21 @@
-import { Response } from 'express';
+import { Response, NextFunction, Request } from 'express';
 
 interface IError {
   status: number;
   message: string;
   stack: string;
+  code: string;
 }
 
-async function errorHandleMiddleware(error: IError | any, res: Response) {
-  const status = error.status || 500;
+const errorHandleMiddleware = async (
+  error: IError,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
-    const errorMessage = error.message || 'Something went wrong';
+    const status = error.status || 500;
+    const errorMessage = error.message || error.code || 'Something went wrong';
     const errorStack = error.stack;
 
     const resBody = {
@@ -19,8 +25,8 @@ async function errorHandleMiddleware(error: IError | any, res: Response) {
     };
     res.status(status).send(resBody);
   } catch (err) {
-    res.status(status).send(err);
+    res.status(500).send(err);
   }
-}
+};
 
 export default errorHandleMiddleware;

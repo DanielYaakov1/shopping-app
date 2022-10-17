@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import errorHandleMiddleware from '../../middleware/errorHandle';
 import { requireAuth } from '../../middleware/requireAuth';
 import {
   loginFirebase,

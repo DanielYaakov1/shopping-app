@@ -2,9 +2,11 @@ import { FirebaseHandler } from '../handlers/FirebaseHandler';
 import { Request, Response, NextFunction } from 'express';
 import { AdminHandler } from '../handlers/admin-handler';
 
-export const checkUser = async (_req: Request, res: Response, next: NextFunction) => {
+export const checkUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    res.status(200).send(res.locals.user);
+    const adminHandler = new AdminHandler();
+    const checkIsAdmin = await adminHandler.getAdminByEmail(res.locals.user.email);
+    res.status(200).send({ uid: res.locals.user.uid, isAdmin: !!checkIsAdmin });
   } catch (err) {
     next(err);
   }
@@ -17,13 +19,11 @@ export const loginFirebase = async (req: Request, res: Response, next: NextFunct
     const adminHandler = new AdminHandler();
     const response = await authHandler.login(email, password);
     const userCredential = response;
-    const checkIsAdmin = (await adminHandler.getAdminByEmail(String(userCredential.user.email)))
-      ? true
-      : false;
+    const checkIsAdmin = await adminHandler.getAdminByEmail(String(userCredential.user.email));
     res.cookie('fbAuth', userCredential.token);
     res.header('authorization-bearer', userCredential.token);
-    res.send({ ...userCredential, isAdmin: checkIsAdmin });
-  } catch (err: any) {
+    res.send({ ...userCredential, isAdmin: !!checkIsAdmin });
+  } catch (err) {
     next(err);
   }
 };

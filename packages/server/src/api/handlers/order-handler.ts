@@ -5,8 +5,9 @@ export class OrderHandler {
   async getAllOrders(): Promise<IOrder[]> {
     return Orders.find().populate('items');
   }
-  async getOrderById(_id: string): Promise<IOrder | null> {
-    return Orders.findById(_id).populate('items');
+  async getOrderById(id: string): Promise<IOrder[]> {
+    //return Orders.findById(uid).populate('items');
+    return Orders.find({ uId: id }).populate('items');
   }
   async deleteOrder(id: string): Promise<IOrder | null> {
     return Orders.findByIdAndDelete(id);
