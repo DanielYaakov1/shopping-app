@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export interface IAuthenticator {
   login: (email: string, password: string) => Promise<IUser>;
   register: (email: string, password: string) => Promise<IUser>;

@@ -24,7 +24,7 @@ const PageNotFound = memo(() => {
           backgroundImage:
             'url("https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80")',
         }}
-        src={require('../assets/images/004.jpg')}
+        src={require('../../assets/images/004.jpg')}
         alt="404"
       />
     </div>

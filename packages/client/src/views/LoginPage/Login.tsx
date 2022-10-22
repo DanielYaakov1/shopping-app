@@ -2,19 +2,19 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { RootState } from '../store';
-import { setErrorMessage } from '../store/slices/registrationSlice';
+import { RootState } from '../../store';
+import { setErrorMessage } from '../../store/slices/registrationSlice';
 import {
   setAppAuthenticated,
   setLoginMode,
   setDisableSubmitButton,
-} from '../store/slices/appSlice';
-import { getValidationFunction, checkEmailIsValid } from '../services/ValidationHelper';
-import MyButton from '../components/Button/MyButton';
-import MyInput from '../components/Input/MyInput';
-import ActionsAuth from '../actions/auth';
-import { LoginStyledComponent } from '../assets/style/components/LoginStyled';
-import { setUser } from '../store/slices/userSlice';
+} from '../../store/slices/appSlice';
+import { getValidationFunction, checkEmailIsValid } from '../../services/ValidationHelper';
+import MyButton from '../../components/Button/MyButton';
+import MyInput from '../../components/Input/MyInput';
+import ActionsAuth from '../../actions/auth';
+import { LoginStyledComponent } from '../../assets/style/components/LoginStyled';
+import { setUser } from '../../store/slices/userSlice';
 
 export const Login = () => {
   const [email, setEmail] = useState('');

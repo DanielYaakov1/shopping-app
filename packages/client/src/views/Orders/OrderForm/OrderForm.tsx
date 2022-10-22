@@ -2,21 +2,21 @@ import Box from '@mui/material/Box';
 import { Dayjs } from 'dayjs';
 import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCheckoutOpen } from '../../store/slices/orderSlice';
+import { setCheckoutOpen } from '../../../store/slices/orderSlice';
 import { useCallback, useEffect, useState } from 'react';
-import MyButton from '../Button/MyButton';
-import { RootState } from '../../store/store';
-import { setDisableSubmitButton } from '../../store/slices/appSlice';
+import MyButton from '../../../components/Button/MyButton';
+import { RootState } from '../../../store/store';
+import { setDisableSubmitButton } from '../../../store/slices/appSlice';
 import {
   checkNotCharacters,
   checkNotNumbersOrSpecialCharacters,
-} from '../../services/ValidationHelper';
-import { cartInitialState, updateAllCartState } from '../../store/slices/cartSlice';
-import { createOrderAction } from '../../actions/OrdersAction';
+} from '../../../services/ValidationHelper';
+import { cartInitialState, updateAllCartState } from '../../../store/slices/cartSlice';
+import { createOrderAction } from '../../../actions/OrdersAction';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { checkGreaterNumberInArray } from '../../services/functions';
+import { checkGreaterNumberInArray } from '../../../services/functions';
 
 const OrderForm = () => {
   const isDisableButton = useSelector((state: RootState) => state.appReducer.isDisableSubmitButton);

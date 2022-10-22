@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import { useEffect } from 'react';
-import { getAllProductsAction, getProductPerPage } from '../../actions/ProductsAction';
+import { getAllProductsAction } from '../../actions/ProductsAction';
 import { setProduct } from '../../store/slices/ProductSlice';
 import { useDispatch } from 'react-redux';
 
@@ -27,15 +27,6 @@ export function MyPagination() {
     }
     fetchProductAndPage();
   }, [dispatch, currentPage]);
-
-  // useEffect(() => {
-  //   //move this line to app.tsx
-  //   async function fetchAllProducts() {
-  //     const products = await getAllProductsAction();
-  //     setProductsCount(products);
-  //   }
-  //   fetchAllProducts();
-  // }, []);
 
   const getCountPages = useCallback((): number => {
     const calculateNumberPagesDisplay = totalCountPage / limitProductsPerPage;

@@ -1,12 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useDispatch } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import CartItem from '../CartItem/CartItem';
-import { memo, useCallback } from 'react';
-import { addItemToCart, deleteItemFromCart, IItems } from '../../store/slices/cartSlice';
+import { memo } from 'react';
+import { IItems } from '../../store/slices/cartSlice';
 import { Button } from '@material-ui/core';
 import { setCheckoutOpen } from '../../store/slices/orderSlice';
-import { checkGreaterNumberInArray } from '../../services/functions';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -32,51 +30,57 @@ const useStyles = makeStyles(() =>
     },
   })
 );
+export type propsCart = {
+  items: IItems[];
+  totalAmount: number;
+  checkIfTheCardIsEmpty: () => boolean;
+  handleIncreaseItem: any;
+  handleDecreaseItem: any;
+  labelButtonCheckout: string;
+};
 
-const Cart = memo(() => {
-  const dispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.cartReducer.items);
-  const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
-  const checkIfTheCardIsEmpty = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
-  const handleIncreaseItem = useCallback(
-    (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
-    [dispatch]
-  );
-  const handleDecreaseItem = useCallback(
-    (id: string) => dispatch(deleteItemFromCart(id)),
-    [dispatch]
-  );
-  const classes = useStyles();
+const Cart = memo(
+  ({
+    items,
+    totalAmount,
+    checkIfTheCardIsEmpty,
+    handleIncreaseItem,
+    handleDecreaseItem,
+    labelButtonCheckout,
+  }: propsCart) => {
+    const dispatch = useDispatch();
+    const classes = useStyles();
 
-  return (
-    <div className={classes.cartItems}>
-      <ul className={classes.cartItemList}>
-        {items.map((item: IItems, i: number) => (
-          <CartItem
-            key={i}
-            name={item.name}
-            price={item.price}
-            amount={item.amount}
-            onAddToCart={handleIncreaseItem.bind(null, item)}
-            onRemoveToCart={handleDecreaseItem.bind(null, item._id)}
-          />
-        ))}
-      </ul>
-      <div className={classes.totalAmount}>
-        <span>Total Price: </span>
-        <span>{totalAmount.toFixed(2)}</span>
+    return (
+      <div className={classes.cartItems}>
+        <ul className={classes.cartItemList}>
+          {items.map((item: IItems, i: number) => (
+            <CartItem
+              key={i}
+              name={item.name}
+              price={item.price}
+              amount={item.amount}
+              onAddToCart={handleIncreaseItem.bind(null, item)}
+              onRemoveToCart={handleDecreaseItem.bind(null, item._id)}
+            />
+          ))}
+        </ul>
+        <div className={classes.totalAmount}>
+          <span>Total Price: </span>
+          <span>{totalAmount.toFixed(2)}</span>
+        </div>
+        {checkIfTheCardIsEmpty() ? (
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              dispatch(setCheckoutOpen(true));
+            }}>
+            {labelButtonCheckout}
+          </Button>
+        ) : null}
       </div>
-      {checkIfTheCardIsEmpty() ? (
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => {
-            dispatch(setCheckoutOpen(true));
-          }}>
-          GO TO THE CHECKOUT
-        </Button>
-      ) : null}
-    </div>
-  );
-});
+    );
+  }
+);
 export default Cart;

@@ -7,8 +7,10 @@ export const mongooseConnect = async () => {
   }
   try {
     await mongoose.connect(mongoUri);
+    // eslint-disable-next-line no-console
     console.log('connected to mongo db');
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err);
   }
 };

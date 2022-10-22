@@ -5,19 +5,28 @@ import CartIcon from '../CartIcon/CartIcon';
 import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { memo, useCallback, useState } from 'react';
-import { setCartModalOpen } from '../../store/slices/cartSlice';
-import OrderForm from '../OrderForm/OrderForm';
+import {
+  addItemToCart,
+  deleteItemFromCart,
+  IItems,
+  setCartModalOpen,
+} from '../../store/slices/cartSlice';
+import OrderForm from '../../views/Orders/OrderForm/OrderForm';
 import Input from '../Input/Input';
 import { getAllProductsAction, getProductByName } from '../../actions/ProductsAction';
 import { setProduct } from '../../store/slices/ProductSlice';
 import MyModal from '../MyModal/MyModal';
 import Cart from '../Cart/Cart';
+import { checkGreaterNumberInArray } from '../../services/functions';
 
 const Header = memo(() => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const isCartModalOpen = useSelector((state: RootState) => state.cartReducer.isCartModalOpen);
   const displayOrder = useSelector((state: RootState) => state.orderReducer.isCheckoutOpen);
+  const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
+  //const products = useSelector((state: RootState) => state.productReducer.products);
+  const checkIfTheCardIsEmpty = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
 
   const handleCartModal = useCallback(
     () => dispatch(setCartModalOpen(!isCartModalOpen)),
@@ -26,7 +35,6 @@ const Header = memo(() => {
   const numberCartItem = items.reduce((currentValue, item) => {
     return currentValue + item.amount;
   }, 0);
-  //const products = useSelector((state: RootState) => state.productReducer.products);
   const [searchProduct, setSearchProduct] = useState('');
 
   const handleSetSearch = useCallback(
@@ -41,6 +49,15 @@ const Header = memo(() => {
         dispatch(setProduct(products));
       }
     },
+    [dispatch]
+  );
+
+  const handleIncreaseItem = useCallback(
+    (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
+    [dispatch]
+  );
+  const handleDecreaseItem = useCallback(
+    (id: string) => dispatch(deleteItemFromCart(id)),
     [dispatch]
   );
 
@@ -74,7 +91,14 @@ const Header = memo(() => {
         </div>
       </HeaderStyle>
       <MyModal isModalOpen={isCartModalOpen} onClose={handleCartModal}>
-        <Cart />
+        <Cart
+          items={items}
+          totalAmount={totalAmount}
+          checkIfTheCardIsEmpty={checkIfTheCardIsEmpty}
+          handleIncreaseItem={handleIncreaseItem}
+          handleDecreaseItem={handleDecreaseItem}
+          labelButtonCheckout={'CHECK OUT'}
+        />
         {displayOrder && <OrderForm />}
       </MyModal>
     </div>

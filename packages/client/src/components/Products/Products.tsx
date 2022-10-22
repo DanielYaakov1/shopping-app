@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import Product, { IProductProps } from '../Product/Product';
 
 const Products = ({ products }: any) => {
@@ -9,7 +8,8 @@ const Products = ({ products }: any) => {
       price={product.price}
       image={product.image}
       description={product.description}
-      _id={product._id}></Product>
+      _id={product._id}
+    />
   ));
 };
 export default Products;

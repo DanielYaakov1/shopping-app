@@ -1,7 +1,8 @@
-import { IAuthenticator, IUser } from '../interfaces/interfaces';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
 import { auth } from '../../firebase';
 import { authAdmin } from '../../firebaseAdmin';
+import { IAuthenticator, IUser } from '../interfaces/interfaces';
 
 export class FirebaseHandler implements IAuthenticator {
   async login(email: string, password: string): Promise<IUser> {

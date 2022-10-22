@@ -26,7 +26,10 @@ export const productSlice = createSlice({
     resultProduct: (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
     },
+    setLoadingProducts(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
+    },
   },
 });
-export const { setProduct, addProduct, resultProduct } = productSlice.actions;
+export const { setProduct, addProduct, resultProduct, setLoadingProducts } = productSlice.actions;
 export const productReducer = productSlice.reducer;
