@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrderById } from '../../actions/OrdersAction';
-import { IShippingOrder } from '../../interfaces';
-import { IItems } from '../../store/slices/cartSlice';
-import { setOrders } from '../../store/slices/orderSlice';
-import { RootState } from '../../store/store';
-import CartItem from '../CartItem/CartItem';
+import { getOrderById } from '../../../actions/OrdersAction';
+import { IShippingOrder } from '../../../interfaces';
+import { setOrders } from '../../../store/slices/orderSlice';
+import { RootState } from '../../../store/store';
 
 export type Props = {
   className?: string;

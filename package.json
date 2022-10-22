@@ -41,6 +41,7 @@
     "@mui/icons-material": "^5.10.3",
     "@mui/x-date-pickers": "^5.0.2",
     "dayjs": "^1.11.5",
+    "firebase-admin": "^11.2.0",
     "react-responsive-carousel": "^3.2.23"
   }
 }
