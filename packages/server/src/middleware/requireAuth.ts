@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { authAdmin } from '../firebaseAdmin';
 
 export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
@@ -7,7 +8,6 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
   if (token) {
     try {
       const decodedToken = await authAdmin.verifyIdToken(token);
-      const { uid } = decodedToken;
       res.locals.user = decodedToken;
       next();
     } catch (err) {

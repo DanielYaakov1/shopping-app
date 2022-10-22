@@ -5,7 +5,7 @@ import { RootState } from './store';
 import ActionsAuth from './actions/auth';
 import Spinner from './components/Spinner/Spinner';
 import { getAllProductsAction } from './actions/ProductsAction';
-import { setProduct } from './store/slices/ProductSlice';
+import { setLoadingProducts, setProduct } from './store/slices/ProductSlice';
 
 function App() {
   const { checkTokenIsExpired } = ActionsAuth();
@@ -13,7 +13,6 @@ function App() {
   const getUser = useSelector((state: RootState) => state.userReducer.uid);
   const isLoading = useSelector((state: RootState) => state.appReducer.isLoading);
   const dispatch = useDispatch();
-  const isAdmin = useSelector((state: RootState) => state.userReducer.user?.isAdmin);
 
   useEffect(() => {
     checkTokenIsExpired();
@@ -21,8 +20,10 @@ function App() {
 
   useEffect(() => {
     async function fetchProductAndPage() {
+      dispatch(setLoadingProducts(true));
       const { products } = await getAllProductsAction();
       dispatch(setProduct(products));
+      dispatch(setLoadingProducts(false));
     }
     fetchProductAndPage();
   }, [dispatch, isLoading]);

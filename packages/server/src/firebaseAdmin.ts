@@ -1,5 +1,5 @@
-import { getAuth } from 'firebase-admin/auth';
 import admin from 'firebase-admin';
+import { getAuth } from 'firebase-admin/auth';
 
 const serviceAccountFile: string = require(`../apiKey.json`);
 

@@ -11,6 +11,7 @@ const errorHandleMiddleware = async (
   error: IError,
   req: Request,
   res: Response,
+  // eslint-disable-next-line no-unused-vars
   next: NextFunction
 ): Promise<void> => {
   try {

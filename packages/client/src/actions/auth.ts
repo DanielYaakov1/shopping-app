@@ -34,7 +34,6 @@ const ActionsAuth = () => {
           email: email,
           password: password,
         });
-        debugger;
         const data = await response.json();
         if (!response.ok) {
           dispatch(setErrorMessage(data.message || 'Something went wrong'));

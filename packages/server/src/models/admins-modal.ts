@@ -1,5 +1,6 @@
-import { IAdmin } from '../api/interfaces/interfaces';
 import mongoose from 'mongoose';
+
+import { IAdmin } from '../api/interfaces/interfaces';
 
 const adminsSchema = new mongoose.Schema({
   email: {

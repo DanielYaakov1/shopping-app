@@ -1,5 +1,6 @@
-import { IOrder } from './../api/interfaces/interfaces';
 import mongoose from 'mongoose';
+
+import { IOrder } from './../api/interfaces/interfaces';
 
 const orderSchema = new mongoose.Schema({
   city: {
