@@ -1,5 +1,5 @@
-import { setLoading } from '../store/slices/appSlice';
 import { Product } from './../interfaces/Product.interface';
+import { setLoading } from '../store/slices/appSlice';
 import { useDispatch } from 'react-redux';
 //import { getProductByName } from './../../../server/src/api/controllers/products-controller';
 

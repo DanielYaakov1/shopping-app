@@ -1,5 +1,6 @@
-import { SortOrder } from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
+import { SortOrder } from 'mongoose';
+
 import { Products } from '../../models/products-model';
 import { ProductHandler } from '../handlers/product-handler';
 

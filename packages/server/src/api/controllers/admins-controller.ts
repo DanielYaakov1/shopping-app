@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+
 import { AdminHandler } from '../handlers/admin-handler';
 
 export const checkIsAdmin = async (req: Request, res: Response, next: NextFunction) => {

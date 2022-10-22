@@ -1,6 +1,7 @@
-import { FirebaseHandler } from '../handlers/FirebaseHandler';
 import { Request, Response, NextFunction } from 'express';
+
 import { AdminHandler } from '../handlers/admin-handler';
+import { FirebaseHandler } from '../handlers/FirebaseHandler';
 
 export const checkUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
