@@ -17,7 +17,7 @@ import { getAllProductsAction, getProductByName } from '../../actions/ProductsAc
 import { setProduct } from '../../store/slices/ProductSlice';
 import MyModal from '../MyModal/MyModal';
 import Cart from '../Cart/Cart';
-import { checkGreaterNumberInArray } from '../../services/functions';
+import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
 
 const Header = memo(() => {
   const dispatch = useDispatch();
@@ -90,7 +90,7 @@ const Header = memo(() => {
           </ul>
         </div>
       </HeaderStyle>
-      <MyModal isModalOpen={isCartModalOpen} onClose={handleCartModal}>
+      <MyModal closeBtnName="X" isModalOpen={isCartModalOpen} onClose={handleCartModal}>
         <Cart
           items={items}
           totalAmount={totalAmount}

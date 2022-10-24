@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import Card from '../Card/Card';
-import ProductForm from '../ProductForm/ProductForm';
+import ProductForm from '../../views/Product/ProductForm';
 import { addItemToCart } from '../../store/slices/cartSlice';
 import { useCallback } from 'react';
 
@@ -30,8 +30,15 @@ export const useStyles = makeStyles((theme) => ({
   description: {
     color: theme.palette.primary.light,
     fontStyle: 'italic',
-    maxWidth: '100%',
-    maxHeight: 'auto',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    width: '100%',
+    '&:hover': {
+      wordWrap: 'break-word',
+      overflow: 'visible',
+      whiteSpace: 'normal',
+    },
   },
   price: {
     color: theme.palette.primary.light,
@@ -56,7 +63,7 @@ export interface IProductProps {
   description?: string;
   image?: string;
   price: number;
-  _id?: string | number;
+  _id?: string;
 }
 
 const Product = ({ name, description, price, image, _id }: IProductProps) => {
