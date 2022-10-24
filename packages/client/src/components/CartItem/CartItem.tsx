@@ -29,7 +29,6 @@ const useStyles = makeStyles(() =>
         backgroundColor: '#8a2b06',
       },
     },
-
     summary: {
       width: '10rem',
       display: ' flex',

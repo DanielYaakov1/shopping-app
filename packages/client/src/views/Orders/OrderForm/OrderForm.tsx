@@ -10,15 +10,16 @@ import { setDisableSubmitButton } from '../../../store/slices/appSlice';
 import {
   checkNotCharacters,
   checkNotNumbersOrSpecialCharacters,
-} from '../../../services/ValidationHelper';
+} from '../../../utils/helpers/validation.helper';
 import { cartInitialState, updateAllCartState } from '../../../store/slices/cartSlice';
-import { createOrderAction } from '../../../actions/OrdersAction';
+import ActionsOrder from '../../../actions/OrdersAction';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { checkGreaterNumberInArray } from '../../../services/functions';
+import { checkGreaterNumberInArray } from '../../../utils/helpers/array.helpers';
 
 const OrderForm = () => {
+  const { createOrder } = ActionsOrder();
   const isDisableButton = useSelector((state: RootState) => state.appReducer.isDisableSubmitButton);
   const items = useSelector((state: RootState) => state.cartReducer.items);
   const uidCreateTheOrder = useSelector((state: RootState) => state.userReducer.uid);
@@ -54,7 +55,7 @@ const OrderForm = () => {
     //submit form order (create POST request to backend + change modal state + update all cart state after submit form )
     async (event: { preventDefault: () => void }) => {
       event.preventDefault();
-      await createOrderAction({
+      await createOrder({
         city,
         street,
         zipCode,
