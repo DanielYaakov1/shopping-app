@@ -1,7 +1,7 @@
 import { memo, useCallback, useRef, useState } from 'react';
-import IconDrawer from '../IconDrawer/IconDrawer';
+import IconDrawer from '../../components/IconDrawer/IconDrawer';
 
-const ProductForm = memo((props: { onAddToCart: any; id: any }) => {
+const ProductForm = memo((props: { onAddToCart: any; id: string | undefined }) => {
   const { onAddToCart, id } = props;
   const amountInputRef = useRef<HTMLInputElement | any>();
   const [amountIsValid, setAmountIsValid] = useState(true);

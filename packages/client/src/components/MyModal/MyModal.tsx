@@ -7,9 +7,10 @@ export type props = {
   isModalOpen: boolean;
   onClose?: (() => void) | undefined;
   children: React.ReactNode;
+  closeBtnName: string;
 };
 
-const MyModal = memo(({ isModalOpen, onClose, children }: props) => {
+const MyModal = memo(({ isModalOpen, onClose, children, closeBtnName }: props) => {
   return (
     <Modal
       open={isModalOpen}
@@ -17,7 +18,7 @@ const MyModal = memo(({ isModalOpen, onClose, children }: props) => {
       aria-describedby="modal-modal-description"
       draggable={true}>
       <Box sx={style}>
-        <button onClick={onClose}>X</button>
+        <button onClick={onClose}>{closeBtnName}</button>
         {children}
       </Box>
     </Modal>

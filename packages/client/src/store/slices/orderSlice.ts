@@ -27,7 +27,7 @@ export const orderSlice = createSlice({
     setOrders(state, action: PayloadAction<IShippingOrder[]>) {
       state.orders = action.payload;
     },
-    setLoading(state, action: PayloadAction<boolean>) {
+    setLoadingOrder(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
     },
     setDidOrderSubmit(state, action: PayloadAction<boolean>) {
@@ -41,7 +41,7 @@ export const orderSlice = createSlice({
 export const {
   setCheckoutOpen,
   setOrders,
-  setLoading,
+  setLoadingOrder,
   setDidOrderSubmit,
   setDidOrderSuccessfully,
 } = orderSlice.actions;

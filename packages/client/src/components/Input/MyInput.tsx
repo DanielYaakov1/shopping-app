@@ -11,6 +11,7 @@ export type MyInputProps = {
   handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checkInputValueIsValid?: ((userInputValue: string) => boolean) | null;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  errMessage: string;
 };
 
 const MyInput = memo(
@@ -22,6 +23,7 @@ const MyInput = memo(
     required,
     label,
     checkInputValueIsValid,
+    errMessage,
   }: MyInputProps) => {
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -33,10 +35,10 @@ const MyInput = memo(
         if (isAllValueValid && value) {
           setErrorMessage('');
         } else {
-          setErrorMessage('The pattern you entered is invalid');
+          setErrorMessage(errMessage);
         }
       },
-      [checkInputValueIsValid, value, setErrorMessage]
+      [checkInputValueIsValid, value, errMessage]
     );
 
     return (
