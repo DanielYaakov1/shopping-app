@@ -9,7 +9,7 @@ import {
   setLoginMode,
   setDisableSubmitButton,
 } from '../../store/slices/appSlice';
-import { getValidationFunction, checkEmailIsValid } from '../../services/ValidationHelper';
+import { getValidationFunction, checkEmailIsValid } from '../../utils/helpers/validation.helper';
 import MyButton from '../../components/Button/MyButton';
 import MyInput from '../../components/Input/MyInput';
 import ActionsAuth from '../../actions/auth';
@@ -79,12 +79,14 @@ export const Login = () => {
             label={'Email'}
             placeholder={'example@ex.com'}
             checkInputValueIsValid={getValidationFunction('email')}
+            errMessage={'The email you entered is invalid'}
           />
           <MyInput
             type="password"
             value={password}
             handleChangeValue={(e) => setPassword(e.target.value)}
             label={'Password'}
+            errMessage={'Password should be in 6 latchets!'}
           />
           <div>
             don't have an account? <span onClick={switchLoginModeHandler}>click here</span>
