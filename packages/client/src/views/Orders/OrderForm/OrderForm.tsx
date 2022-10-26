@@ -22,6 +22,7 @@ const OrderForm = () => {
   const { createOrder } = ActionsOrder();
   const isDisableButton = useSelector((state: RootState) => state.appReducer.isDisableSubmitButton);
   const items = useSelector((state: RootState) => state.cartReducer.items);
+  const totalPrice = useSelector((state: RootState) => state.cartReducer.totalAmount);
   const uidCreateTheOrder = useSelector((state: RootState) => state.userReducer.uid);
   const dispatch = useDispatch();
   const [city, setCity] = useState('');
@@ -62,11 +63,22 @@ const OrderForm = () => {
         items: checkItemIdAddedToCart(),
         shippingDate,
         uId: uidCreateTheOrder,
+        totalPrice: totalPrice,
       });
       dispatch(setCheckoutOpen(false));
       dispatch(updateAllCartState(cartInitialState));
     },
-    [city, dispatch, checkItemIdAddedToCart, shippingDate, street, uidCreateTheOrder, zipCode]
+    [
+      createOrder,
+      city,
+      street,
+      zipCode,
+      checkItemIdAddedToCart,
+      shippingDate,
+      uidCreateTheOrder,
+      dispatch,
+      totalPrice,
+    ]
   );
 
   return checkCartItemsCount() ? (

@@ -36,6 +36,10 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  totalPrice: {
+    type: Number,
+    required: [true, 'Orders totalPrice is missing'],
+  },
 });
 
 export const Orders = mongoose.model<IOrder>('orders', orderSchema);
