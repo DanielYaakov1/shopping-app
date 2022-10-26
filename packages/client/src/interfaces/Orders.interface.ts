@@ -7,4 +7,5 @@ export interface IShippingOrder {
   items: string[];
   shippingDate?: null | object;
   uId: string | undefined;
+  totalPrice: number;
 }
