@@ -2,19 +2,29 @@ import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export type MainNavigationProps = {
-  label: string;
+  navLinks: any;
+};
+export type propsArray = {
   to: string;
-  exact?: boolean;
-  isActive?: boolean;
-  activeClassName?: string;
-  activeStyle?: string;
+  activeClassName: string;
+  exact: boolean;
+  label: string;
 };
 
-const MainNavigation = memo(({ label, to, activeClassName, exact }: MainNavigationProps) => {
-  return (
-    <NavLink to={to} activeClassName={activeClassName} exact={exact}>
-      {label}
-    </NavLink>
-  );
+const MainNavigation = memo(({ navLinks }: MainNavigationProps) => {
+  return navLinks.map((element: propsArray, index: number) => {
+    return (
+      <NavLink
+        key={index}
+        style={{
+          padding: 5,
+        }}
+        to={element.to}
+        activeClassName={element.activeClassName}
+        exact={element.exact}>
+        {element.label}
+      </NavLink>
+    );
+  });
 });
 export default MainNavigation;

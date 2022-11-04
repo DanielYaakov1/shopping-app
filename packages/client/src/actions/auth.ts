@@ -2,7 +2,7 @@ import { setStorageApi, getStorageApi } from './../services/storageApi';
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setErrorMessage } from '../store/slices/registrationSlice';
-import { setAppAuthenticated, setLoading } from '../store/slices/appSlice';
+import { setAppAuthenticated, setLoadingApp } from '../store/slices/appSlice';
 import { setUser, IUser } from '../store/slices/userSlice';
 import { useHistory } from 'react-router-dom';
 
@@ -55,7 +55,7 @@ const ActionsAuth = () => {
   const checkTokenIsExpired = useCallback(async () => {
     //The function checks if the user has an active token, if not it takes the user to the login screen
     try {
-      dispatch(setLoading(true));
+      dispatch(setLoadingApp(true));
       const response = await fetch('/api/v1/auth/check-token-expired');
       const user = (await response.json()) as IUser;
       if (response.status !== 200) {
@@ -63,12 +63,12 @@ const ActionsAuth = () => {
         //dispatch(setErrorMessage(user.message.code));
         setGetUser(false);
         dispatch(setAppAuthenticated(response.ok));
-        dispatch(setLoading(false));
+        dispatch(setLoadingApp(false));
         return history.replace('/login');
       }
       dispatch(setAppAuthenticated(response.ok));
       dispatch(setUser({ ...user }));
-      dispatch(setLoading(false));
+      dispatch(setLoadingApp(false));
     } catch (err) {
       console.log(err);
     } finally {

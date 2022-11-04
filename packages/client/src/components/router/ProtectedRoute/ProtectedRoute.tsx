@@ -1,9 +1,9 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import HomePage from '../../../views/HomePage/HomePage';
-import Login from '../../../views/LoginPage/Login';
+import Login from '../../../views/LoginPage/LoginPage';
 import PageNotFound from '../../../views/PageNotFound/PageNotFound';
 import Header from '../../Header/Header';
-import Order from '../../../views/Orders/OrderPage/OrderPage';
+import Orders from '../../../views/Orders/OrderPage/OrderPage';
 
 export const LoggedInRouter = () => {
   return (
@@ -17,7 +17,7 @@ export const LoggedInRouter = () => {
           <Redirect to={'/'} />
         </Route>
         <Route exact path={'/Orders'}>
-          <Order />
+          <Orders />
         </Route>
         <Route exact path={'*'}>
           <PageNotFound />
