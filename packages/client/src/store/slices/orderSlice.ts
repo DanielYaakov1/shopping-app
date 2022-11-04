@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IOrder {
   isCheckoutOpen: boolean;
-  isLoading: boolean;
+  isLoadingOrders: boolean;
   orders: IShippingOrder[];
   didOrderSubmit: boolean;
   didOrderSuccessfully: boolean;
@@ -11,7 +11,7 @@ export interface IOrder {
 
 const initialState: IOrder = {
   isCheckoutOpen: false,
-  isLoading: false,
+  isLoadingOrders: false,
   orders: [],
   didOrderSubmit: false,
   didOrderSuccessfully: false,
@@ -28,7 +28,7 @@ export const orderSlice = createSlice({
       state.orders = action.payload;
     },
     setLoadingOrder(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
+      state.isLoadingOrders = action.payload;
     },
     setDidOrderSubmit(state, action: PayloadAction<boolean>) {
       state.didOrderSubmit = action.payload;

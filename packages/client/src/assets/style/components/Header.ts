@@ -28,6 +28,8 @@ export const HeaderStyle = styled.header`
     li {
       margin-left: 1.5rem;
       font-size: 1.25rem;
+      padding: 5px;
+      margin: 5px;
     }
 
     a {

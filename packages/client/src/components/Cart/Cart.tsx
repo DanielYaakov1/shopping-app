@@ -1,35 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import CartItem from '../CartItem/CartItem';
 import { memo } from 'react';
 import { IItems } from '../../store/slices/cartSlice';
 import { Button } from '@material-ui/core';
-import { setCheckoutOpen } from '../../store/slices/orderSlice';
+import { cartStyles } from '../../assets/style/components/cartStyles';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    totalAmount: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyItems: 'space-between',
-      fontWeight: 'bold',
-      fontSize: '1.5rem',
-      margin: '1rem 0',
-      color: '#4e4c4b',
-    },
-    cartItems: {
-      listStyle: 'none',
-      margin: 0,
-      padding: 0,
-      maxHeight: '20rem',
-      overflow: 'scroll',
-    },
-    cartItemList: {
-      listStyleType: 'none',
-      color: '#4e4c4b',
-    },
-  })
-);
 export type propsCart = {
   items: IItems[];
   totalAmount: number;
@@ -37,6 +12,7 @@ export type propsCart = {
   handleIncreaseItem: any;
   handleDecreaseItem: any;
   labelButtonCheckout: string;
+  onClickCheckOutButton: () => void;
 };
 
 const Cart = memo(
@@ -47,9 +23,9 @@ const Cart = memo(
     handleIncreaseItem,
     handleDecreaseItem,
     labelButtonCheckout,
+    onClickCheckOutButton,
   }: propsCart) => {
-    const dispatch = useDispatch();
-    const classes = useStyles();
+    const classes = cartStyles();
 
     return (
       <div className={classes.cartItems}>
@@ -61,7 +37,7 @@ const Cart = memo(
               price={item.price}
               amount={item.amount}
               onAddToCart={handleIncreaseItem.bind(null, item)}
-              onRemoveToCart={handleDecreaseItem.bind(null, item._id)}
+              onRemoveToCart={handleDecreaseItem.bind(null, item.productId)}
             />
           ))}
         </ul>
@@ -70,12 +46,7 @@ const Cart = memo(
           <span>{totalAmount.toFixed(2)}</span>
         </div>
         {checkIfTheCardIsEmpty() ? (
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => {
-              dispatch(setCheckoutOpen(true));
-            }}>
+          <Button variant="outlined" color="primary" onClick={onClickCheckOutButton}>
             {labelButtonCheckout}
           </Button>
         ) : null}

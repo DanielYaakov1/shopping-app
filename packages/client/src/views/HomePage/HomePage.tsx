@@ -1,15 +1,16 @@
-import ProductGrid from '../../components/ProductGrid/ProductGrid';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import DataGrid from '../../components/DataGrid/DataGrid';
 import { makeStyles } from '@material-ui/core/styles';
-import MyCarousel from '../../components/MyCarousel/MyCarousel';
-import Image from '../../components/MyCarousel/Image';
-import ps5Image from '../../assets/images/sony5.avif';
-import microImage from '../../assets/images/microware.avif';
-import sonyTvImage from '../../assets/images/sony_tv.avif';
 import Spinner from '../../components/Spinner/Spinner';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import Products from '../../components/Products/Products';
+import { addItemToCart } from '../../store/slices/cartSlice';
+import { useCallback, useEffect } from 'react';
+import ProductsActions from '../../actions/ProductsActions';
+import { setProduct } from '../../store/slices/ProductSlice';
+import Images from '../../components/ImageSlider/Images';
+import ImageSlider from '../../components/ImageSlider/ImageSlider';
+import ProductForm from '../ProductForm/ProductForm';
 
 export const useStyles = makeStyles((theme) => ({
   img: {
@@ -28,25 +29,75 @@ export const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
-  const isLoadingProducts = useSelector((state: RootState) => state.productReducer.isLoading);
-  const products = useSelector((state: RootState) => state.productReducer.products);
-  console.log(isLoadingProducts);
+  const { isLoadingProducts, products } = useSelector((state: RootState) => state.productReducer);
+  const dispatch = useDispatch();
+  const { getAllProducts } = ProductsActions();
 
+  const fetchProductAndPage = useCallback(async () => {
+    const { products } = await getAllProducts();
+    dispatch(setProduct(products));
+    return products;
+    //NOT adding getAllProducts to the dependencies enters a loop
+  }, [dispatch]);
+
+  const handleAddToCart1 = useCallback(
+    (amount: string) => {
+      dispatch(addItemToCart({ amount }));
+      console.log('add to cart');
+    },
+    [dispatch]
+  );
+
+  //reference to a good function that should receive the values
+  const handleAddToCart = useCallback(
+    (productId: string, amount: string, price: number, name: string) => {
+      debugger;
+      dispatch(addItemToCart({ productId, amount, price, name }));
+      debugger;
+      console.log('add to cart');
+    },
+    [dispatch]
+  );
+
+  const handleAddToCart2 = useCallback(
+    (productId: string, amount: string, price: number, name: string) => {
+      dispatch(addItemToCart({ productId, amount, price, name }));
+      console.log('add to cart');
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    fetchProductAndPage();
+  }, [fetchProductAndPage]);
   return (
     <div>
-      <MyCarousel>
-        <Image img={classes.img} src={ps5Image} altName={'test'} />
-        <Image img={classes.img} src={microImage} altName={'test'} />
-        <Image img={classes.img} src={sonyTvImage} altName={'test'} />
-      </MyCarousel>
-      {!isLoadingProducts ? (
-        <ProductGrid className={classes.grid}>
-          {products.length > 0 ? <Products products={products} /> : "There isn't Products"}
-        </ProductGrid>
-      ) : (
+      <ImageSlider
+        settings={{
+          infinite: true,
+          dots: true,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          lazyLoad: true,
+          autoplay: true,
+          autoplaySpeed: 2000,
+        }}
+        images={Images}
+      />
+      {isLoadingProducts ? (
         <Spinner />
+      ) : (
+        <DataGrid>
+          {products.length > 0 ? (
+            <Products products={products} onAddToCartClicked={handleAddToCart}></Products>
+          ) : (
+            "There isn't Products"
+          )}
+        </DataGrid>
       )}
     </div>
   );
 };
 export default HomePage;
+
+//<ProductForm onAddToCart={handleAddToCart2} id={'123'} />

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IAppState {
   isConnected?: boolean;
-  isLoading: boolean;
+  isLoadingApp: boolean;
   isErrorMessage: string;
   isLoginMode: boolean;
   isDisableSubmitButton: boolean;
@@ -11,7 +11,7 @@ export interface IAppState {
 }
 const initialState: IAppState = {
   isErrorMessage: '',
-  isLoading: true,
+  isLoadingApp: true,
   isDisableSubmitButton: true,
   isLoginMode: true,
   isDarkModeTheme: false,
@@ -35,13 +35,13 @@ export const appSlice = createSlice({
       state.isDisableSubmitButton = action.payload;
     },
 
-    setLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
+    setLoadingApp(state, action: PayloadAction<boolean>) {
+      state.isLoadingApp = action.payload;
     },
   },
 });
 export const {
-  setLoading,
+  setLoadingApp,
   setErrorMessage,
   setLoginMode,
   setAppAuthenticated,
