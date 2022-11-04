@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IItems {
-  _id: string;
   name: string;
   price: number;
   description: string;
   image: string;
   amount: number;
+  productId: string;
 }
 
 export interface ICart {
@@ -26,8 +26,9 @@ export const cartSlice = createSlice({
   initialState: cartInitialState,
   reducers: {
     addItemToCart(state, { payload: product }) {
+      debugger;
       const newTotalAmount = state.totalAmount + product.price * product.amount;
-      const existCartItemIndex = state.items.findIndex((i) => i._id === product._id);
+      const existCartItemIndex = state.items.findIndex((i) => i.productId === product.productId);
       const existCartItem = state.items[existCartItemIndex];
       let updateItems;
       if (existCartItem) {
@@ -40,16 +41,17 @@ export const cartSlice = createSlice({
       } else {
         updateItems = state.items.concat(product);
       }
+
       state.items = updateItems;
       state.totalAmount = newTotalAmount;
     },
-    deleteItemFromCart(state, { payload: _id }) {
-      const existCartItemIndex = state.items.findIndex((item) => item._id === _id);
+    deleteItemFromCart(state, { payload: productId }) {
+      const existCartItemIndex = state.items.findIndex((item) => item.productId === productId);
       const existCartItem = state.items[existCartItemIndex];
       const updatedTotalAmount = state.totalAmount - existCartItem.price;
       let updateItems;
       if (existCartItem.amount === 1) {
-        updateItems = state.items.filter((item) => item._id !== _id);
+        updateItems = state.items.filter((item) => item.productId !== productId);
       } else {
         const updateItem = { ...existCartItem, amount: existCartItem.amount - 1 };
         updateItems = [...state.items];

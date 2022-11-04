@@ -13,21 +13,22 @@ import {
 } from '../../store/slices/cartSlice';
 import OrderForm from '../../views/Orders/OrderForm/OrderForm';
 import Input from '../Input/Input';
-import { getAllProductsAction, getProductByName } from '../../actions/ProductsAction';
+import ProductsActions from '../../actions/ProductsActions';
 import { setProduct } from '../../store/slices/ProductSlice';
 import MyModal from '../MyModal/MyModal';
 import Cart from '../Cart/Cart';
 import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
+import { setCheckoutOpen } from '../../store/slices/orderSlice';
+import navLinks from './NavLinks';
 
 const Header = memo(() => {
   const dispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.cartReducer.items);
-  const isCartModalOpen = useSelector((state: RootState) => state.cartReducer.isCartModalOpen);
-  const displayOrder = useSelector((state: RootState) => state.orderReducer.isCheckoutOpen);
-  const totalAmount = useSelector((state: RootState) => state.cartReducer.totalAmount);
-  //const products = useSelector((state: RootState) => state.productReducer.products);
+  const { getAllProducts, getProductByName } = ProductsActions();
+  const { items, isCartModalOpen, totalAmount } = useSelector(
+    (state: RootState) => state.cartReducer
+  );
+  const displayOrderForm = useSelector((state: RootState) => state.orderReducer.isCheckoutOpen);
   const checkIfTheCardIsEmpty = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
-
   const handleCartModal = useCallback(
     () => dispatch(setCartModalOpen(!isCartModalOpen)),
     [dispatch, isCartModalOpen]
@@ -45,11 +46,11 @@ const Header = memo(() => {
         const searchResults = await getProductByName(searchValue);
         dispatch(setProduct(searchResults));
       } else {
-        const { products } = await getAllProductsAction();
+        const { products } = await getAllProducts();
         dispatch(setProduct(products));
       }
     },
-    [dispatch]
+    [dispatch, getAllProducts, getProductByName]
   );
 
   const handleIncreaseItem = useCallback(
@@ -76,13 +77,7 @@ const Header = memo(() => {
         <div className="header__nav">
           <ul>
             <li>
-              <MainNavigation label={'Home'} activeClassName={'activeLink'} to={'/'} exact={true} />
-            </li>
-            <li>
-              <MainNavigation activeClassName={'activeLink'} label={'About'} to={'/about'} />
-            </li>
-            <li>
-              <MainNavigation activeClassName={'activeLink'} label={'Orders'} to={'/Orders'} />
+              <MainNavigation navLinks={navLinks} />
             </li>
             <li>
               <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} />
@@ -98,8 +93,11 @@ const Header = memo(() => {
           handleIncreaseItem={handleIncreaseItem}
           handleDecreaseItem={handleDecreaseItem}
           labelButtonCheckout={'CHECK OUT'}
+          onClickCheckOutButton={() => {
+            dispatch(setCheckoutOpen(true));
+          }}
         />
-        {displayOrder && <OrderForm />}
+        {displayOrderForm && <OrderForm />}
       </MyModal>
     </div>
   );

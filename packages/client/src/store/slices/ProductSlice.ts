@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Product } from '../../interfaces';
 
 export interface IProduct {
-  isLoading: boolean;
+  isLoadingProducts: boolean;
   products: Product[];
   resultSearch: Product[];
 }
@@ -10,7 +10,7 @@ export interface IProduct {
 const initialState: IProduct = {
   products: [],
   resultSearch: [],
-  isLoading: false,
+  isLoadingProducts: false,
 };
 
 export const productSlice = createSlice({
@@ -27,7 +27,7 @@ export const productSlice = createSlice({
       state.products = action.payload;
     },
     setLoadingProducts(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
+      state.isLoadingProducts = action.payload;
     },
   },
 });
