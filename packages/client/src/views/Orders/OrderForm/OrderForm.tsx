@@ -12,17 +12,16 @@ import {
   checkNotNumbersOrSpecialCharacters,
 } from '../../../utils/helpers/validation.helper';
 import { cartInitialState, updateAllCartState } from '../../../store/slices/cartSlice';
-import ActionsOrder from '../../../actions/OrdersAction';
+import ActionsOrders from '../../../actions/OrdersActions';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { checkGreaterNumberInArray } from '../../../utils/helpers/array.helpers';
 
 const OrderForm = () => {
-  const { createOrder } = ActionsOrder();
+  const { createOrder } = ActionsOrders();
   const isDisableButton = useSelector((state: RootState) => state.appReducer.isDisableSubmitButton);
-  const items = useSelector((state: RootState) => state.cartReducer.items);
-  const totalPrice = useSelector((state: RootState) => state.cartReducer.totalAmount);
+  const { items, totalAmount } = useSelector((state: RootState) => state.cartReducer);
   const uidCreateTheOrder = useSelector((state: RootState) => state.userReducer.uid);
   const dispatch = useDispatch();
   const [city, setCity] = useState('');
@@ -35,7 +34,7 @@ const OrderForm = () => {
   const checkCartItemsCount = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
 
   const checkItemIdAddedToCart = useCallback((): string[] => {
-    return items.map((item) => item._id);
+    return items.map((item) => item.productId);
   }, [items]);
 
   useEffect(() => {
@@ -63,7 +62,7 @@ const OrderForm = () => {
         items: checkItemIdAddedToCart(),
         shippingDate,
         uId: uidCreateTheOrder,
-        totalPrice: totalPrice,
+        totalPrice: totalAmount,
       });
       dispatch(setCheckoutOpen(false));
       dispatch(updateAllCartState(cartInitialState));
@@ -76,8 +75,8 @@ const OrderForm = () => {
       checkItemIdAddedToCart,
       shippingDate,
       uidCreateTheOrder,
+      totalAmount,
       dispatch,
-      totalPrice,
     ]
   );
 
