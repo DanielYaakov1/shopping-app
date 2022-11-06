@@ -1,4 +1,4 @@
-import { propsArray } from '../MainNavigation/MainNavigation';
+import { propsArray } from '../../components/MainNavigation/MainNavigation';
 
 const navLinks: any = [
   {

@@ -14,26 +14,28 @@ export function CardOrder(props: {
 }) {
   return (
     <div>
-      {props.orders.map((order: IShippingOrder, i: number) => (
-        <div key={i} className={props.classes.card}>
+      {props.orders.map((order: IShippingOrder, index: number) => (
+        <div key={index} className={props.classes.card}>
           <div className={props.classes.cardTop}>
             <div>Order Created: {order.createdAt}</div>
             <div>Total Price:{order.totalPrice}</div>
             <div>Ship To: {order.city + order.street}</div>
             <div>Order Number: XXX</div>
           </div>
-          <div className={props.classes.cardContent}>
-            {order.items.map((item: any, index: number) => (
-              <Product
-                key={index}
-                _id={''}
-                name={item.name}
-                image={item.image}
-                price={item.price}
-                productId={''}
-                description={item.description}
-              />
-            ))}
+          <div>
+            <div className={props.classes.cardContent}>
+              Items
+              {order.items.map((item: any, index: number) => (
+                <Product
+                  key={index}
+                  _id={item._id}
+                  name={item.name}
+                  image={item.image}
+                  price={item.price}
+                  description={item.description}
+                />
+              ))}
+            </div>
           </div>
           <div className={props.classes.cardFooter}>
             <div>description: test should be text here</div>

@@ -26,7 +26,6 @@ export const cartSlice = createSlice({
   initialState: cartInitialState,
   reducers: {
     addItemToCart(state, { payload: product }) {
-      debugger;
       const newTotalAmount = state.totalAmount + product.price * product.amount;
       const existCartItemIndex = state.items.findIndex((i) => i.productId === product.productId);
       const existCartItem = state.items[existCartItemIndex];

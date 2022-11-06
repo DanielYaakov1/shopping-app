@@ -7,6 +7,7 @@ export interface IOrder {
   orders: IShippingOrder[];
   didOrderSubmit: boolean;
   didOrderSuccessfully: boolean;
+  isErrorOrder: string;
 }
 
 const initialState: IOrder = {
@@ -15,6 +16,7 @@ const initialState: IOrder = {
   orders: [],
   didOrderSubmit: false,
   didOrderSuccessfully: false,
+  isErrorOrder: '',
 };
 
 export const orderSlice = createSlice({
@@ -36,6 +38,9 @@ export const orderSlice = createSlice({
     setDidOrderSuccessfully(state, action: PayloadAction<boolean>) {
       state.didOrderSuccessfully = action.payload;
     },
+    setErrorOrder(state, action: PayloadAction<string>) {
+      state.isErrorOrder = action.payload;
+    },
   },
 });
 export const {
@@ -44,5 +49,6 @@ export const {
   setLoadingOrder,
   setDidOrderSubmit,
   setDidOrderSuccessfully,
+  setErrorOrder,
 } = orderSlice.actions;
 export const orderReducer = orderSlice.reducer;
