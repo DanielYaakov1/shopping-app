@@ -5,12 +5,14 @@ export interface IProduct {
   isLoadingProducts: boolean;
   products: Product[];
   resultSearch: Product[];
+  setErrorMessageInProducts: string;
 }
 
 const initialState: IProduct = {
   products: [],
   resultSearch: [],
   isLoadingProducts: false,
+  setErrorMessageInProducts: '',
 };
 
 export const productSlice = createSlice({
@@ -29,7 +31,16 @@ export const productSlice = createSlice({
     setLoadingProducts(state, action: PayloadAction<boolean>) {
       state.isLoadingProducts = action.payload;
     },
+    setErrorMessageInProducts(state, action: PayloadAction<string>) {
+      state.setErrorMessageInProducts = action.payload;
+    },
   },
 });
-export const { setProduct, addProduct, resultProduct, setLoadingProducts } = productSlice.actions;
+export const {
+  setProduct,
+  addProduct,
+  resultProduct,
+  setLoadingProducts,
+  setErrorMessageInProducts,
+} = productSlice.actions;
 export const productReducer = productSlice.reducer;

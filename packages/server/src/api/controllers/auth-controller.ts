@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { AdminHandler } from '../handlers/admin-handler';
 import { FirebaseHandler } from '../handlers/FirebaseHandler';
 
-export const checkUser = async (req: Request, res: Response, next: NextFunction) => {
+export const checkIsAdminUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const adminHandler = new AdminHandler();
     const checkIsAdmin = await adminHandler.getAdminByEmail(res.locals.user.email);

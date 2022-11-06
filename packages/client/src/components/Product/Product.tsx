@@ -1,5 +1,3 @@
-import Card from '../Card/Card';
-import ProductForm from '../../views/ProductForm/ProductForm';
 import { ProductStyles } from '../../assets/style/components/ProductStyles';
 
 export interface IProductProps {
@@ -10,23 +8,9 @@ export interface IProductProps {
   description?: string;
   image: string;
   price: number;
-  productId: string;
-  onAddToCartClicked?: (productId: string, amount: number, price: number, name: string) => void;
-  classes1?: {
-    cardContent: string;
-  };
 }
 
-const Product = ({
-  name,
-  description,
-  price,
-  image,
-  productId,
-  onClick,
-  onAddToCartClicked,
-  classes1,
-}: IProductProps) => {
+const Product = ({ name, description, price, image }: IProductProps) => {
   const classes = ProductStyles();
 
   return (

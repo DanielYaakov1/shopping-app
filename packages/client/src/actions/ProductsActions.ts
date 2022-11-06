@@ -1,29 +1,35 @@
 import { Product } from '../interfaces/Product.interface';
 import { useDispatch } from 'react-redux';
-import { setLoadingProducts } from '../store/slices/ProductSlice';
+import { setErrorMessageInProducts, setLoadingProducts } from '../store/slices/ProductSlice';
+import { ROUTES } from '../utils/constants';
+import HttpService from '../services/httpService';
 //import { getProductByName } from './../../../server/src/api/controllers/products-controller';
 
 const ProductsActions = () => {
   const dispatch = useDispatch();
+  const { requestProtectedRoute } = HttpService();
 
   const getAllProducts = async (skip?: number, productPerPage?: number) => {
     try {
       dispatch(setLoadingProducts(true));
-      const response = await fetch(`/api/v1/products?skip=${skip}&limit=${productPerPage}`);
-      const resData = await response.json();
-      dispatch(setLoadingProducts(false));
-      return resData;
+      const response = await requestProtectedRoute(
+        `${ROUTES.PRODUCTS_API}?skip=${skip}&limit=${productPerPage}`
+      );
+      return response;
     } catch (err) {
-      throw err;
+      dispatch(setErrorMessageInProducts(err as string));
+    } finally {
+      dispatch(setLoadingProducts(false));
     }
   };
 
   const getProductAction = () => {};
 
   const createProductAction = async () => {
+    //TODO : Move this end point to new http hook
     try {
       dispatch(setLoadingProducts(true));
-      const response = await fetch('/api/v1/products', {
+      const response = await fetch(ROUTES.PRODUCTS_API, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,12 +56,12 @@ const ProductsActions = () => {
   const getProductByName = async (value: string) => {
     try {
       dispatch(setLoadingProducts(true));
-      const response = await fetch(`/api/v1/products/${value}`);
-      const resData = await response.json();
-      dispatch(setLoadingProducts(false));
-      return resData;
+      const response = await requestProtectedRoute(`${ROUTES.PRODUCTS_API}/${value}`);
+      return response;
     } catch (err) {
-      console.log(err);
+      dispatch(setErrorMessageInProducts(err as string));
+    } finally {
+      dispatch(setLoadingProducts(false));
     }
   };
 

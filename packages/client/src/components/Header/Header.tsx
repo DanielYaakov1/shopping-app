@@ -19,7 +19,7 @@ import MyModal from '../MyModal/MyModal';
 import Cart from '../Cart/Cart';
 import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
 import { setCheckoutOpen } from '../../store/slices/orderSlice';
-import navLinks from './NavLinks';
+import navLinks from '../../assets/style/NavLinks';
 
 const Header = memo(() => {
   const dispatch = useDispatch();
