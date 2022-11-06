@@ -6,7 +6,6 @@ import { setOrders } from '../../../store/slices/orderSlice';
 import { RootState } from '../../../store/store';
 import { CardOrder } from '../../../components/CardOrder/CardOrder';
 import { OrdersStyle } from '../../../assets/style/components/OrdersStyle';
-import DataGrid from '../../../components/DataGrid/DataGrid';
 
 export type Props = {
   className?: string;
@@ -16,14 +15,14 @@ export type Props = {
 const OrderPage = ({ className, children }: Props) => {
   const classes = OrdersStyle();
   const dispatch = useDispatch();
-  const { getOrderById } = OrdersActions();
+  const { getOrderByUserId } = OrdersActions();
   const userId = useSelector((state: RootState) => state.userReducer.uid);
   const { orders, isLoadingOrders } = useSelector((state: RootState) => state.orderReducer);
 
   const fetchOrdersByUserId = useCallback(async () => {
-    const { orders } = await getOrderById(userId);
+    const { orders } = await getOrderByUserId(userId);
     dispatch(setOrders(orders));
-    console.log(orders, 'this is all orders');
+    //console.log(orders, 'this is all orders');
   }, [dispatch, userId]);
 
   useEffect(() => {
@@ -33,7 +32,6 @@ const OrderPage = ({ className, children }: Props) => {
   return (
     <div>
       <h1>Orders</h1>
-      {/* {isLoadingOrders ? <Spinner /> : <CardOrder classes={classes} orders={orders} />} */}
       {isLoadingOrders ? <Spinner /> : <CardOrder classes={classes} orders={orders} />}
     </div>
   );
