@@ -1,17 +1,9 @@
 import { memo } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { dataGridStyles } from '../../assets/style/components/dataGridStyles';
 
 export type dataGridProps = {
   children?: React.ReactNode;
 };
-
-export const dataGridStyles = makeStyles((theme) => ({
-  grid: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignContent: 'space-around',
-  },
-}));
 
 const DataGrid = memo(({ children }: dataGridProps) => {
   const classes = dataGridStyles();

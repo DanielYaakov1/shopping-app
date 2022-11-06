@@ -11,7 +11,7 @@ import {
   checkNotCharacters,
   checkNotNumbersOrSpecialCharacters,
 } from '../../../utils/helpers/validation.helper';
-import { cartInitialState, updateAllCartState } from '../../../store/slices/cartSlice';
+import { cartInitialState, IItems, updateAllCartState } from '../../../store/slices/cartSlice';
 import ActionsOrders from '../../../actions/OrdersActions';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -34,11 +34,11 @@ const OrderForm = () => {
   const checkCartItemsCount = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
 
   const checkItemIdAddedToCart = useCallback((): string[] => {
-    return items.map((item) => item.productId);
+    return items.map((item: IItems, index: number) => item.productId);
   }, [items]);
 
   useEffect(() => {
-    //check validation for all fields + change submit button state according to validation fields
+    //NOTE:check validation for all fields + change submit button state according to validation fields
     const validationOfAllOrderFields =
       validationCity && validationStreet && validationZipCode && shippingDate?.isValid();
     dispatch(setDisableSubmitButton(validationOfAllOrderFields ? false : true));
@@ -52,7 +52,7 @@ const OrderForm = () => {
   ]);
 
   const submitHandler = useCallback(
-    //submit form order (create POST request to backend + change modal state + update all cart state after submit form )
+    //NOTE:form order (create POST request to backend + change modal state + update all cart state after submit form )
     async (event: { preventDefault: () => void }) => {
       event.preventDefault();
       await createOrder({

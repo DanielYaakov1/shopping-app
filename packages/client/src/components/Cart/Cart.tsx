@@ -30,9 +30,9 @@ const Cart = memo(
     return (
       <div className={classes.cartItems}>
         <ul className={classes.cartItemList}>
-          {items.map((item: IItems, i: number) => (
+          {items.map((item: IItems, index: number) => (
             <CartItem
-              key={i}
+              key={index}
               name={item.name}
               price={item.price}
               amount={item.amount}

@@ -1,7 +1,7 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { makeStyles } from '@material-ui/core/styles';
+import { imageSliderStyles } from '../../assets/style/components/imageSliderStyles';
 
 export type ItemSliderProps = {
   src: string;
@@ -10,22 +10,13 @@ export type ItemSliderProps = {
   id: number;
 };
 
-export const useStyles = makeStyles((theme) => ({
-  imgSlider: {
-    '& img': {
-      height: 500,
-      width: '100%',
-      backgroundSize: 'contain',
-    },
-  },
-}));
 export type ImageSliderProps = {
   images: any;
   settings: any;
 };
 
 const ImageSlider = ({ images, settings }: ImageSliderProps) => {
-  const classes = useStyles();
+  const classes = imageSliderStyles();
   return (
     <div className={classes.imgSlider}>
       <Slider {...settings}>
