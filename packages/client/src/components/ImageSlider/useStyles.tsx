@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const imageSliderStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   imgSlider: {
     '& img': {
       height: 500,

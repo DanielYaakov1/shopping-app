@@ -1,4 +1,4 @@
-import { setStorageApi, getStorageApi } from './../services/storageApi';
+import { setStorageApi } from './../services/storageApi';
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setErrorMessage } from '../store/slices/registrationSlice';
@@ -10,34 +10,27 @@ import { ROUTES } from '../utils/constants';
 
 const ActionsAuth = () => {
   const dispatch = useDispatch();
-  const { fetcher } = useHttp();
+  const { httpRequest } = useHttp();
+
   const history = useHistory();
   const [getUser, setGetUser] = useState(true);
 
   const loginFirebase = useCallback(
     async (email: string, password: string, params: string) => {
       try {
-        const url = `${ROUTES.AUTHORIZATION_API}/${params}`;
-        const response = await fetcher(url, 'POST', {
+        debugger;
+        const response = await httpRequest(`${ROUTES.AUTHORIZATION_API}/${params}`, 'POST', {
           email: email,
           password: password,
         });
-        const data = await response.json();
-        if (!response.ok) {
-          dispatch(setErrorMessage(data.message || 'Something went wrong'));
-          return data;
-        }
-        setStorageApi('token', data.token);
-        return data;
-      } catch (error) {
-        if (error instanceof Error) {
-          console.log(error, 'this is the error');
-          dispatch(setErrorMessage(error.message));
-          return error;
-        }
+        setStorageApi('token', response.token);
+        return response;
+      } catch (error: any) {
+        dispatch(setErrorMessage(error.message));
+        throw error;
       }
     },
-    [dispatch]
+    [dispatch, httpRequest]
   );
 
   const checkTokenIsExpired = useCallback(async () => {
@@ -57,7 +50,7 @@ const ActionsAuth = () => {
     } catch (err) {
       console.log(err);
     } finally {
-      //dispatch(setLoading(false));
+      //dispatch(setLoadingApp(false));
     }
   }, [dispatch, history]);
 
