@@ -1,7 +1,7 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { imageSliderStyles } from '../../assets/style/components/imageSliderStyles';
+import { useStyles } from './useStyles';
 
 export type ItemSliderProps = {
   src: string;
@@ -16,7 +16,7 @@ export type ImageSliderProps = {
 };
 
 const ImageSlider = ({ images, settings }: ImageSliderProps) => {
-  const classes = imageSliderStyles();
+  const classes = useStyles();
   return (
     <div className={classes.imgSlider}>
       <Slider {...settings}>
