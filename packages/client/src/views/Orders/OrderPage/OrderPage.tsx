@@ -22,8 +22,7 @@ const OrderPage = ({ className, children }: Props) => {
   const fetchOrdersByUserId = useCallback(async () => {
     const { orders } = await getOrderByUserId(userId);
     dispatch(setOrders(orders));
-    //console.log(orders, 'this is all orders');
-  }, [dispatch, userId]);
+  }, [dispatch, userId, getOrderByUserId]);
 
   useEffect(() => {
     fetchOrdersByUserId();

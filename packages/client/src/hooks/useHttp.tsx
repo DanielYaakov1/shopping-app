@@ -1,26 +1,37 @@
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getStorageApi } from '../services/storageApi';
+import { setAppAuthenticated, setLoadingApp } from '../store/slices/appSlice';
+import axios from 'axios';
 
 const useHttp = () => {
-  const httpRequest = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
-    try {
-      if (body) {
-        body = JSON.stringify(body);
-        headers['Content-Type'] = 'application/json';
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const httpRequest = useCallback(
+    async (url, method = 'GET', data = null, headers = {}) => {
+      try {
+        if (data) {
+          data = JSON.stringify(data);
+          headers['Content-Type'] = 'application/json';
+        }
+        const response = await axios({ url, method, data, headers });
+        const resData = await response.data;
+        return resData;
+      } catch (err: any) {
+        if (err.response.status === 401) {
+          dispatch(setAppAuthenticated(false));
+          dispatch(setLoadingApp(false));
+          history.push('/login');
+        }
+        throw err;
+      } finally {
+        //TODO: set all loaders to false
       }
-      const response = await fetch(url, { method, body, headers });
-      const resData = await response.json();
-      if (!response.ok) {
-        throw new Error(resData.error.message || 'Something went wrong');
-      }
-      return resData;
-    } catch (err) {
-      console.log(err);
-      throw new Error(err as string);
-    } finally {
-      //TODO: set all loaders to false
-    }
-  }, []);
+    },
+    [dispatch, history]
+  );
   const clearError = useCallback(() => {}, []);
 
   const fetcher = (url: string, method = 'GET', body?: Record<string, any>) => {

@@ -11,4 +11,5 @@ export enum ROUTES {
   HOME_PAGE = '/',
   PAGE_NOT_FOUND = '*',
   AUTHORIZATION_API = '/api/v1/auth',
+  PAGINATION_API = '/api/v1/products/get-products-count',
 }
