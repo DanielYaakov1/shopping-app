@@ -8,7 +8,7 @@ export interface IMagesSlider {
   alt: string;
 }
 
-const Images: any = [
+const Images: IMagesSlider[] = [
   {
     id: 1,
     src: ps5Image,
@@ -21,6 +21,11 @@ const Images: any = [
   },
   {
     id: 3,
+    src: sonyTvImage,
+    alt: 'Image 3',
+  },
+  {
+    id: 4,
     src: sonyTvImage,
     alt: 'Image 3',
   },

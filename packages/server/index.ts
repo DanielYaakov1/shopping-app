@@ -9,6 +9,7 @@ import { ordersRouter } from './src/api/routes/orders-router';
 import { productsRouter } from './src/api/routes/products-router';
 import { mongooseConnect } from './src/db/mongooseConnect';
 import errorHandleMiddleware from './src/middleware/errorHandle';
+import { verifyToken } from './src/middleware/verifyToken';
 
 const port = process.env.SHOPPING_APP_PORT;
 const app = express();
@@ -16,9 +17,9 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/products', productsRouter);
-app.use('/api/v1/orders', ordersRouter);
-app.use('/api/v1/admins', adminRouter);
+app.use('/api/v1/products', verifyToken, productsRouter);
+app.use('/api/v1/orders', verifyToken, ordersRouter);
+app.use('/api/v1/admins', verifyToken, adminRouter);
 
 app.use(errorHandleMiddleware);
 

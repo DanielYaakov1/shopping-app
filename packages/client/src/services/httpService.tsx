@@ -18,8 +18,8 @@ const HttpService = () => {
       }
       const resData = await httpRequest(url);
       return resData;
-    } catch (err) {
-      throw new Error(err as string);
+    } catch (err: any) {
+      throw new Error(err);
     }
   };
 

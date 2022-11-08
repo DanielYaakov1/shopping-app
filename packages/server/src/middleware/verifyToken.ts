@@ -7,17 +7,14 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     try {
       const decodedToken = await authAdmin.verifyIdToken(token);
       if (decodedToken) {
-        res.send({
-          verifyToken: true,
-        });
+        next();
       }
     } catch (err) {
-      res.status(403).send({ verifyToken: false });
+      res.status(401).send({ verifyToken: false });
     }
   } else {
-    res.status(403).send({
+    res.status(401).send({
       message: "We couldn't find a token. Please sign in.",
     });
   }
-  next();
 };

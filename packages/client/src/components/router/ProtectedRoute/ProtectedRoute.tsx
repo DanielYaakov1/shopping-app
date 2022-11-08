@@ -34,6 +34,9 @@ export const PublicRouter = () => {
         <Route exact path={'/login'}>
           <Login />
         </Route>
+        <Route exact path={'*'}>
+          <Redirect to={'/login'} />
+        </Route>
       </Switch>
     </>
   );

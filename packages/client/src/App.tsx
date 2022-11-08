@@ -9,6 +9,7 @@ function App() {
   const { checkTokenIsExpired } = ActionsAuth();
   const { isLoadingApp, isAppAuthenticated } = useSelector((state: RootState) => state.appReducer);
   const getUser = useSelector((state: RootState) => state.userReducer.uid);
+  console.log(getUser, 'this is the get user');
 
   useEffect(() => {
     checkTokenIsExpired();
