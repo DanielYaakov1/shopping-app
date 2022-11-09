@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IItems {
-  _id: string;
   name: string;
   price: number;
   description: string;
   image: string;
   amount: number;
+  productId: string;
 }
 
 export interface ICart {
@@ -15,7 +15,7 @@ export interface ICart {
   isCartModalOpen: boolean;
 }
 
-const initialState: ICart = {
+export const cartInitialState: ICart = {
   items: [],
   totalAmount: 0,
   isCartModalOpen: false,
@@ -23,11 +23,11 @@ const initialState: ICart = {
 
 export const cartSlice = createSlice({
   name: 'cart',
-  initialState,
+  initialState: cartInitialState,
   reducers: {
     addItemToCart(state, { payload: product }) {
       const newTotalAmount = state.totalAmount + product.price * product.amount;
-      const existCartItemIndex = state.items.findIndex((i) => i._id === product._id);
+      const existCartItemIndex = state.items.findIndex((i) => i.productId === product.productId);
       const existCartItem = state.items[existCartItemIndex];
       let updateItems;
       if (existCartItem) {
@@ -40,16 +40,17 @@ export const cartSlice = createSlice({
       } else {
         updateItems = state.items.concat(product);
       }
+
       state.items = updateItems;
       state.totalAmount = newTotalAmount;
     },
-    deleteItemFromCart(state, { payload: _id }) {
-      const existCartItemIndex = state.items.findIndex((item) => item._id === _id);
+    deleteItemFromCart(state, { payload: productId }) {
+      const existCartItemIndex = state.items.findIndex((item) => item.productId === productId);
       const existCartItem = state.items[existCartItemIndex];
       const updatedTotalAmount = state.totalAmount - existCartItem.price;
       let updateItems;
       if (existCartItem.amount === 1) {
-        updateItems = state.items.filter((item) => item._id !== _id);
+        updateItems = state.items.filter((item) => item.productId !== productId);
       } else {
         const updateItem = { ...existCartItem, amount: existCartItem.amount - 1 };
         updateItems = [...state.items];
@@ -61,10 +62,16 @@ export const cartSlice = createSlice({
     setCartModalOpen(state, action: PayloadAction<boolean>) {
       state.isCartModalOpen = action.payload;
     },
-    setItems(state, action: PayloadAction<any>) {
+    setItems(state, action: PayloadAction<IItems[]>) {
       state.items = action.payload;
+    },
+    updateAllCartState(state, action: PayloadAction<ICart>) {
+      state.items = action.payload.items;
+      state.totalAmount = action.payload.totalAmount;
+      state.isCartModalOpen = action.payload.isCartModalOpen;
     },
   },
 });
-export const { addItemToCart, deleteItemFromCart, setCartModalOpen, setItems } = cartSlice.actions;
+export const { addItemToCart, deleteItemFromCart, setCartModalOpen, setItems, updateAllCartState } =
+  cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

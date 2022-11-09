@@ -1,4 +1,5 @@
 import { SortOrder } from 'mongoose';
+
 import { Products } from '../../models/products-model';
 import { IProductProps } from '../interfaces/interfaces';
 
