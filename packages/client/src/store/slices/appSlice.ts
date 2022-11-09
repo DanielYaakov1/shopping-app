@@ -1,20 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface User {
-  uid: string;
-  email: string;
-  displayName: string;
-  photoURL: string;
-  token: string;
-  id: string;
-  message: string;
-  code: string;
-}
-
 export interface IAppState {
   isConnected?: boolean;
-  user?: User;
-  isLoading: boolean;
+  isLoadingApp: boolean;
   isErrorMessage: string;
   isLoginMode: boolean;
   isDisableSubmitButton: boolean;
@@ -23,7 +11,7 @@ export interface IAppState {
 }
 const initialState: IAppState = {
   isErrorMessage: '',
-  isLoading: false,
+  isLoadingApp: true,
   isDisableSubmitButton: true,
   isLoginMode: true,
   isDarkModeTheme: false,
@@ -46,14 +34,17 @@ export const appSlice = createSlice({
     setDisableSubmitButton: (state, action: PayloadAction<boolean>) => {
       state.isDisableSubmitButton = action.payload;
     },
-    setUser(state, action: PayloadAction<User>) {
-      state.user = action.payload;
-    },
-    setLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
+
+    setLoadingApp(state, action: PayloadAction<boolean>) {
+      state.isLoadingApp = action.payload;
     },
   },
 });
-export const { setLoading, setErrorMessage, setLoginMode, setAppAuthenticated, setDisableSubmitButton, setUser } =
-  appSlice.actions;
+export const {
+  setLoadingApp,
+  setErrorMessage,
+  setLoginMode,
+  setAppAuthenticated,
+  setDisableSubmitButton,
+} = appSlice.actions;
 export const appReducer = appSlice.reducer;
