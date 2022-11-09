@@ -1,3 +1,6 @@
 node_modules
 .vscode
-
+vscode
+packages/server/apiKey
+.env
+.packages/server/.env

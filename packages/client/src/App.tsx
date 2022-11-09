@@ -3,23 +3,23 @@ import { LoggedInRouter, PublicRouter } from './components/router';
 import { useSelector } from 'react-redux';
 import { RootState } from './store';
 import ActionsAuth from './actions/auth';
-import Spinner from './components/generic/Spinner';
+import Spinner from './components/Spinner/Spinner';
 
 function App() {
   const { checkTokenIsExpired } = ActionsAuth();
-  const appAuthenticated = useSelector((state: RootState) => state.appReducer.isAppAuthenticated);
-  const getUser = useSelector((state: RootState) => state.appReducer.user);
-  const isLoading = useSelector((state: RootState) => state.appReducer.isLoading);
+  const { isLoadingApp, isAppAuthenticated } = useSelector((state: RootState) => state.appReducer);
+  const getUser = useSelector((state: RootState) => state.userReducer.uid);
+  console.log(getUser, 'this is the get user');
 
   useEffect(() => {
     checkTokenIsExpired();
   }, [checkTokenIsExpired]);
 
-  if (isLoading) {
-    return <Spinner></Spinner>;
+  if (isLoadingApp) {
+    return <Spinner />;
   }
 
-  return getUser && appAuthenticated ? <LoggedInRouter /> : <PublicRouter />;
+  return getUser && isAppAuthenticated ? <LoggedInRouter /> : <PublicRouter />;
 }
 
 export default App;

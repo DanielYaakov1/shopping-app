@@ -1,5 +1,6 @@
-import { IOrder } from './../api/interfaces/interfaces';
 import mongoose from 'mongoose';
+
+import { IOrder } from './../api/interfaces/interfaces';
 
 const orderSchema = new mongoose.Schema({
   city: {
@@ -9,6 +10,10 @@ const orderSchema = new mongoose.Schema({
   street: {
     type: String,
     required: [true, 'Orders street is missing'],
+  },
+  uId: {
+    type: String,
+    required: [true, 'uId is missing'],
   },
   zipCode: {
     type: Number,
@@ -23,13 +28,17 @@ const orderSchema = new mongoose.Schema({
     required: [true, 'Orders date is missing'],
   },
   items: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: 'products',
     required: [true, 'Orders Items is missing'],
   },
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  totalPrice: {
+    type: Number,
+    required: [true, 'Orders totalPrice is missing'],
   },
 });
 

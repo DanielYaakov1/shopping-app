@@ -1,13 +1,15 @@
-import type { Request, Response, NextFunction } from 'express';
-import { auth } from '../../firebase';
+import { Request, Response, NextFunction } from 'express';
+
+import { AdminHandler } from '../handlers/admin-handler';
 import { FirebaseHandler } from '../handlers/FirebaseHandler';
 
-export const checkUser = async (req: Request, res: Response, next: NextFunction) => {
+export const checkIsAdminUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    res.status(200).send(res.locals.user);
+    const adminHandler = new AdminHandler();
+    const checkIsAdmin = await adminHandler.getAdminByEmail(res.locals.user.email);
+    res.status(200).send({ uid: res.locals.user.uid, isAdmin: !!checkIsAdmin });
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
 
@@ -15,16 +17,15 @@ export const loginFirebase = async (req: Request, res: Response, next: NextFunct
   try {
     const { email, password } = req.body;
     const authHandler = new FirebaseHandler();
+    const adminHandler = new AdminHandler();
     const response = await authHandler.login(email, password);
     const userCredential = response;
+    const checkIsAdmin = await adminHandler.getAdminByEmail(String(userCredential.user.email));
     res.cookie('fbAuth', userCredential.token);
     res.header('authorization-bearer', userCredential.token);
-    res.send(userCredential);
-  } catch (err: any) {
+    res.send({ ...userCredential, isAdmin: !!checkIsAdmin });
+  } catch (err) {
     next(err);
-    console.log(err);
-    //next({ status: err.statusCode, ...err });
-    //res.send(err);
   }
 };
 
@@ -39,7 +40,6 @@ export const signupFirebase = async (req: Request, res: Response, next: NextFunc
     res.send(userCredential);
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
 
@@ -51,6 +51,5 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
     res.send(response);
   } catch (err) {
     next(err);
-    //res.send(err);
   }
 };
