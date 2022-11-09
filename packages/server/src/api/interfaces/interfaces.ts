@@ -1,11 +1,14 @@
+/* eslint-disable no-unused-vars */
 export interface IAuthenticator {
   login: (email: string, password: string) => Promise<IUser>;
   register: (email: string, password: string) => Promise<IUser>;
 }
 
 export type IUser = {
-  token?: string;
-  id: string;
+  token: string;
+  uid: string;
+  user: any;
+  isAdmin?: boolean;
 };
 
 export interface IProductProps {
@@ -25,4 +28,10 @@ export interface IOrder {
   description?: string;
   destinationDate?: Date;
   createdAt?: Date;
+  uid?: string;
+}
+
+export interface IAdmin {
+  uid: string;
+  email: string;
 }

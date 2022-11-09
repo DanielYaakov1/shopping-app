@@ -1,10 +1,16 @@
 import { Router } from 'express';
 import { requireAuth } from '../../middleware/requireAuth';
-import { loginFirebase, signupFirebase, checkAuth, checkUser } from '../controllers/auth-controller';
+import {
+  loginFirebase,
+  signupFirebase,
+  checkAuth,
+  checkIsAdminUser,
+} from '../controllers/auth-controller';
 
 export const authRouter = Router();
 
 authRouter.post('/login', loginFirebase);
+authRouter.post('/login1', loginFirebase);
 authRouter.post('/signup', signupFirebase);
 authRouter.post('/check-auth', checkAuth);
-authRouter.get('/check-token-expired', requireAuth, checkUser);
+authRouter.get('/check-token-expired', requireAuth, checkIsAdminUser);

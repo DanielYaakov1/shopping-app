@@ -1,26 +1,33 @@
-import { NextFunction, Request, Response } from 'express';
+import { Response, NextFunction, Request } from 'express';
 
 interface IError {
   status: number;
   message: string;
-  stack: any;
+  stack: string;
+  code: string;
 }
 
-async function errorHandleMiddleware(error: IError, request: Request, res: Response, next: NextFunction) {
-  const status = error.status || 500;
+const errorHandleMiddleware = async (
+  error: IError,
+  req: Request,
+  res: Response,
+  // eslint-disable-next-line no-unused-vars
+  next: NextFunction
+): Promise<void> => {
   try {
-    const errorMessage = error.message || 'Something went wrong';
+    const status = error.status || 500;
+    const errorMessage = error.message || error.code || 'Something went wrong';
     const errorStack = error.stack;
 
-    let resBody = {
+    const resBody = {
       status: status,
       message: errorMessage,
       stack: errorStack,
     };
     res.status(status).send(resBody);
   } catch (err) {
-    res.status(status).send(err);
+    res.status(500).send(err);
   }
-}
+};
 
 export default errorHandleMiddleware;

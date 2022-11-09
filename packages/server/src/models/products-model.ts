@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import { IProductProps } from '../api/interfaces/interfaces';
 
 const productSchema = new mongoose.Schema({
