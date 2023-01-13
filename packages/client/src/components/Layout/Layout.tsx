@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { LayoutStyle } from '../../assets/style/components/Layout';
+import useStyles from './useStyles';
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -8,7 +8,12 @@ export type LayoutProps = {
 };
 
 const Layout = memo(({ children }: LayoutProps) => {
-  return <LayoutStyle>{children}</LayoutStyle>;
+  const classes = useStyles();
+  return (
+    <div>
+      <div className={classes.root}>{children}</div>
+    </div>
+  );
 });
 
 export default Layout;
