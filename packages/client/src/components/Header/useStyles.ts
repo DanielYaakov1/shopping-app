@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import imageHeader from '../../../assets/images/logoHeader.jpg';
 
 export const HeaderStyle = styled.header`
   display: flex;
@@ -8,7 +7,6 @@ export const HeaderStyle = styled.header`
   padding: 0.5rem;
   background: #333;
   color: #fff;
-  background-image: url(${imageHeader});
   background-size: cover;
   background-repeat: no-repeat;
   .header__logo {

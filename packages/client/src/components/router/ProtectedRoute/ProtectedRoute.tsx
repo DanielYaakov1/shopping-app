@@ -1,8 +1,8 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
-import HomePage from '../../../views/HomePage/HomePage';
-import Login from '../../../views/LoginPage/LoginPage';
+import HomePage from '../../../views/HomePage';
+import Login from '../../../views/LoginPage';
 import PageNotFound from '../../../views/PageNotFound/PageNotFound';
-import Header from '../../Header/Header';
+import Header from '../../Header';
 import Orders from '../../../views/Orders/OrderPage/OrderPage';
 
 export const LoggedInRouter = () => {

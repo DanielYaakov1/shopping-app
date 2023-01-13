@@ -1,9 +1,9 @@
 import ProductForm from '../../views/ProductForm/ProductForm';
 import Product, { IProductProps } from '../Product/Product';
-import { ProductStyles } from '../../assets/style/components/ProductStyles';
+import useStyles from '../Product/useStyles';
 
 const ProductsDetailsCard = ({ products, onAddToCartClicked }: any) => {
-  const classes = ProductStyles();
+  const classes = useStyles();
 
   return products.map((product: IProductProps, i: number) => (
     <div className={classes.card}>

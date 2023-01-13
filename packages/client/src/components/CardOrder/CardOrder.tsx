@@ -1,7 +1,7 @@
 import { IShippingOrder } from '../../interfaces';
-import Product from '../Product/Product';
+import Product from '../Product';
 
-export function CardOrder(props: {
+const CardOrder = (props: {
   orders: IShippingOrder[];
   classes: {
     card: string;
@@ -11,7 +11,7 @@ export function CardOrder(props: {
     cardName: string;
     cardFooter: string;
   };
-}) {
+}) => {
   return (
     <div>
       {props.orders.map((order: IShippingOrder, index: number) => (
@@ -19,8 +19,12 @@ export function CardOrder(props: {
           <div className={props.classes.cardTop}>
             <div>Order Created: {order.createdAt}</div>
             <div>Total Price:{order.totalPrice}</div>
-            <div>Ship To: {order.city + order.street}</div>
-            <div>Order Number: XXX</div>
+            <div>
+              Delivery to:
+              <div>City:{order.city}</div>
+              <div>Street:{order.city}</div>
+            </div>
+            <div>Order Number: {order.amount}</div>
           </div>
           <div>
             <div className={props.classes.cardContent}>
@@ -39,18 +43,12 @@ export function CardOrder(props: {
           </div>
           <div className={props.classes.cardFooter}>
             <div>description: test should be text here</div>
+            <div>Shipping Date: {order.shippingDate}</div>
           </div>
         </div>
       ))}
     </div>
   );
-}
+};
 
-// <div className={props.classes.cardContent}>
-//   <div className={props.classes.cardImage}>
-//     <img alt={item.name} src={item.image}></img>
-//   </div>
-//   <div className={props.classes.cardName}>{item.name}</div>
-//   <div>Amount:X</div>
-//   <div className={props.classes.cardName}>price:{item.price}</div>
-// </div>
+export default CardOrder;
