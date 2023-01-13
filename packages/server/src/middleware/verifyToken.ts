@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { authAdmin } from '../firebaseAdmin';
+import { authAdmin } from '../config/firebase/firebaseAdmin';
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies?.fbAuth;

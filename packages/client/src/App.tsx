@@ -3,7 +3,7 @@ import { LoggedInRouter, PublicRouter } from './components/router';
 import { useSelector } from 'react-redux';
 import { RootState } from './store';
 import ActionsAuth from './actions/auth';
-import Spinner from './components/Spinner/Spinner';
+import Spinner from './components/Spinner';
 
 function App() {
   const { checkTokenIsExpired } = ActionsAuth();
