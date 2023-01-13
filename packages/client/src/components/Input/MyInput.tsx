@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useState, useCallback } from 'react';
-import { Input } from '../../assets/style/components/Input';
+import { InputStyle } from './useStyles';
 
 export type MyInputProps = {
   value: string;
@@ -44,7 +44,7 @@ const MyInput = memo(
     return (
       <div>
         {label}
-        <Input
+        <InputStyle
           value={value}
           onChange={(e) => {
             handleChangeValue(e);
