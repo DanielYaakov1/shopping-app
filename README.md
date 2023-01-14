@@ -8,7 +8,7 @@ Frameworks
 The frontend of the app is built using the React framework, which allows for building complex user interfaces using a component-based approach. The backend of the app is built using the Node.js framework, which allows for building fast and scalable server-side applications.
 
 Setup
-To run the app locally, you will need to have Node.js and npm (the Node.js package manager) installed on your machine.
+To run the app locally, you will need to have Node.js and npm (the Node.js package manager) installed on your machine..
 
 Clone the repository: git clone https://github.com/<username>/shopping-app.git
 Install the dependencies: npm install
