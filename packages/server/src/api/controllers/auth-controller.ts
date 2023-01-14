@@ -1,5 +1,5 @@
+import { AwsCognitoHandler } from './../handlers/awsCognito-handler';
 import { Request, Response, NextFunction } from 'express';
-
 import { AdminHandler } from '../handlers/admin-handler';
 import { FirebaseHandler } from '../handlers/FirebaseHandler';
 
@@ -48,6 +48,45 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
     const { id } = req.body;
     const authHandler = new FirebaseHandler();
     const response = await authHandler.checkAuth(id);
+    res.send(response);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const signupCognito = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { Username, Password } = req.body;
+    const authHandler = new AwsCognitoHandler();
+    const response = await authHandler.register(Username, Password);
+    const userCredential = response;
+    //res.cookie('fbAuth', userCredential.token);
+    res.header('authorization-bearer', userCredential.UserSub);
+    res.send(userCredential);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const loginCognito = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { USERNAME, PASSWORD } = req.body;
+    const authHandler = new AwsCognitoHandler();
+    const response = await authHandler.login(USERNAME, PASSWORD);
+    const userCredential = response;
+    //res.cookie('fbAuth', userCredential.token);
+    res.header('authorization-bearer', userCredential.token);
+    res.send({ ...userCredential, isAdmin: true });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const confirmSignupCognito = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { Username, ConfirmationCode } = req.body;
+    const authHandler = new AwsCognitoHandler();
+    const response = await authHandler.confirmSignup(Username, ConfirmationCode);
     res.send(response);
   } catch (err) {
     next(err);

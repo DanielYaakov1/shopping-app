@@ -1,9 +1,8 @@
-import { useDispatch } from 'react-redux';
-import CartItem from '../CartItem/CartItem';
+import CartItem from '../CartItem';
 import { memo } from 'react';
 import { IItems } from '../../store/slices/cartSlice';
 import { Button } from '@material-ui/core';
-import { cartStyles } from '../../assets/style/components/cartStyles';
+import { useStyles } from './useStyles';
 
 export type propsCart = {
   items: IItems[];
@@ -25,7 +24,7 @@ const Cart = memo(
     labelButtonCheckout,
     onClickCheckOutButton,
   }: propsCart) => {
-    const classes = cartStyles();
+    const classes = useStyles();
 
     return (
       <div className={classes.cartItems}>

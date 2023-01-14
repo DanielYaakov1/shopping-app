@@ -1,8 +1,8 @@
 import DataGrid from '../../components/DataGrid/DataGrid';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import ProductsDetailsCard from '../../components/ProductsDetailsCard/ProductsDetailsCard';
+import ProductsDetailsCard from '../../components/ProductsDetailsCard';
 import { addItemToCart } from '../../store/slices/cartSlice';
 import { useCallback, useEffect } from 'react';
 import ProductsActions from '../../actions/ProductsActions';

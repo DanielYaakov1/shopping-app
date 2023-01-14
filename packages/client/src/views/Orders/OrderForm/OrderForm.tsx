@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCheckoutOpen } from '../../../store/slices/orderSlice';
 import { useCallback, useEffect, useState } from 'react';
-import MyButton from '../../../components/Button/MyButton';
+import MyButton from '../../../components/Button';
 import { RootState } from '../../../store/store';
 import { setDisableSubmitButton } from '../../../store/slices/appSlice';
 import {
@@ -36,6 +36,10 @@ const OrderForm = () => {
   const checkItemIdAddedToCart = useCallback((): string[] => {
     return items.map((item: IItems, index: number) => item.productId);
   }, [items]);
+  const checkAmount = useCallback((): number[] => {
+    return items.map((item: IItems, index: number) => item.amount);
+  }, [items]);
+  console.log('🚀 ~ file: OrderForm.tsx:42 ~ checkAmount ~ checkAmount', checkAmount());
 
   useEffect(() => {
     //NOTE:check validation for all fields + change submit button state according to validation fields
@@ -63,6 +67,7 @@ const OrderForm = () => {
         shippingDate,
         uId: uidCreateTheOrder,
         totalPrice: totalAmount,
+        amount: 1,
       });
       dispatch(setCheckoutOpen(false));
       dispatch(updateAllCartState(cartInitialState));
