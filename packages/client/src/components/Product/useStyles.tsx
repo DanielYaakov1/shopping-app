@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const ProductStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -55,3 +55,5 @@ export const ProductStyles = makeStyles((theme) => ({
     marginBottom: '1rem',
   },
 }));
+
+export default useStyles;

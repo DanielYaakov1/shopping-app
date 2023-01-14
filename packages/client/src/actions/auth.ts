@@ -23,10 +23,10 @@ const ActionsAuth = () => {
           email: email,
           password: password,
         });
-        setStorageApi('token', response.token);
+        setStorageApi('token ', response.token);
         return response;
       } catch (error: any) {
-        dispatch(setErrorMessage(error.message));
+        dispatch(setErrorMessage(error.response.data.message));
         throw error;
       }
     },

@@ -1,6 +1,6 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-export const cartItemStyles = makeStyles(() => ({
+export const useStyles = makeStyles(() => ({
   cartItem: {
     display: 'flex',
     justifyContent: 'space-between',
