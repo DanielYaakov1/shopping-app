@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { style } from '../../assets/style/components/CartIcon';
+import { styleModal } from './useStyles';
 
 export type props = {
   isModalOpen: boolean;
@@ -17,7 +17,7 @@ const MyModal = memo(({ isModalOpen, onClose, children, closeBtnName }: props) =
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       draggable={true}>
-      <Box sx={style}>
+      <Box sx={styleModal}>
         <button onClick={onClose}>{closeBtnName}</button>
         {children}
       </Box>
