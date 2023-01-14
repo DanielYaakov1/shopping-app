@@ -1,4 +1,4 @@
-import { ProductStyles } from '../../assets/style/components/ProductStyles';
+import useStyles from './useStyles';
 
 export interface IProductProps {
   _id: string;
@@ -11,7 +11,7 @@ export interface IProductProps {
 }
 
 const Product = ({ name, description, price, image }: IProductProps) => {
-  const classes = ProductStyles();
+  const classes = useStyles();
 
   return (
     <div>

@@ -1,7 +1,7 @@
 import icon from '../../assets/images/sonae-west-shopping-ag.svg';
-import MainNavigation from '../MainNavigation/MainNavigation';
-import { HeaderStyle } from '../../assets/style/components/Header';
-import CartIcon from '../CartIcon/CartIcon';
+import MainNavigation from '../MainNavigation';
+import { HeaderStyle } from './useStyles';
+import CartIcon from '../CartIcon';
 import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { memo, useCallback, useState } from 'react';
@@ -15,11 +15,11 @@ import OrderForm from '../../views/Orders/OrderForm/OrderForm';
 import Input from '../Input/Input';
 import ProductsActions from '../../actions/ProductsActions';
 import { setProduct } from '../../store/slices/ProductSlice';
-import MyModal from '../MyModal/MyModal';
-import Cart from '../Cart/Cart';
+import MyModal from '../MyModal';
+import Cart from '../Cart';
 import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
 import { setCheckoutOpen } from '../../store/slices/orderSlice';
-import navLinks from '../../assets/style/NavLinks';
+import navLinks from '../../utils/constants/NavLinks';
 
 const Header = memo(() => {
   const dispatch = useDispatch();

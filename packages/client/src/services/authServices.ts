@@ -1,4 +1,4 @@
-import { authAdmin } from '../../../server/src/firebaseAdmin';
+import { authAdmin } from '../../../server/src/config/firebase/firebaseAdmin';
 export const getUser = async (uid: string) => {
   try {
     const user = await authAdmin.getUser(uid);

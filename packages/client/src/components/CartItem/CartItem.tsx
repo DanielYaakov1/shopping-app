@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { cartItemStyles } from '../../assets/style/components/cartItemStyles';
+import { useStyles } from './useStyles';
 
 export interface ICartItem {
   name: string;
@@ -11,7 +11,7 @@ export interface ICartItem {
 }
 
 const CartItem = memo((props: ICartItem) => {
-  const classes = cartItemStyles();
+  const classes = useStyles();
   return (
     <li>
       <div className={classes.cartItem}>

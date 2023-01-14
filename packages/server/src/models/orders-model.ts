@@ -40,6 +40,10 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Orders totalPrice is missing'],
   },
+  amountItems: {
+    type: Number,
+    required: [false, 'Item amount is missing'],
+  },
 });
 
 export const Orders = mongoose.model<IOrder>('orders', orderSchema);

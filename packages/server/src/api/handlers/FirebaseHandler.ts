@@ -1,7 +1,6 @@
+import { authAdmin } from '../../config/firebase/firebaseAdmin';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-
-import { auth } from '../../firebase';
-import { authAdmin } from '../../firebaseAdmin';
+import { auth } from '../../config/firebase/firebase';
 import { IAuthenticator, IUser } from '../interfaces/interfaces';
 
 export class FirebaseHandler implements IAuthenticator {

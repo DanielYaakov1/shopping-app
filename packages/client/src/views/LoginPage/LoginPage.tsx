@@ -13,10 +13,11 @@ import { getValidationFunction, checkEmailIsValid } from '../../utils/helpers/va
 import MyButton from '../../components/Button/MyButton';
 import MyInput from '../../components/Input/MyInput';
 import ActionsAuth from '../../actions/auth';
-import { LoginStyledComponent } from '../../assets/style/components/LoginStyled';
+import useStyles from './useStyles';
 import { setUser } from '../../store/slices/userSlice';
 
 export const LoginPage = () => {
+  const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const isErrorMessage = useSelector(
@@ -69,8 +70,8 @@ export const LoginPage = () => {
   }, [isLoginMode]);
 
   return (
-    <LoginStyledComponent>
-      <div>
+    <div>
+      <div className={classes.root}>
         <h1>{formTypeLabel}</h1>
         <form onSubmit={handleSubmitLoginForm}>
           <MyInput
@@ -97,7 +98,7 @@ export const LoginPage = () => {
         </form>
         {isErrorMessage && <p style={{ color: 'red' }}>{isErrorMessage}</p>}
       </div>
-    </LoginStyledComponent>
+    </div>
   );
 };
 export default LoginPage;
