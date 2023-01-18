@@ -2,13 +2,13 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import HomePage from '../../../views/HomePage';
 import Login from '../../../views/LoginPage';
 import PageNotFound from '../../../views/PageNotFound/PageNotFound';
-import Header from '../../Header';
 import Orders from '../../../views/Orders/OrderPage/OrderPage';
+import AppNavBar from "../../AppNavBar/AppNavBar";
 
 export const LoggedInRouter = () => {
   return (
     <>
-      <Header />
+      <AppNavBar/>
       <Switch>
         <Route exact path={'/'}>
           <HomePage />
