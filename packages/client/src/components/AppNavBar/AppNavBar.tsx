@@ -13,13 +13,24 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import TextField from '@mui/material/TextField';
-import { useCallback, useState } from "react";
-import { setProduct } from "../../store/slices/ProductSlice";
-import ProductsActions from "../../actions/ProductsActions";
-import { useDispatch } from "react-redux";
-import { appIcon, searchHeaderField } from "./useStyles";
-
-
+import { useCallback, useState } from 'react';
+import { setProduct } from '../../store/slices/ProductSlice';
+import ProductsActions from '../../actions/ProductsActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { appIcon, searchHeaderField } from './useStyles';
+import MyModal from '../MyModal';
+import Cart from '../Cart';
+import { setCheckoutOpen } from '../../store/slices/orderSlice';
+import OrderForm from '../../views/Orders/OrderForm/OrderForm';
+import { RootState } from '../../store';
+import {
+  addItemToCart,
+  deleteItemFromCart,
+  IItems,
+  setCartModalOpen,
+} from '../../store/slices/cartSlice';
+import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
+import CartIcon from "../CartIcon";
 
 const pages = ['Products', 'orders', 'about'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -30,7 +41,6 @@ function AppNavBar() {
   const [searchProduct, setSearchProduct] = useState('');
   const dispatch = useDispatch();
   const { getAllProducts, getProductByName } = ProductsActions();
-
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -61,17 +71,36 @@ function AppNavBar() {
     },
     [dispatch, getAllProducts, getProductByName]
   );
+
+  //card
+  const { items, isCartModalOpen, totalAmount } = useSelector(
+    (state: RootState) => state.cartReducer
+  );
+  const displayOrderForm = useSelector((state: RootState) => state.orderReducer.isCheckoutOpen);
+  const checkIfTheCardIsEmpty = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
+  const handleIncreaseItem = useCallback(
+    (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
+    [dispatch]
+  );
+  const handleDecreaseItem = useCallback(
+    (id: string) => dispatch(deleteItemFromCart(id)),
+    [dispatch]
+  );
+  const numberCartItem = items.reduce((currentValue, item) => {
+    return currentValue + item.amount;
+  }, 0);
+
+  const handleCartModal = useCallback(
+    () => dispatch(setCartModalOpen(!isCartModalOpen)),
+    [dispatch, isCartModalOpen]
+  );
+
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={appIcon}>
+          <Typography variant="h6" noWrap component="a" href="/" sx={appIcon}>
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -103,9 +132,7 @@ function AppNavBar() {
               }}>
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" >
-                    {page}
-                  </Typography>
+                  <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -121,14 +148,30 @@ function AppNavBar() {
               </Button>
             ))}
           </Box>
-          <Box
-            component="form"
-            sx={searchHeaderField}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField value={searchProduct} onChange={(e)=>handleSetSearch(e.target.value)} id="outlined-basic" label="Search" variant="outlined" />
+          <Box component="form" sx={searchHeaderField} noValidate autoComplete="off">
+            <TextField
+              value={searchProduct}
+              onChange={(e) => handleSetSearch(e.target.value)}
+              id="outlined-basic"
+              label="Search"
+              variant="outlined"
+            />
           </Box>
+          <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} />
+          <MyModal closeBtnName="X" isModalOpen={isCartModalOpen} onClose={handleCartModal}>
+            <Cart
+              items={items}
+              totalAmount={totalAmount}
+              checkIfTheCardIsEmpty={checkIfTheCardIsEmpty}
+              handleIncreaseItem={handleIncreaseItem}
+              handleDecreaseItem={handleDecreaseItem}
+              labelButtonCheckout={'CHECK OUT'}
+              onClickCheckOutButton={() => {
+                dispatch(setCheckoutOpen(true));
+              }}
+            />
+            {displayOrderForm && <OrderForm />}
+          </MyModal>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -163,4 +206,3 @@ function AppNavBar() {
   );
 }
 export default AppNavBar;
-
