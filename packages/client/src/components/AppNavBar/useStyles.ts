@@ -53,10 +53,17 @@ export const searchHeaderField = {
     },
   },
   [theme.breakpoints.down('sm')]: {
-    '& > :not(style)': {  width: '10ch',display:'flex' },
+    '& > :not(style)': { width: '10ch', display: 'flex' },
   },
 };
 
-const useStyles = makeStyles({});
+const useStyles = makeStyles({
+  menuDropDown: {
+    display: 'grid',
+    [theme.breakpoints.down('sm')]: {
+      display: 'grid',
+    }
+  },
+});
 
 export default useStyles;

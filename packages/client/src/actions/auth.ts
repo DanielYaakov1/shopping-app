@@ -1,4 +1,4 @@
-import { setStorageApi } from './../services/storageApi';
+import { setStorageApi } from "../services/storageApi";
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setErrorMessage } from '../store/slices/registrationSlice';
@@ -18,7 +18,6 @@ const ActionsAuth = () => {
   const loginFirebase = useCallback(
     async (email: string, password: string, params: string) => {
       try {
-        debugger;
         const response = await httpRequest(`${ROUTES.AUTHORIZATION_API}/${params}`, 'POST', {
           email: email,
           password: password,
