@@ -1,7 +1,7 @@
 import DataGrid from '../../components/DataGrid/DataGrid';
 import Spinner from '../../components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { RootState } from "../../store";
 import ProductsDetailsCard from '../../components/ProductsDetailsCard';
 import { addItemToCart } from '../../store/slices/cartSlice';
 import { useCallback, useEffect } from 'react';
@@ -53,7 +53,7 @@ const HomePage = () => {
           {products.length > 0 ? (
             <ProductsDetailsCard
               products={products}
-              onAddToCartClicked={handleAddToCart}></ProductsDetailsCard>
+              onAddToCartClicked={handleAddToCart}/>
           ) : (
             "There isn't Products"
           )}

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCheckoutOpen } from '../../../store/slices/orderSlice';
 import { useCallback, useEffect, useState } from 'react';
 import MyButton from '../../../components/Button';
-import { RootState } from '../../../store/store';
+import { RootState } from "../../../store";
 import { setDisableSubmitButton } from '../../../store/slices/appSlice';
 import {
   checkNotCharacters,

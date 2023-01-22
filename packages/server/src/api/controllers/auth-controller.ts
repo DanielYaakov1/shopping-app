@@ -1,5 +1,5 @@
-import { AwsCognitoHandler } from './../handlers/awsCognito-handler';
-import { Request, Response, NextFunction } from 'express';
+import { AwsCognitoHandler } from '../handlers/awsCognito-handler';
+import { NextFunction, Request, Response } from 'express';
 import { AdminHandler } from '../handlers/admin-handler';
 import { FirebaseHandler } from '../handlers/FirebaseHandler';
 
@@ -18,8 +18,7 @@ export const loginFirebase = async (req: Request, res: Response, next: NextFunct
     const { email, password } = req.body;
     const authHandler = new FirebaseHandler();
     const adminHandler = new AdminHandler();
-    const response = await authHandler.login(email, password);
-    const userCredential = response;
+    const userCredential = await authHandler.login(email, password);
     const checkIsAdmin = await adminHandler.getAdminByEmail(String(userCredential.user.email));
     res.cookie('fbAuth', userCredential.token);
     res.header('authorization-bearer', userCredential.token);
@@ -28,13 +27,20 @@ export const loginFirebase = async (req: Request, res: Response, next: NextFunct
     next(err);
   }
 };
-
+export const logoutFirebase = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const authHandler = new FirebaseHandler();
+    const response = await authHandler.logout();
+    res.send({ message: 'Sign-out successful.' + response });
+  } catch (err) {
+    next(err);
+  }
+};
 export const signupFirebase = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body;
     const authHandler = new FirebaseHandler();
-    const response = await authHandler.register(email, password);
-    const userCredential = response;
+    const userCredential = await authHandler.register(email, password);
     res.cookie('fbAuth', userCredential.token);
     res.header('authorization-bearer', userCredential.token);
     res.send(userCredential);
@@ -58,8 +64,7 @@ export const signupCognito = async (req: Request, res: Response, next: NextFunct
   try {
     const { Username, Password } = req.body;
     const authHandler = new AwsCognitoHandler();
-    const response = await authHandler.register(Username, Password);
-    const userCredential = response;
+    const userCredential = await authHandler.register(Username, Password);
     //res.cookie('fbAuth', userCredential.token);
     res.header('authorization-bearer', userCredential.UserSub);
     res.send(userCredential);
@@ -72,8 +77,7 @@ export const loginCognito = async (req: Request, res: Response, next: NextFuncti
   try {
     const { USERNAME, PASSWORD } = req.body;
     const authHandler = new AwsCognitoHandler();
-    const response = await authHandler.login(USERNAME, PASSWORD);
-    const userCredential = response;
+    const userCredential = await authHandler.login(USERNAME, PASSWORD);
     //res.cookie('fbAuth', userCredential.token);
     res.header('authorization-bearer', userCredential.token);
     res.send({ ...userCredential, isAdmin: true });
