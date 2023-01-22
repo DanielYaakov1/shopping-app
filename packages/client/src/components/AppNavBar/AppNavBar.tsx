@@ -17,7 +17,7 @@ import { useCallback, useState } from 'react';
 import { setProduct } from '../../store/slices/ProductSlice';
 import ProductsActions from '../../actions/ProductsActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { appIcon, searchHeaderField } from './useStyles';
+import useStyles, { appIcon, searchHeaderField } from './useStyles';
 import MyModal from '../MyModal';
 import Cart from '../Cart';
 import { setCheckoutOpen } from '../../store/slices/orderSlice';
@@ -30,12 +30,21 @@ import {
   setCartModalOpen,
 } from '../../store/slices/cartSlice';
 import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
-import CartIcon from "../CartIcon";
+import CartIcon from '../CartIcon';
 
 const pages = ['Products', 'orders', 'about'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile','Account','Dashboard','Logout'];
+// const settings = [
+//   {
+//     logout: 'Logout',
+//   },
+//   {
+//     profile: 'Profile',
+//   },
+// ];
 
 function AppNavBar() {
+  const classes = useStyles();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [searchProduct, setSearchProduct] = useState('');
@@ -53,7 +62,7 @@ function AppNavBar() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = ( ) => {
     setAnchorElUser(null);
   };
 
@@ -179,6 +188,7 @@ function AppNavBar() {
               </IconButton>
             </Tooltip>
             <Menu
+              className={classes.menuDropDown}
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import OrdersActions from '../../../actions/OrdersActions';
 import Spinner from '../../../components/Spinner';
 import { setOrders } from '../../../store/slices/orderSlice';
-import { RootState } from '../../../store/store';
+import { RootState } from "../../../store";
 import CardOrder from '../../../components/CardOrder';
 import useStyles from './useStyles';
 
