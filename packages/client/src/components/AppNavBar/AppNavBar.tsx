@@ -7,9 +7,7 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import TextField from '@mui/material/TextField';
@@ -31,17 +29,9 @@ import {
 } from '../../store/slices/cartSlice';
 import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
 import CartIcon from '../CartIcon';
-
-const pages = ['Products', 'orders', 'about'];
-const settings = ['Profile','Account','Dashboard','Logout'];
-// const settings = [
-//   {
-//     logout: 'Logout',
-//   },
-//   {
-//     profile: 'Profile',
-//   },
-// ];
+import { useHistory } from 'react-router-dom';
+import SettingsMenu from '../SettingsMenu';
+import { pages } from '../../utils/constants/navBarData';
 
 function AppNavBar() {
   const classes = useStyles();
@@ -49,6 +39,8 @@ function AppNavBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [searchProduct, setSearchProduct] = useState('');
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const { getAllProducts, getProductByName } = ProductsActions();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -62,7 +54,28 @@ function AppNavBar() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = ( ) => {
+  const handleCloseUserMenu = (dropDownListNumber: number) => {
+    console.log('event from dropdown', dropDownListNumber);
+    switch (dropDownListNumber) {
+      case 0:
+        console.log('case for profile');
+        history.replace('/logisssn');
+        break;
+      case 1:
+        history.replace('/wes');
+        console.log('case for logout');
+        break;
+      case 2:
+        history.replace('/loasssn');
+        console.log('case for logout');
+        break;
+      case 3:
+        history.replace('/asdasdq');
+        console.log('case for logout');
+        break;
+      default:
+        break;
+    }
     setAnchorElUser(null);
   };
 
@@ -181,35 +194,12 @@ function AppNavBar() {
             />
             {displayOrderForm && <OrderForm />}
           </MyModal>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              className={classes.menuDropDown}
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}>
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          <SettingsMenu
+            menuDropDown={classes.menuDropDown}
+            anchorElUser={anchorElUser}
+            handleOpenUserMenu={handleOpenUserMenu}
+            handleCloseUserMenu={handleCloseUserMenu}
+          />
         </Toolbar>
       </Container>
     </AppBar>
