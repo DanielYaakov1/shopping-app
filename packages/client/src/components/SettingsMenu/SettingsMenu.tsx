@@ -13,8 +13,7 @@ type settingsMenuProps = {
   handleOpenUserMenu: React.MouseEventHandler<HTMLButtonElement> | undefined;
   menuDropDown: string;
   anchorElUser: Element | ((element: Element) => Element) | null | undefined;
-  handleCloseUserMenu: (value: any) => void;
-  //handleCloseUserMenu: ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void) | undefined;
+  handleCloseUserMenu: (value: number) => void;
 };
 
 const SettingsMenu = ({
