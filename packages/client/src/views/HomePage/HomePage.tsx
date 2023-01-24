@@ -1,7 +1,7 @@
 import DataGrid from '../../components/DataGrid/DataGrid';
 import Spinner from '../../components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "../../store";
+import { RootState } from '../../store';
 import ProductsDetailsCard from '../../components/ProductsDetailsCard';
 import { addItemToCart } from '../../store/slices/cartSlice';
 import { useCallback, useEffect } from 'react';
@@ -9,6 +9,7 @@ import ProductsActions from '../../actions/ProductsActions';
 import { setProduct } from '../../store/slices/ProductSlice';
 import Images from '../../components/ImageSlider/Images';
 import ImageSlider from '../../components/ImageSlider/ImageSlider';
+import AlertDialog from '../../components/AlertDialog';
 
 const HomePage = () => {
   const { isLoadingProducts, products } = useSelector((state: RootState) => state.productReducer);
@@ -20,7 +21,7 @@ const HomePage = () => {
     dispatch(setProduct(products));
     return products;
     //NOT adding getAllProducts to the dependencies enters a loop
-  }, [dispatch]);
+  }, [dispatch, getAllProducts]);
 
   const handleAddToCart = useCallback(
     (productId: string, amount: string, price: number, name: string) => {
@@ -51,9 +52,7 @@ const HomePage = () => {
       ) : (
         <DataGrid>
           {products.length > 0 ? (
-            <ProductsDetailsCard
-              products={products}
-              onAddToCartClicked={handleAddToCart}/>
+            <ProductsDetailsCard products={products} onAddToCartClicked={handleAddToCart} />
           ) : (
             "There isn't Products"
           )}

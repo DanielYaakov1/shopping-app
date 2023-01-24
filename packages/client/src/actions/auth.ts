@@ -1,4 +1,4 @@
-import { setStorageApi } from "../services/storageApi";
+import { setStorageApi } from '../services/storageApi';
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setErrorMessage } from '../store/slices/registrationSlice';
@@ -7,6 +7,7 @@ import { setUser, IUser } from '../store/slices/userSlice';
 import { useHistory } from 'react-router-dom';
 import useHttp from '../hooks/useHttp';
 import { ROUTES } from '../utils/constants';
+import Cookies from 'js-cookie';
 
 const ActionsAuth = () => {
   const dispatch = useDispatch();
@@ -53,6 +54,17 @@ const ActionsAuth = () => {
     }
   }, [dispatch, history]);
 
-  return { loginFirebase, checkTokenIsExpired, getUser, setGetUser };
+  const logoutFirebaseAction = useCallback(async () => {
+    try {
+      const response = await httpRequest(ROUTES.LOGOUT_API);
+      Cookies.remove('fbAuth');
+      history.replace('/login');
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }, [history, httpRequest]);
+
+  return { loginFirebase, checkTokenIsExpired, getUser, setGetUser, logoutFirebaseAction };
 };
 export default ActionsAuth;

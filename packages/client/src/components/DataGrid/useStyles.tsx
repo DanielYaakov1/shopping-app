@@ -5,5 +5,6 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     alignContent: 'space-around',
+    marginTop: '10px',
   },
 }));
