@@ -31,7 +31,7 @@ export const logoutFirebase = async (req: Request, res: Response, next: NextFunc
   try {
     const authHandler = new FirebaseHandler();
     const response = await authHandler.logout();
-    res.send({ message: 'Sign-out successful.' + response });
+    res.send({ message: 'Sign-out successful.' });
   } catch (err) {
     next(err);
   }

@@ -32,6 +32,9 @@ import CartIcon from '../CartIcon';
 import { useHistory } from 'react-router-dom';
 import SettingsMenu from '../SettingsMenu';
 import { pages } from '../../utils/constants/navBarData';
+import AlertDialog from '../AlertDialog';
+import RESOURCES from '../../resources';
+import ActionsAuth from '../../actions/auth';
 
 function AppNavBar() {
   const classes = useStyles();
@@ -40,6 +43,7 @@ function AppNavBar() {
   const [searchProduct, setSearchProduct] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
+  const { logoutFirebaseAction } = ActionsAuth();
 
   const { getAllProducts, getProductByName } = ProductsActions();
 
@@ -54,7 +58,7 @@ function AppNavBar() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = (dropDownListNumber: number) => {
+  const handleCloseUserMenu = async (dropDownListNumber: number) => {
     console.log('event from dropdown', dropDownListNumber);
     switch (dropDownListNumber) {
       case 0:
@@ -70,7 +74,7 @@ function AppNavBar() {
         console.log('case for logout');
         break;
       case 3:
-        history.replace('/asdasdq');
+        setOpen(true);
         console.log('case for logout');
         break;
       default:
@@ -117,6 +121,20 @@ function AppNavBar() {
     [dispatch, isCartModalOpen]
   );
 
+  //dialog open
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleLogout = async () => {
+    await logoutFirebaseAction();
+    setOpen(false);
+  };
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl">
@@ -202,6 +220,14 @@ function AppNavBar() {
           />
         </Toolbar>
       </Container>
+      <AlertDialog
+        open={open}
+        titleDialog={RESOURCES.ALERT_TITLE_TEXT}
+        bodyDialog={RESOURCES.LOGOUT_ALERT_BODY_TEXT}
+        handleClickOpen={handleClickOpen}
+        handleCancelAction={handleClose}
+        handleApprovedAction={handleLogout}
+      />
     </AppBar>
   );
 }
