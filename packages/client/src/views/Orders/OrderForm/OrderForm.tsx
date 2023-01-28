@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCheckoutOpen } from '../../../store/slices/orderSlice';
 import { useCallback, useEffect, useState } from 'react';
 import MyButton from '../../../components/Button';
-import { RootState } from "../../../store";
+import { RootState } from '../../../store';
 import { setDisableSubmitButton } from '../../../store/slices/appSlice';
 import {
   checkNotCharacters,
@@ -31,20 +31,19 @@ const OrderForm = () => {
   const validationCity = checkNotNumbersOrSpecialCharacters(city);
   const validationStreet = checkNotNumbersOrSpecialCharacters(street);
   const validationZipCode = checkNotCharacters(zipCode);
-  const checkCartItemsCount = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
 
+  const checkCartItemsCount = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
   const checkItemIdAddedToCart = useCallback((): string[] => {
     return items.map((item: IItems, index: number) => item.productId);
   }, [items]);
   const checkAmount = useCallback((): number[] => {
     return items.map((item: IItems, index: number) => item.amount);
   }, [items]);
-  console.log('🚀 ~ file: OrderForm.tsx:42 ~ checkAmount ~ checkAmount', checkAmount());
 
   useEffect(() => {
     //NOTE:check validation for all fields + change submit button state according to validation fields
     const validationOfAllOrderFields =
-      validationCity && validationStreet && validationZipCode && shippingDate?.isValid();
+      validationCity && validationStreet && !validationZipCode && shippingDate?.isValid();
     dispatch(setDisableSubmitButton(validationOfAllOrderFields ? false : true));
   }, [
     dispatch,
@@ -67,7 +66,7 @@ const OrderForm = () => {
         shippingDate,
         uId: uidCreateTheOrder,
         totalPrice: totalAmount,
-        amount: 1,
+        amountItems: 50,
       });
       dispatch(setCheckoutOpen(false));
       dispatch(updateAllCartState(cartInitialState));

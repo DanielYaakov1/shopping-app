@@ -29,6 +29,9 @@ export interface IOrder {
   destinationDate?: Date;
   createdAt?: Date;
   uid?: string;
+  totalPrice: string;
+  amountItems: string;
+  status: string;
 }
 
 export interface IAdmin {

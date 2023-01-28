@@ -1,4 +1,5 @@
 import { IShippingOrder } from '../../interfaces';
+import ComplexCard from '../complex-card';
 import Product from '../Product';
 
 const CardOrder = (props: {
@@ -10,10 +11,11 @@ const CardOrder = (props: {
     cardImage: string;
     cardName: string;
     cardFooter: string;
+    cardContainer: string;
   };
 }) => {
   return (
-    <div>
+    <div className="as">
       {props.orders.map((order: IShippingOrder, index: number) => (
         <div key={index} className={props.classes.card}>
           <div className={props.classes.cardTop}>
@@ -24,19 +26,17 @@ const CardOrder = (props: {
               <div>City:{order.city}</div>
               <div>Street:{order.city}</div>
             </div>
-            <div>Order Number: {order.amount}</div>
+            <div>Order Number: {order.orderNumber}</div>
           </div>
           <div>
-            <div className={props.classes.cardContent}>
-              Items
+            <div className={props.classes.cardContainer}>
               {order.items.map((item: any, index: number) => (
-                <Product
+                <ComplexCard
                   key={index}
-                  _id={item._id}
-                  name={item.name}
                   image={item.image}
+                  title={item.name}
                   price={item.price}
-                  description={item.description}
+                  desc={item.description}
                 />
               ))}
             </div>
