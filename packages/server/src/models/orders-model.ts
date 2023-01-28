@@ -34,7 +34,10 @@ const orderSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: () => {
+      const date = new Date(Date.now());
+      return date.setUTCHours(date.getUTCHours() + 2);
+    },
   },
   totalPrice: {
     type: Number,
@@ -43,6 +46,18 @@ const orderSchema = new mongoose.Schema({
   amountItems: {
     type: Number,
     required: [false, 'Item amount is missing'],
+  },
+  orderNumber: {
+    type: Number,
+    default: () => {
+      const timestamp = new Date().getTime();
+      return timestamp + Math.floor(Math.random() * 1000000);
+    },
+  },
+  status: {
+    type: String,
+    enum: ['created', 'processing', 'completed'],
+    default: 'created',
   },
 });
 

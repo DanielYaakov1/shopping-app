@@ -38,13 +38,12 @@ import ActionsAuth from '../../actions/auth';
 
 function AppNavBar() {
   const classes = useStyles();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const [searchProduct, setSearchProduct] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [searchProduct, setSearchProduct] = useState('');
   const { logoutFirebaseAction } = ActionsAuth();
-
   const { getAllProducts, getProductByName } = ProductsActions();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -121,8 +120,8 @@ function AppNavBar() {
     [dispatch, isCartModalOpen]
   );
 
-  //dialog open
-  const [open, setOpen] = React.useState(false);
+  //open dialog
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

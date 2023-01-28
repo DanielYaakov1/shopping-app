@@ -7,10 +7,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 type AlertDialogProps = {
-  handleClickOpen: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  handleClickOpen: React.MouseEventHandler<HTMLButtonElement>;
   open: boolean;
-  handleCancelAction: (() => void) | undefined;
-  handleApprovedAction: (() => void) | undefined;
+  handleCancelAction: () => void;
+  handleApprovedAction: () => void;
   titleDialog: string;
   bodyDialog: string;
 };
