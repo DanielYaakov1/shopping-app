@@ -43,6 +43,14 @@ const useStyles = makeStyles({
   cardName: {
     margin: '45px',
   },
+  cardContainer: {
+    display: 'grid',
+    justifyContent: 'flex-start',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateRows: 'repeat(3, 60px)',
+    padding: '5px 5px',
+    float: 'left',
+  },
 });
 
 export default useStyles;

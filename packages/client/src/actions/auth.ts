@@ -60,10 +60,11 @@ const ActionsAuth = () => {
       Cookies.remove('fbAuth');
       history.replace('/login');
       return response;
-    } catch (err) {
+    } catch (err: any) {
+      dispatch(setErrorMessage(err.response.data.message));
       throw err;
     }
-  }, [history, httpRequest]);
+  }, [dispatch, history, httpRequest]);
 
   return { loginFirebase, checkTokenIsExpired, getUser, setGetUser, logoutFirebaseAction };
 };
