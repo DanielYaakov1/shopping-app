@@ -15,11 +15,16 @@ import MyInput from '../../components/Input/MyInput';
 import ActionsAuth from '../../actions/auth';
 import useStyles from './useStyles';
 import { setUser } from '../../store/slices/userSlice';
+import GoogleButton from 'react-google-button';
 
 export const LoginPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { loginFirebase, loginWithGoogle } = ActionsAuth();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const isErrorMessage = useSelector(
     (state: RootState) => state.registrationReducer.isErrorMessage
   );
@@ -27,10 +32,6 @@ export const LoginPage = () => {
     (state: RootState) => state.appReducer
   );
   const isEmailPasswordValid = checkEmailIsValid(email) && password.trim().length > 0;
-
-  const { loginFirebase } = ActionsAuth();
-  const history = useHistory();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isEmailPasswordValid) {
@@ -69,6 +70,19 @@ export const LoginPage = () => {
     return !isLoginMode ? 'Sign Up' : 'Login';
   }, [isLoginMode]);
 
+  const googleProvider = async () => {
+    try {
+      const response = await loginWithGoogle();
+      dispatch(setAppAuthenticated(true));
+      history.push('/');
+      return response;
+    } catch (err) {
+      console.log(err);
+      dispatch(setErrorMessage('Something went wrong!'));
+
+    }
+  };
+
   return (
     <div>
       <div className={classes.root}>
@@ -93,9 +107,9 @@ export const LoginPage = () => {
           <div>
             don't have an account? <span onClick={switchLoginModeHandler}>click here</span>
           </div>
-
           <MyButton disabled={isDisableSubmitButton} type="submit" label={formTypeLabel} />
         </form>
+        <GoogleButton type="dark" onClick={googleProvider}></GoogleButton>
         {isErrorMessage && <p style={{ color: 'red' }}>{isErrorMessage}</p>}
       </div>
     </div>
