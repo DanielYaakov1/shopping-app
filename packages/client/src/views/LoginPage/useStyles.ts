@@ -1,6 +1,7 @@
 import { makeStyles } from '@mui/styles';
+import theme from '../../components/theme';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: '#282c34',
     minHeight: '100vh',
@@ -12,5 +13,13 @@ const useStyles = makeStyles({
     color: 'white',
     textAlign: 'center',
   },
-});
+  googleButton: {
+    borderRadius: '34px !important',
+    backgroundColor: `${theme.palette.primary.main} !important`,
+    margin: '5px',
+    '& div': {
+      borderRadius: '30px !important',
+    },
+  },
+}));
 export default useStyles;
