@@ -8,6 +8,8 @@ import { useHistory } from 'react-router-dom';
 import useHttp from '../hooks/useHttp';
 import { ROUTES } from '../utils/constants';
 import Cookies from 'js-cookie';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from './config/configFB';
 
 const ActionsAuth = () => {
   const dispatch = useDispatch();
@@ -66,6 +68,33 @@ const ActionsAuth = () => {
     }
   }, [dispatch, history, httpRequest]);
 
-  return { loginFirebase, checkTokenIsExpired, getUser, setGetUser, logoutFirebaseAction };
+  const loginWithGoogle = useCallback(async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const response = await signInWithPopup(auth, provider);
+      const user = response.user as any;
+      const token = user.accessToken;
+      console.log('token from login',token)
+      Cookies.set('fbAuth',token)
+      dispatch(setAppAuthenticated(true));
+      history.push('/');
+      return { user, token };
+    } catch (err) {
+      dispatch(setErrorMessage('Something went wrong!'));
+    }
+    console.log('s');
+  }, [dispatch, history]);
+
+  return {
+    loginFirebase,
+    checkTokenIsExpired,
+    getUser,
+    setGetUser,
+    logoutFirebaseAction,
+    loginWithGoogle,
+  };
 };
 export default ActionsAuth;
+function async(): any {
+  throw new Error('Function not implemented.');
+}

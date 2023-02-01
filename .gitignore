@@ -2,5 +2,8 @@ node_modules
 .vscode
 vscode
 packages/server/apiKey
-.env
+packages/server/.env
+packages/client/.env
 .packages/server/.env
+.packages/client/.env
+
