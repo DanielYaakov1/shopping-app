@@ -1,21 +1,17 @@
 //languages:TypeScript
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { RootState } from '../../store';
-import { setErrorMessage } from '../../store/slices/registrationSlice';
-import {
-  setAppAuthenticated,
-  setLoginMode,
-  setDisableSubmitButton,
-} from '../../store/slices/appSlice';
-import { getValidationFunction, checkEmailIsValid } from '../../utils/helpers/validation.helper';
-import MyButton from '../../components/Button/MyButton';
-import MyInput from '../../components/Input/MyInput';
-import ActionsAuth from '../../actions/auth';
-import useStyles from './useStyles';
-import { setUser } from '../../store/slices/userSlice';
-import GoogleButton from 'react-google-button';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { RootState } from "../../store";
+import { setErrorMessage } from "../../store/slices/registrationSlice";
+import { setAppAuthenticated, setDisableSubmitButton, setLoginMode } from "../../store/slices/appSlice";
+import { checkEmailIsValid, getValidationFunction } from "../../utils/helpers/validation.helper";
+import MyButton from "../../components/Button/MyButton";
+import MyInput from "../../components/Input/MyInput";
+import ActionsAuth from "../../actions/auth";
+import useStyles from "./useStyles";
+import { setUser } from "../../store/slices/userSlice";
+import GoogleButton from "react-google-button";
 
 export const LoginPage = () => {
   const classes = useStyles();
@@ -72,10 +68,7 @@ export const LoginPage = () => {
 
   const googleProvider = async () => {
     try {
-      const response = await loginWithGoogle();
-      dispatch(setAppAuthenticated(true));
-      history.push('/');
-      return response;
+      return await loginWithGoogle();
     } catch (err) {
       console.log(err);
       dispatch(setErrorMessage('Something went wrong!'));
