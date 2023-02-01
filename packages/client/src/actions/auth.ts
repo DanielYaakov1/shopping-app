@@ -60,6 +60,7 @@ const ActionsAuth = () => {
     try {
       const response = await httpRequest(ROUTES.LOGOUT_API);
       Cookies.remove('fbAuth');
+      dispatch(setAppAuthenticated(false));
       history.replace('/login');
       return response;
     } catch (err: any) {
@@ -74,9 +75,9 @@ const ActionsAuth = () => {
       const response = await signInWithPopup(auth, provider);
       const user = response.user as any;
       const token = user.accessToken;
-      console.log('token from login',token)
-      Cookies.set('fbAuth',token)
+      Cookies.set('fbAuth', token);
       dispatch(setAppAuthenticated(true));
+      dispatch(setUser({ ...user }));
       history.push('/');
       return { user, token };
     } catch (err) {
