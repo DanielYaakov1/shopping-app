@@ -1,17 +1,21 @@
 //languages:TypeScript
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { RootState } from "../../store";
-import { setErrorMessage } from "../../store/slices/registrationSlice";
-import { setAppAuthenticated, setDisableSubmitButton, setLoginMode } from "../../store/slices/appSlice";
-import { checkEmailIsValid, getValidationFunction } from "../../utils/helpers/validation.helper";
-import MyButton from "../../components/Button/MyButton";
-import MyInput from "../../components/Input/MyInput";
-import ActionsAuth from "../../actions/auth";
-import useStyles from "./useStyles";
-import { setUser } from "../../store/slices/userSlice";
-import GoogleButton from "react-google-button";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { RootState } from '../../store';
+import { setErrorMessage } from '../../store/slices/registrationSlice';
+import {
+  setAppAuthenticated,
+  setDisableSubmitButton,
+  setLoginMode,
+} from '../../store/slices/appSlice';
+import { checkEmailIsValid, getValidationFunction } from '../../utils/helpers/validation.helper';
+import MyButton from '../../components/Button/MyButton';
+import MyInput from '../../components/Input/MyInput';
+import ActionsAuth from '../../actions/auth';
+import useStyles from './useStyles';
+import { setUser } from '../../store/slices/userSlice';
+import GoogleButton from 'react-google-button';
 
 export const LoginPage = () => {
   const classes = useStyles();
@@ -72,7 +76,6 @@ export const LoginPage = () => {
     } catch (err) {
       console.log(err);
       dispatch(setErrorMessage('Something went wrong!'));
-
     }
   };
 
@@ -102,7 +105,7 @@ export const LoginPage = () => {
           </div>
           <MyButton disabled={isDisableSubmitButton} type="submit" label={formTypeLabel} />
         </form>
-        <GoogleButton type="dark" onClick={googleProvider}></GoogleButton>
+        <GoogleButton className={classes.googleButton} type="dark" onClick={googleProvider} />
         {isErrorMessage && <p style={{ color: 'red' }}>{isErrorMessage}</p>}
       </div>
     </div>
