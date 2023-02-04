@@ -8,6 +8,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { settingsList } from '../../utils/constants/navBarData';
 import { generateObjectArrayFromStrings } from '../../utils/helpers/array.helpers';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { capitalizeFirstLetter } from '../../utils/helpers/text.helpers';
 
 type settingsMenuProps = {
   handleOpenUserMenu: React.MouseEventHandler<HTMLButtonElement> | undefined;
@@ -22,7 +25,8 @@ const SettingsMenu = ({
   anchorElUser,
   handleCloseUserMenu,
 }: settingsMenuProps) => {
-  const settingsMenuObjectArrayStrings = generateObjectArrayFromStrings(settingsList);
+  const settingsMenuObjectArrayText = generateObjectArrayFromStrings(settingsList);
+  const userData = useSelector((state: RootState) => state.userReducer.user);
   return (
     <Box
       sx={{
@@ -34,7 +38,10 @@ const SettingsMenu = ({
           sx={{
             p: 0,
           }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          <Avatar
+            alt={userData.displayName || capitalizeFirstLetter(userData.user.email)}
+            src={`${userData.photoURL}`}
+          />
         </IconButton>
       </Tooltip>
       <Menu
@@ -55,7 +62,7 @@ const SettingsMenu = ({
         }}
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}>
-        {settingsMenuObjectArrayStrings.map((setting) => (
+        {settingsMenuObjectArrayText.map((setting) => (
           <MenuItem key={setting.key} onClick={() => handleCloseUserMenu(setting.key)}>
             <Typography textAlign="center">{setting.value}</Typography>
           </MenuItem>

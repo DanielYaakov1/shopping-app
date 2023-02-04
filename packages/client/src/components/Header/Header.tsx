@@ -2,7 +2,7 @@ import icon from '../../assets/images/sonae-west-shopping-ag.svg';
 import MainNavigation from '../MainNavigation';
 import { HeaderStyle } from './useStyles';
 import CartIcon from '../CartIcon';
-import { RootState } from "../../store";
+import { RootState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { memo, useCallback, useState } from 'react';
 import {

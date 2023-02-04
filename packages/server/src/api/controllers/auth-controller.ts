@@ -7,6 +7,7 @@ export const checkIsAdminUser = async (req: Request, res: Response, next: NextFu
   try {
     const adminHandler = new AdminHandler();
     const checkIsAdmin = await adminHandler.getAdminByEmail(res.locals.user.email);
+    console.log(res.locals.user);
     res.status(200).send({ uid: res.locals.user.uid, isAdmin: !!checkIsAdmin });
   } catch (err) {
     next(err);
@@ -31,7 +32,7 @@ export const logoutFirebase = async (req: Request, res: Response, next: NextFunc
   try {
     const authHandler = new FirebaseHandler();
     const response = await authHandler.logout();
-    res.send({ message: 'Sign-out successful.' });
+    res.send({ message: 'Log-out successful.' });
   } catch (err) {
     next(err);
   }

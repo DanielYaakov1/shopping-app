@@ -18,11 +18,12 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<IUser>) {
+    setUser(state, action: PayloadAction<any>) {
       state.token = action.payload.token;
       state.uid = action.payload.uid;
       state.isAdmin = action.payload.isAdmin;
-      state.user = action.payload.user;
+      state.user = action.payload;
+      // [...state.user = action.payload];
     },
   },
 });
