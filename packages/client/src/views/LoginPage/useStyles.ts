@@ -21,5 +21,8 @@ const useStyles = makeStyles(() => ({
       borderRadius: '30px !important',
     },
   },
+  btnContainer: {
+    margin: '5px',
+  },
 }));
 export default useStyles;

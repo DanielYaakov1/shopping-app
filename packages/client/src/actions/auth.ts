@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import useHttp from '../hooks/useHttp';
 import { ROUTES } from '../utils/constants';
 import Cookies from 'js-cookie';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { auth } from './config/configFB';
 
 const ActionsAuth = () => {
@@ -47,7 +47,8 @@ const ActionsAuth = () => {
         return history.replace('/login');
       }
       dispatch(setAppAuthenticated(response.ok));
-      dispatch(setUser({ ...user }));
+      //TODO: fix end point check token expired (should be return all object and not token + uid+ isAdmin)
+      //dispatch(setUser({ ...user }));
       dispatch(setLoadingApp(false));
     } catch (err) {
       console.log(err);
@@ -73,7 +74,24 @@ const ActionsAuth = () => {
     try {
       const provider = new GoogleAuthProvider();
       const response = await signInWithPopup(auth, provider);
-      const user = response.user as any;
+      const { user } = response as any;
+      const token = user.accessToken;
+      Cookies.set('fbAuth', token);
+      debugger;
+      dispatch(setAppAuthenticated(true));
+      dispatch(setUser({ ...user }));
+      history.push('/');
+      return { user, token };
+    } catch (err) {
+      dispatch(setErrorMessage('Something went wrong!'));
+    }
+  }, [dispatch, history]);
+
+  const loginWithFacebook = useCallback(async () => {
+    try {
+      const provider = new FacebookAuthProvider();
+      const response = await signInWithPopup(auth, provider);
+      const { user } = response as any;
       const token = user.accessToken;
       Cookies.set('fbAuth', token);
       dispatch(setAppAuthenticated(true));
@@ -83,7 +101,6 @@ const ActionsAuth = () => {
     } catch (err) {
       dispatch(setErrorMessage('Something went wrong!'));
     }
-    console.log('s');
   }, [dispatch, history]);
 
   return {
@@ -93,9 +110,7 @@ const ActionsAuth = () => {
     setGetUser,
     logoutFirebaseAction,
     loginWithGoogle,
+    loginWithFacebook,
   };
 };
 export default ActionsAuth;
-function async(): any {
-  throw new Error('Function not implemented.');
-}

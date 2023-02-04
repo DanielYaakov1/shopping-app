@@ -15,13 +15,14 @@ import MyInput from '../../components/Input/MyInput';
 import ActionsAuth from '../../actions/auth';
 import useStyles from './useStyles';
 import { setUser } from '../../store/slices/userSlice';
-import GoogleButton from 'react-google-button';
+import { ReactComponent as FacebookButton } from '../../assets/images/facebook.svg';
+import { ReactComponent as GoogleButton } from '../../assets/images/google.svg';
 
 export const LoginPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loginFirebase, loginWithGoogle } = ActionsAuth();
+  const { loginFirebase, loginWithGoogle, loginWithFacebook } = ActionsAuth();
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -72,13 +73,23 @@ export const LoginPage = () => {
 
   const googleProvider = async () => {
     try {
-      return await loginWithGoogle();
+      const test = await loginWithGoogle();
+      return test;
     } catch (err) {
       console.log(err);
       dispatch(setErrorMessage('Something went wrong!'));
     }
   };
 
+  const facebookProvider = async () => {
+    try {
+      const test = await loginWithFacebook();
+      return test;
+    } catch (err) {
+      console.log(err);
+      dispatch(setErrorMessage('Something went wrong!'));
+    }
+  };
   return (
     <div>
       <div className={classes.root}>
@@ -105,7 +116,10 @@ export const LoginPage = () => {
           </div>
           <MyButton disabled={isDisableSubmitButton} type="submit" label={formTypeLabel} />
         </form>
-        <GoogleButton className={classes.googleButton} type="dark" onClick={googleProvider} />
+        <div className={classes.btnContainer}>
+          <FacebookButton onClick={facebookProvider}></FacebookButton>
+          <GoogleButton onClick={googleProvider}></GoogleButton>
+        </div>
         {isErrorMessage && <p style={{ color: 'red' }}>{isErrorMessage}</p>}
       </div>
     </div>

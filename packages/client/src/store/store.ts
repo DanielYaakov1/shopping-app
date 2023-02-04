@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { registrationReducer } from './slices/registrationSlice';
 import { appReducer } from './slices/appSlice';
 import { productReducer } from './slices/ProductSlice';
@@ -25,7 +25,9 @@ const rootReducer = combineReducers({
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
-
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 export const persistor = persistStore(store);
 // export const store = configureStore({
