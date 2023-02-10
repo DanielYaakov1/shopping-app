@@ -20,6 +20,7 @@ type complexCardProps = {
   id?: string;
 };
 const ComplexCard = ({ image, price, title, desc }: complexCardProps) => {
+  console.log('image path', title);
   return (
     <Paper
       sx={{
@@ -29,7 +30,7 @@ const ComplexCard = ({ image, price, title, desc }: complexCardProps) => {
         flexGrow: 1,
         backgroundColor: (theme) => (theme.palette.mode === 'dark' ? '#1A2027' : '#fff'),
       }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} height={'150px'}>
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
             <Img alt="complex" src={image} />
