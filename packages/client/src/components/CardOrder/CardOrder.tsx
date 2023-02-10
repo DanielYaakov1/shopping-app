@@ -1,6 +1,7 @@
 import { IShippingOrder } from '../../interfaces';
+import { IItems } from '../../store/slices/cartSlice';
+import { getFullDateAndHour, getFullDate } from '../../utils/helpers/date.helpers';
 import ComplexCard from '../complex-card';
-import Product from '../Product';
 
 const CardOrder = (props: {
   orders: IShippingOrder[];
@@ -16,11 +17,11 @@ const CardOrder = (props: {
 }) => {
   return (
     <div className="as">
-      {props.orders.map((order: IShippingOrder, index: number) => (
+      {props.orders?.map((order: IShippingOrder, index: number) => (
         <div key={index} className={props.classes.card}>
           <div className={props.classes.cardTop}>
-            <div>Order Created: {order.createdAt}</div>
-            <div>Total Price:{order.totalPrice}</div>
+            <div>Order Created: {order.createdAt ? getFullDateAndHour(order.createdAt) : ''}</div>
+            <div>Total Price:{order.totalPrice.toFixed(2)}</div>
             <div>
               Delivery to:
               <div>City:{order.city}</div>
@@ -30,20 +31,23 @@ const CardOrder = (props: {
           </div>
           <div>
             <div className={props.classes.cardContainer}>
-              {order.items.map((item: any, index: number) => (
-                <ComplexCard
-                  key={index}
-                  image={item.image}
-                  title={item.name}
-                  price={item.price}
-                  desc={item.description}
-                />
+              {order.items?.map((item: IItems, index: number) => (
+                <div>
+                  <div>Amount: {item.amount}</div>
+                  <ComplexCard
+                    key={index}
+                    image={item.productId.image}
+                    title={item.productId.name}
+                    price={item.productId.price}
+                    desc={item.productId.description}
+                  />
+                </div>
               ))}
             </div>
           </div>
           <div className={props.classes.cardFooter}>
             <div>description: test should be text here</div>
-            <div>Shipping Date: {order.shippingDate}</div>
+            <div>Shipping Date: {order.shippingDate ? getFullDate(order.shippingDate) : ''}</div>
           </div>
         </div>
       ))}

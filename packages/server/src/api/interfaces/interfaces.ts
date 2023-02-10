@@ -27,6 +27,7 @@ export interface IOrder {
   zipCode: string;
   description?: string;
   destinationDate?: Date;
+  items: any;
   createdAt?: Date;
   uid?: string;
   totalPrice: string;

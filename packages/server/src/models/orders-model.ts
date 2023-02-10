@@ -27,16 +27,28 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     required: [true, 'Orders date is missing'],
   },
-  items: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'products',
-    required: [true, 'Orders Items is missing'],
-  },
+  items: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'products',
+        required: [true, 'Orders Items is missing'],
+      },
+      amount: {
+        type: Number,
+        String,
+        required: [true, 'Orders Items is missing'],
+      },
+    },
+  ],
+
   createdAt: {
     type: Date,
     default: () => {
       const date = new Date(Date.now());
       return date.setUTCHours(date.getUTCHours() + 2);
+      //return date.toLocaleDateString();
+      //return date.toLocaleString();
     },
   },
   totalPrice: {
