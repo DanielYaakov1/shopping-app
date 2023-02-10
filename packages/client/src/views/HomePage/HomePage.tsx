@@ -9,7 +9,6 @@ import ProductsActions from '../../actions/ProductsActions';
 import { setProduct } from '../../store/slices/ProductSlice';
 import Images from '../../components/ImageSlider/Images';
 import ImageSlider from '../../components/ImageSlider/ImageSlider';
-import AlertDialog from '../../components/AlertDialog';
 
 const HomePage = () => {
   const { isLoadingProducts, products } = useSelector((state: RootState) => state.productReducer);

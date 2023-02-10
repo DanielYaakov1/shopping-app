@@ -18,6 +18,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { checkGreaterNumberInArray } from '../../../utils/helpers/array.helpers';
 
+export interface IProduct {}
+
 const OrderForm = () => {
   const { createOrder } = ActionsOrders();
   const isDisableButton = useSelector((state: RootState) => state.appReducer.isDisableSubmitButton);
@@ -33,17 +35,11 @@ const OrderForm = () => {
   const validationZipCode = checkNotCharacters(zipCode);
 
   const checkCartItemsCount = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
-  const checkItemIdAddedToCart = useCallback((): string[] => {
-    return items.map((item: IItems, index: number) => item.productId);
-  }, [items]);
-  const checkAmount = useCallback((): number[] => {
-    return items.map((item: IItems, index: number) => item.amount);
-  }, [items]);
 
   useEffect(() => {
     //NOTE:check validation for all fields + change submit button state according to validation fields
     const validationOfAllOrderFields =
-      validationCity && validationStreet && !validationZipCode && shippingDate?.isValid();
+      validationCity && validationStreet && validationZipCode && shippingDate?.isValid();
     dispatch(setDisableSubmitButton(validationOfAllOrderFields ? false : true));
   }, [
     dispatch,
@@ -62,11 +58,12 @@ const OrderForm = () => {
         city,
         street,
         zipCode,
-        items: checkItemIdAddedToCart(),
+        items: items.map((item: IItems) => {
+          return { amount: item.amount, productId: item.productId };
+        }),
         shippingDate,
         uId: uidCreateTheOrder,
         totalPrice: totalAmount,
-        amountItems: 50,
       });
       dispatch(setCheckoutOpen(false));
       dispatch(updateAllCartState(cartInitialState));
@@ -76,7 +73,7 @@ const OrderForm = () => {
       city,
       street,
       zipCode,
-      checkItemIdAddedToCart,
+      items,
       shippingDate,
       uidCreateTheOrder,
       totalAmount,
