@@ -6,7 +6,7 @@ export interface IItems {
   description: string;
   image: string;
   amount: number;
-  productId: string;
+  productId: any;
 }
 
 export interface ICart {

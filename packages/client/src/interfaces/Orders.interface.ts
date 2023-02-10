@@ -3,11 +3,11 @@ export interface IShippingOrder {
   street: string;
   zipCode: string;
   description?: string;
-  createdAt?: Date;
-  items: string[];
-  shippingDate: object | null;
+  createdAt?: Date | undefined;
+  items: any;
+  //shippingDate: Date | null;
+  shippingDate: any;
   uId: string | undefined;
   totalPrice: number;
-  amountItems: number;
   orderNumber?: string;
 }
