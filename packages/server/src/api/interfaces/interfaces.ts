@@ -39,3 +39,12 @@ export interface IAdmin {
   uid: string;
   email: string;
 }
+
+export interface IFullAddressS {
+  city: string;
+  lastName: string;
+  firstName: string;
+  address1: string;
+  country: string;
+  zip: string;
+}

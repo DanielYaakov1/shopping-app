@@ -1,7 +1,6 @@
+import { paymentChildState } from '../components/PaymentForm/PaymentForm';
+import { IFullAddress } from './../store/slices/orderSlice';
 export interface IShippingOrder {
-  city: string;
-  street: string;
-  zipCode: string;
   description?: string;
   createdAt?: Date | undefined;
   items: any;
@@ -10,4 +9,6 @@ export interface IShippingOrder {
   uId: string | undefined;
   totalPrice: number;
   orderNumber?: string;
+  fullAddress: IFullAddress;
+  payment: paymentChildState;
 }

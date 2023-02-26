@@ -68,7 +68,7 @@ export const cartSlice = createSlice({
     updateAllCartState(state, action: PayloadAction<ICart>) {
       state.items = action.payload.items;
       state.totalAmount = action.payload.totalAmount;
-      state.isCartModalOpen = action.payload.isCartModalOpen;
+      //state.isCartModalOpen = action.payload.isCartModalOpen;
     },
   },
 });

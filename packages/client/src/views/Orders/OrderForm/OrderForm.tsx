@@ -54,17 +54,19 @@ const OrderForm = () => {
     //NOTE:form order (create POST request to backend + change modal state + update all cart state after submit form )
     async (event: { preventDefault: () => void }) => {
       event.preventDefault();
-      await createOrder({
-        city,
-        street,
-        zipCode,
-        items: items.map((item: IItems) => {
-          return { amount: item.amount, productId: item.productId };
-        }),
-        shippingDate,
-        uId: uidCreateTheOrder,
-        totalPrice: totalAmount,
-      });
+      // await createOrder({
+      //   city,
+      //   street,
+      //   zipCode,
+      //   items: items.map((item: IItems) => {
+      //     return { amount: item.amount, productId: item.productId };
+      //   }),
+      //   shippingDate,
+      //   uId: uidCreateTheOrder,
+      //   totalPrice: totalAmount,
+      //   address1: '',
+      //   zip: '',
+      // });
       dispatch(setCheckoutOpen(false));
       dispatch(updateAllCartState(cartInitialState));
     },

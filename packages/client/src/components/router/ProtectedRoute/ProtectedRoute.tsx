@@ -3,12 +3,13 @@ import HomePage from '../../../views/HomePage';
 import Login from '../../../views/LoginPage';
 import PageNotFound from '../../../views/PageNotFound/PageNotFound';
 import Orders from '../../../views/Orders/OrderPage/OrderPage';
-import AppNavBar from "../../AppNavBar/AppNavBar";
+import AppNavBar from '../../AppNavBar/AppNavBar';
+import Checkout from '../../Checkout/Checkout';
 
 export const LoggedInRouter = () => {
   return (
     <>
-      <AppNavBar/>
+      <AppNavBar />
       <Switch>
         <Route exact path={'/'}>
           <HomePage />
@@ -18,6 +19,9 @@ export const LoggedInRouter = () => {
         </Route>
         <Route exact path={'/Orders'}>
           <Orders />
+        </Route>
+        <Route exact path={'/checkout'}>
+          <Checkout />
         </Route>
         <Route exact path={'*'}>
           <PageNotFound />
