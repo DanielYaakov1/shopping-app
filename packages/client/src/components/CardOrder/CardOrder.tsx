@@ -24,8 +24,8 @@ const CardOrder = (props: {
             <div>Total Price:{order.totalPrice.toFixed(2)}</div>
             <div>
               Delivery to:
-              <div>City:{order.city}</div>
-              <div>Street:{order.city}</div>
+              <div>City:{order.fullAddress.city}</div>
+              <div>Street:{order.fullAddress.address1}</div>
             </div>
             <div>Order Number: {order.orderNumber}</div>
           </div>

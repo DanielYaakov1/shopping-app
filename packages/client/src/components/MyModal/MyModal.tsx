@@ -1,7 +1,8 @@
 import { memo } from 'react';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import { styleModal } from './useStyles';
+import Dialog from '@mui/material/Dialog';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 export type props = {
   isModalOpen: boolean;
@@ -9,19 +10,26 @@ export type props = {
   children: React.ReactNode;
   closeBtnName: string;
 };
+const theme = createTheme();
 
 const MyModal = memo(({ isModalOpen, onClose, children, closeBtnName }: props) => {
   return (
-    <Modal
-      open={isModalOpen}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-      draggable={true}>
-      <Box sx={styleModal}>
-        <button onClick={onClose}>{closeBtnName}</button>
+    <ThemeProvider theme={theme}>
+      <Dialog open={isModalOpen} fullWidth={true}>
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}>
+          <CloseIcon />
+        </IconButton>
         {children}
-      </Box>
-    </Modal>
+      </Dialog>
+    </ThemeProvider>
   );
 });
 export default MyModal;

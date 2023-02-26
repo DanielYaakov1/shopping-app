@@ -7,6 +7,7 @@ export const checkIsAdmin = async (req: Request, res: Response, next: NextFuncti
     const adminHandler = new AdminHandler();
     const { email } = req.query;
     const isAdmin = await adminHandler.getAdminByEmail(String(email));
+
     res.status(200).send({ isAdmin: !!isAdmin });
   } catch (err) {
     next(err);

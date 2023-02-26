@@ -3,20 +3,12 @@ import { Router } from 'express';
 import { Products } from '../../models/products-model';
 import {
   getAllProducts,
-  getProductByName,
   createProduct,
-  sortingProductByPrice,
-  getProductsPerPage,
   updateProduct,
   deleteProduct,
 } from '../controllers/products-controller';
 
 export const productsRouter = Router();
-
-productsRouter.get('/sort', sortingProductByPrice);
-productsRouter.get('/:name', getProductByName);
-productsRouter.post('/get-products-count', getProductsPerPage);
-//delete row 17-19
 
 productsRouter.get('/', getAllProducts);
 productsRouter.post('/', createProduct);
