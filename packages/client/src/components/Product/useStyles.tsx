@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
   },
+  cartItem: {},
   gridList: {
     width: '100%',
     height: '100%',
@@ -19,11 +20,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '5px',
     marginBottom: '1rem',
   },
-  title: {
-    color: theme.palette.primary.light,
-  },
+  title: {},
   description: {
-    color: theme.palette.primary.light,
     fontStyle: 'italic',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -35,9 +33,7 @@ const useStyles = makeStyles((theme) => ({
       whiteSpace: 'normal',
     },
   },
-  price: {
-    color: theme.palette.primary.light,
-  },
+  price: {},
   card: {
     maxWidth: '30%',
     margin: '1%',
@@ -45,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0 0 5px #ccc',
     textAlign: 'center',
     marginBottom: '1rem',
+    color: theme.palette.primary.main,
   },
   card1: {
     maxWidth: '30%',

@@ -41,3 +41,25 @@ export const checkNotCharacters = (props: string): boolean => {
   const CharactersRegex = /^\d+$/;
   return CharactersRegex.test(props) && props !== '';
 };
+
+export const isObjectStringsAndNonEmpty = (obj: any): boolean => {
+  for (const key in obj) {
+    const value = obj[key];
+    if (typeof value === 'string' && value.trim() === '') {
+      return false;
+    }
+  }
+  return true;
+};
+
+export const isEmptyField = (value: any): boolean => {
+  return value === null || value === undefined || value === '';
+};
+
+export const isAddressValid = (address: any): boolean => {
+  //TODO: Import address state from redux
+  const { city, zip, lastName, firstName } = address;
+  return (
+    city.trim() !== '' && zip.trim() !== '' && lastName.trim() !== '' && firstName.trim() !== ''
+  );
+};

@@ -31,6 +31,7 @@ const OrderPage = ({ className, children }: Props) => {
   return (
     <div className="cont">
       {isLoadingOrders ? <Spinner /> : <CardOrder classes={classes} orders={orders} />}
+      {orders.length ? '' : <h1>You have no orders </h1>}
     </div>
   );
 };

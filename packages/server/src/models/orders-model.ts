@@ -1,23 +1,39 @@
 import mongoose from 'mongoose';
-
 import { IOrder } from './../api/interfaces/interfaces';
 
+export interface IFullAddressS {
+  city: string;
+  lastName: string;
+  firstName: string;
+  address1: string;
+  country: string;
+  zip: string;
+}
+
 const orderSchema = new mongoose.Schema({
-  city: {
-    type: String,
-    required: [true, 'Orders city is missing'],
-  },
-  street: {
-    type: String,
-    required: [true, 'Orders street is missing'],
-  },
   uId: {
     type: String,
     required: [true, 'uId is missing'],
   },
-  zipCode: {
-    type: Number,
-    required: [true, 'Orders zipCode is missing'],
+  payment: {
+    type: {
+      cardName: String,
+      cardNumber: String,
+      expDate: String,
+      cvv: String,
+    },
+    required: [true, 'Orders payment is missing'],
+  },
+  fullAddress: {
+    type: {
+      city: String,
+      lastName: String,
+      firstName: String,
+      address1: String,
+      country: String,
+      zip: String,
+    },
+    required: [true, 'Orders fullAddress is missing'],
   },
   notes: {
     type: String,
@@ -25,7 +41,7 @@ const orderSchema = new mongoose.Schema({
   },
   shippingDate: {
     type: Date,
-    required: [true, 'Orders date is missing'],
+    required: [false, 'Orders date is missing'],
   },
   items: [
     {
@@ -46,9 +62,7 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     default: () => {
       const date = new Date(Date.now());
-      return date.setUTCHours(date.getUTCHours() + 2);
-      //return date.toLocaleDateString();
-      //return date.toLocaleString();
+      return date.setUTCHours(date.getUTCHours());
     },
   },
   totalPrice: {
