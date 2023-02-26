@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import useHttp from '../hooks/useHttp';
 import { ROUTES } from '../utils/constants';
 import Cookies from 'js-cookie';
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { auth } from './config/configFB';
 
 const ActionsAuth = () => {
