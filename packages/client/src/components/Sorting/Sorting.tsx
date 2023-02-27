@@ -16,16 +16,14 @@ const Sorting = ({ isSortingOption, handleSortingChange }: SortingProps) => {
     <FormControl
       style={{
         minWidth: '20%',
-      }}
-    >
+      }}>
       <InputLabel id="demo-simple-select-autowidth-label">Filter</InputLabel>
       <Select
         labelId="demo-simple-select-autowidth-label"
         id="demo-simple-select-autowidth"
         value={isSortingOption}
         onChange={handleSortingChange}
-        label="Filter"
-      >
+        label="Filter">
         <MenuItem value="">
           <div>
             <em>None</em>

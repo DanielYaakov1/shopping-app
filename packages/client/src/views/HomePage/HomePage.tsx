@@ -9,6 +9,7 @@ import ProductsActions from '../../actions/ProductsActions';
 import { setProduct } from '../../store/slices/ProductSlice';
 import Images from '../../components/ImageSlider/Images';
 import ImageSlider from '../../components/ImageSlider/ImageSlider';
+import Sorting from '../../components/Sorting';
 
 const HomePage = () => {
   const { isLoadingProducts, products } = useSelector((state: RootState) => state.productReducer);
@@ -49,13 +50,16 @@ const HomePage = () => {
       {isLoadingProducts ? (
         <Spinner />
       ) : (
-        <DataGrid>
-          {products.length > 0 ? (
-            <ProductsDetailsCard products={products} onAddToCartClicked={handleAddToCart} />
-          ) : (
-            "There isn't Products"
-          )}
-        </DataGrid>
+        <div>
+          <Sorting isSortingOption={undefined} handleSortingChange={undefined}></Sorting>
+          <DataGrid>
+            {products.length > 0 ? (
+              <ProductsDetailsCard products={products} onAddToCartClicked={handleAddToCart} />
+            ) : (
+              "There isn't Products"
+            )}
+          </DataGrid>
+        </div>
       )}
     </div>
   );
