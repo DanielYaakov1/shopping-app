@@ -26,7 +26,6 @@ const PaymentForm = ({ onInputChange, savedInputValues }: IPaymentProps) => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
       setInputValues({ ...inputValues, [name]: value });
-      debugger;
       onInputChange(inputValues);
     },
     [inputValues, onInputChange]

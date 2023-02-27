@@ -77,7 +77,6 @@ const ActionsAuth = () => {
       const { user } = response as any;
       const token = user.accessToken;
       Cookies.set('fbAuth', token);
-      debugger;
       dispatch(setAppAuthenticated(true));
       dispatch(setUser({ ...user }));
       history.push('/');
