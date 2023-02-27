@@ -28,6 +28,7 @@ import {
   updateAllCartState,
 } from '../../store/slices/cartSlice';
 import ActionsOrders from '../../actions/OrdersActions';
+import { IShippingOrder } from '../../interfaces';
 
 const theme = createTheme();
 
@@ -38,6 +39,7 @@ interface IPaymentParentState {
 export default function Checkout() {
   const [activeStep, setActiveStep] = useState(0);
   const dispatch = useDispatch();
+  const [result, setResult] = useState<IShippingOrder>();
   const [statePayment, setStatePayment] = useState<IPaymentParentState>({
     inputValues: {
       cardName: '',
@@ -82,12 +84,9 @@ export default function Checkout() {
     !address1.trim();
 
   const handleNext = useCallback(async () => {
-    if (activeStep === 1) {
-      console.log('submit order cvv ', statePayment.inputValues);
-    }
     if (activeStep === steps.length - 1) {
       console.log('submit order ');
-      await createOrder({
+      const res = await createOrder({
         fullAddress: { ...fullAddress },
         payment: { ...statePayment.inputValues },
         items: items.map((item: IItems) => {
@@ -97,6 +96,8 @@ export default function Checkout() {
         totalPrice: totalAmount,
         shippingDate: undefined,
       });
+      const { order } = res;
+      setResult(order);
       //dispatch(setCheckoutOpen(false));
       dispatch(updateAllCartState(cartInitialState));
     }
@@ -104,9 +105,9 @@ export default function Checkout() {
   }, [
     activeStep,
     steps.length,
-    statePayment,
     createOrder,
     fullAddress,
+    statePayment.inputValues,
     items,
     uid,
     totalAmount,
@@ -189,8 +190,8 @@ export default function Checkout() {
                 Thank you for your order.
               </Typography>
               <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order confirmation, and will
-                send you an update when your order has shipped.
+                Your order number is #{result?.orderNumber}. We have emailed your order
+                confirmation, and will send you an update when your order has shipped.
               </Typography>
             </React.Fragment>
           ) : (
