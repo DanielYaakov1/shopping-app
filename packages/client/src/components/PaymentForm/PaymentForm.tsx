@@ -4,9 +4,8 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useCallback, useState } from 'react';
 
-export type paymentChildState = {
+export type PaymentDetails = {
   cardName: string;
   cardNumber: string;
   expDate: string;
@@ -14,23 +13,11 @@ export type paymentChildState = {
 };
 
 interface IPaymentProps {
-  onInputChange: (inputValues: paymentChildState) => void;
-  savedInputValues: paymentChildState;
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  paymentDetails: PaymentDetails;
 }
 
-const PaymentForm = ({ onInputChange, savedInputValues }: IPaymentProps) => {
-  const [inputValues, setInputValues] = useState<paymentChildState>(savedInputValues);
-  console.log('🚀 ~ file: PaymentForm.tsx:27 ~ PaymentForm ~ inputValues', inputValues);
-
-  const handleInputChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target;
-      setInputValues({ ...inputValues, [name]: value });
-      onInputChange(inputValues);
-    },
-    [inputValues, onInputChange]
-  );
-
+const PaymentForm = ({ handleInputChange, paymentDetails }: IPaymentProps) => {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -44,7 +31,7 @@ const PaymentForm = ({ onInputChange, savedInputValues }: IPaymentProps) => {
             label="Name on card"
             fullWidth
             name="cardName"
-            value={inputValues.cardName}
+            value={paymentDetails.cardName}
             onChange={handleInputChange}
             autoComplete="cc-name"
             variant="standard"
@@ -53,7 +40,7 @@ const PaymentForm = ({ onInputChange, savedInputValues }: IPaymentProps) => {
         <Grid item xs={12} md={6}>
           <TextField
             required
-            value={inputValues.cardNumber}
+            value={paymentDetails.cardNumber}
             onChange={handleInputChange}
             id="cardNumber"
             name="cardNumber"
@@ -66,7 +53,7 @@ const PaymentForm = ({ onInputChange, savedInputValues }: IPaymentProps) => {
         <Grid item xs={12} md={6}>
           <TextField
             required
-            value={inputValues.expDate}
+            value={paymentDetails.expDate}
             onChange={handleInputChange}
             id="expDate"
             name="expDate"
@@ -79,7 +66,7 @@ const PaymentForm = ({ onInputChange, savedInputValues }: IPaymentProps) => {
         <Grid item xs={12} md={6}>
           <TextField
             required
-            value={inputValues.cvv}
+            value={paymentDetails.cvv}
             onChange={handleInputChange}
             id="cvv"
             name="cvv"
