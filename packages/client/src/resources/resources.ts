@@ -5,4 +5,10 @@ export const RESOURCES = {
   BACK_HOME: 'Back Home',
   PAGE_NOT_FOUND: 'The page you’re looking for doesn’t exist.',
   PAGE_NOT_FOUND_CODE_TEXT: '404',
+  PAYMENTS: {
+    CARD_HOLDER: 'Card Holder',
+    CARD_TYPE: 'Card Type',
+    CARD_NUMBER: 'Card Number',
+    EXPIRY_DATE: 'Expiry Date',
+  },
 };

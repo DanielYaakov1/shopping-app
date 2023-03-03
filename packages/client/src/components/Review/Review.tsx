@@ -6,14 +6,21 @@ import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import { RootState } from '../../store';
 import { useSelector } from 'react-redux';
-import { PAYMENTS } from '../../utils/constants/payment';
+import RESOURCES from '../../resources';
 
-export default function Review() {
+export default function Review({ paymentDetails }: any) {
   const { city, zip, lastName, firstName, address1, country } = useSelector(
     (state: RootState) => state.orderReducer.fullAddress
   );
   const { items, totalAmount } = useSelector((state: RootState) => state.cartReducer);
   const addresses = [address1, city, zip, country];
+
+  const PAYMENTS = [
+    { name: RESOURCES.PAYMENTS.CARD_TYPE, detail: 'Visa' },
+    { name: RESOURCES.PAYMENTS.CARD_HOLDER, detail: paymentDetails.cardName },
+    { name: RESOURCES.PAYMENTS.CARD_NUMBER, detail: paymentDetails.cardNumber },
+    { name: RESOURCES.PAYMENTS.EXPIRY_DATE, detail: paymentDetails.expDate },
+  ];
 
   return (
     <React.Fragment>
