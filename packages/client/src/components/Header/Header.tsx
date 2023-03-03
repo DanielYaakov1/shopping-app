@@ -11,7 +11,6 @@ import {
   IItems,
   setCartModalOpen,
 } from '../../store/slices/cartSlice';
-import OrderForm from '../../views/Orders/OrderForm/OrderForm';
 import Input from '../Input/Input';
 import ProductsActions from '../../actions/ProductsActions';
 import { setProduct } from '../../store/slices/ProductSlice';
@@ -97,7 +96,6 @@ const Header = memo(() => {
             dispatch(setCheckoutOpen(true));
           }}
         />
-        {displayOrderForm && <OrderForm />}
       </MyModal>
     </div>
   );

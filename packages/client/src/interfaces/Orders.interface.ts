@@ -1,4 +1,4 @@
-import { paymentChildState } from '../components/PaymentForm/PaymentForm';
+import { PaymentDetails } from '../components/PaymentForm/PaymentForm';
 import { IFullAddress } from './../store/slices/orderSlice';
 export interface IShippingOrder {
   description?: string;
@@ -10,5 +10,5 @@ export interface IShippingOrder {
   totalPrice: number;
   orderNumber?: string;
   fullAddress: IFullAddress;
-  payment: paymentChildState;
+  payment: PaymentDetails;
 }

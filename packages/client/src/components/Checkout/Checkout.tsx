@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from '../AddressForm/AddressForm';
-import PaymentForm, { paymentChildState } from '../PaymentForm/PaymentForm';
+import PaymentForm, { PaymentDetails } from '../PaymentForm/PaymentForm';
 import Review from '../Review/Review';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -32,22 +32,25 @@ import { IShippingOrder } from '../../interfaces';
 
 const theme = createTheme();
 
-interface IPaymentParentState {
-  inputValues: paymentChildState;
-}
-
 export default function Checkout() {
   const [activeStep, setActiveStep] = useState(0);
   const dispatch = useDispatch();
   const [result, setResult] = useState<IShippingOrder>();
-  const [statePayment, setStatePayment] = useState<IPaymentParentState>({
-    inputValues: {
-      cardName: '',
-      cardNumber: '',
-      expDate: '',
-      cvv: '',
-    },
+  const [paymentDetails, setPaymentInputs] = useState<PaymentDetails>({
+    cardName: '',
+    cardNumber: '',
+    expDate: '',
+    cvv: '',
   });
+
+  const handleInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = event.target;
+      setPaymentInputs({ ...paymentDetails, [name]: value });
+    },
+    [paymentDetails]
+  );
+
   const { uid } = useSelector((state: RootState) => state.userReducer);
   const { items, totalAmount, isCartModalOpen } = useSelector(
     (state: RootState) => state.cartReducer
@@ -88,7 +91,7 @@ export default function Checkout() {
       console.log('submit order ');
       const res = await createOrder({
         fullAddress: { ...fullAddress },
-        payment: { ...statePayment.inputValues },
+        payment: { ...paymentDetails },
         items: items.map((item: IItems) => {
           return { amount: item.amount, productId: item.productId };
         }),
@@ -107,7 +110,7 @@ export default function Checkout() {
     steps.length,
     createOrder,
     fullAddress,
-    statePayment.inputValues,
+    paymentDetails,
     items,
     uid,
     totalAmount,
@@ -118,11 +121,6 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   }, [activeStep]);
 
-  const handleInputChange = useCallback((newInputValues: paymentChildState) => {
-    //NOTE: update the parent component's state with the new input values
-    setStatePayment({ inputValues: newInputValues });
-  }, []);
-
   const getStepContent = useCallback(
     (step: number) => {
       switch (step) {
@@ -130,18 +128,15 @@ export default function Checkout() {
           return <AddressForm fullAddress={fullAddress} />;
         case 1:
           return (
-            <PaymentForm
-              onInputChange={handleInputChange}
-              savedInputValues={statePayment.inputValues}
-            />
+            <PaymentForm handleInputChange={handleInputChange} paymentDetails={paymentDetails} />
           );
         case 2:
-          return <Review />;
+          return <Review paymentDetails={paymentDetails} />;
         default:
           throw new Error('Unknown step');
       }
     },
-    [fullAddress, handleInputChange, statePayment]
+    [fullAddress, handleInputChange, paymentDetails]
   );
 
   return (

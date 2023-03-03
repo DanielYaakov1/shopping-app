@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { IOrder } from './../api/interfaces/interfaces';
 
 export interface IFullAddressS {
+  uId: string;
   city: string;
   lastName: string;
   firstName: string;
