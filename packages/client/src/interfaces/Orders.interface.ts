@@ -1,12 +1,14 @@
+import { PaymentDetails } from '../components/PaymentForm/PaymentForm';
+import { IFullAddress } from './../store/slices/orderSlice';
 export interface IShippingOrder {
-  city: string;
-  street: string;
-  zipCode: string;
   description?: string;
-  createdAt?: Date;
-  items: string[];
-  shippingDate?: null | object;
+  createdAt?: Date | undefined;
+  items: any;
+  //shippingDate: Date | null;
+  shippingDate: any;
   uId: string | undefined;
   totalPrice: number;
-  amount: number;
+  orderNumber?: string;
+  fullAddress: IFullAddress;
+  payment: PaymentDetails;
 }

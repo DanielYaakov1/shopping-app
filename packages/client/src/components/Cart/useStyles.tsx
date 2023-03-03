@@ -7,18 +7,21 @@ export const useStyles = makeStyles({
     justifyItems: 'space-between',
     fontWeight: 'bold',
     fontSize: '1.5rem',
-    margin: '1rem 0',
+    margin: '1.5rem 2rem',
     color: '#4e4c4b',
+    padding: '0.5rem',
   },
   cartItems: {
     listStyle: 'none',
     margin: 0,
     padding: 0,
-    maxHeight: '20rem',
     overflow: 'scroll',
   },
   cartItemList: {
     listStyleType: 'none',
     color: '#4e4c4b',
+  },
+  btnCtn: {
+    margin: '1rem 1.5rem',
   },
 });

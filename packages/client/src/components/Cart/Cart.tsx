@@ -44,11 +44,13 @@ const Cart = memo(
           <span>Total Price: </span>
           <span>{totalAmount.toFixed(2)}</span>
         </div>
-        {checkIfTheCardIsEmpty() ? (
-          <Button variant="outlined" color="primary" onClick={onClickCheckOutButton}>
-            {labelButtonCheckout}
-          </Button>
-        ) : null}
+        <div className={classes.btnCtn}>
+          {checkIfTheCardIsEmpty() ? (
+            <Button variant="outlined" color="primary" onClick={onClickCheckOutButton}>
+              {labelButtonCheckout}
+            </Button>
+          ) : null}
+        </div>
       </div>
     );
   }
