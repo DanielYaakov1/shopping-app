@@ -7,7 +7,7 @@ export type MainNavigationProps = {
 export type propsArray = {
   to: string;
   activeClassName: string;
-  exact: boolean;
+  exact?: boolean;
   label: string;
 };
 

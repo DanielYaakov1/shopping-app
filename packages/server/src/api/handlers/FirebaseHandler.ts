@@ -1,5 +1,5 @@
 import { authAdmin } from '../../config/firebase/firebaseAdmin';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase/firebase';
 import { IAuthenticator, IUser } from '../interfaces/interfaces';
 
@@ -16,5 +16,8 @@ export class FirebaseHandler implements IAuthenticator {
   }
   async checkAuth(token: string) {
     return await authAdmin.verifyIdToken(token);
+  }
+  async logout(): Promise<void> {
+    return await signOut(auth);
   }
 }

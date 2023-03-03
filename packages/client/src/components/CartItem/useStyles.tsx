@@ -8,6 +8,7 @@ export const useStyles = makeStyles(() => ({
     borderBottom: '2px solid #8a2b06',
     padding: '1rem 0',
     margin: '1rem 0',
+    marginInlineEnd: '2rem',
     '& button': {
       font: 'inherit',
       fontWeight: 'bold',

@@ -6,7 +6,7 @@ export interface IItems {
   description: string;
   image: string;
   amount: number;
-  productId: string;
+  productId: any;
 }
 
 export interface ICart {
@@ -68,7 +68,7 @@ export const cartSlice = createSlice({
     updateAllCartState(state, action: PayloadAction<ICart>) {
       state.items = action.payload.items;
       state.totalAmount = action.payload.totalAmount;
-      state.isCartModalOpen = action.payload.isCartModalOpen;
+      //state.isCartModalOpen = action.payload.isCartModalOpen;
     },
   },
 });

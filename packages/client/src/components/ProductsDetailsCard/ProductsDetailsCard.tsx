@@ -6,7 +6,7 @@ const ProductsDetailsCard = ({ products, onAddToCartClicked }: any) => {
   const classes = useStyles();
 
   return products.map((product: IProductProps, i: number) => (
-    <div className={classes.card}>
+    <div className={classes.card} key={i}>
       <Product
         key={i}
         name={product.name}
