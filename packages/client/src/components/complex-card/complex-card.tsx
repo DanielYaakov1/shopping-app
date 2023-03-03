@@ -12,15 +12,14 @@ const Img = styled('img')({
   maxHeight: '100%',
 });
 
-type complexCardProps = {
+interface IComplexCardProps {
   image: string;
   price: string | number;
   title: string;
   desc: string;
   id?: string;
-};
-const ComplexCard = ({ image, price, title, desc }: complexCardProps) => {
-  console.log('image path', title);
+}
+const ComplexCard = ({ image, price, title, desc }: IComplexCardProps) => {
   return (
     <Paper
       sx={{
@@ -47,11 +46,6 @@ const ComplexCard = ({ image, price, title, desc }: complexCardProps) => {
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 ID: 1030114
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                Remove
               </Typography>
             </Grid>
           </Grid>

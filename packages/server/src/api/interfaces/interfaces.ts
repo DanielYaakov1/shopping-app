@@ -16,6 +16,7 @@ export interface IProductProps {
   price: number;
   description: string;
   image: string;
+  category: string;
   createdAt?: Date;
   updatedAt?: Date;
   id: string;

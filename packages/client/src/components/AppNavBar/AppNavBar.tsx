@@ -45,57 +45,7 @@ function AppNavBar() {
   const [searchProduct, setSearchProduct] = useState('');
   const { logoutFirebaseAction } = ActionsAuth();
   const { getAllProducts, getProductByName } = ProductsActions();
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = async (dropDownListNumber: number) => {
-    console.log('event from dropdown', dropDownListNumber);
-    switch (dropDownListNumber) {
-      case 0:
-        console.log('case for profile');
-        history.replace('/logisssn');
-        break;
-      case 1:
-        history.replace('/wes');
-        console.log('case for logout');
-        break;
-      case 2:
-        history.replace('/loasssn');
-        console.log('case for logout');
-        break;
-      case 3:
-        setOpen(true);
-        console.log('case for logout');
-        break;
-      default:
-        break;
-    }
-    setAnchorElUser(null);
-  };
-
-  const handleSetSearch = useCallback(
-    async (searchValue: string) => {
-      setSearchProduct(searchValue);
-      if (searchValue.length > 0) {
-        //search(searchValue);
-        const searchResults = await getProductByName(searchValue);
-        dispatch(setProduct(searchResults));
-      } else {
-        const { products } = await getAllProducts();
-        dispatch(setProduct(products));
-      }
-    },
-    [dispatch, getAllProducts, getProductByName]
-  );
+  const [open, setOpen] = useState(false);
 
   //card
   const { items, isCartModalOpen, totalAmount } = useSelector(
@@ -107,6 +57,50 @@ function AppNavBar() {
     (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
     [dispatch]
   );
+
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => setAnchorElNav(null);
+
+  const handleCloseUserMenu = async (dropDownListNumber: number) => {
+    switch (dropDownListNumber) {
+      case 0:
+        history.replace('/logisssn');
+        break;
+      case 1:
+        history.replace('/wes');
+        break;
+      case 2:
+        history.replace('/loasssn');
+        break;
+      case 3:
+        setOpen(true);
+        break;
+      default:
+        break;
+    }
+    setAnchorElUser(null);
+  };
+
+  const handleSetSearch = useCallback(
+    async (searchValue: string) => {
+      setSearchProduct(searchValue);
+      if (searchValue.length > 0) {
+        const searchResults = await getProductByName(searchValue);
+        dispatch(setProduct(searchResults));
+      } else {
+        const { products } = await getAllProducts();
+        dispatch(setProduct(products));
+      }
+    },
+    [dispatch, getAllProducts, getProductByName]
+  );
+
   const handleDecreaseItem = useCallback(
     (id: string) => dispatch(deleteItemFromCart(id)),
     [dispatch]
@@ -125,19 +119,14 @@ function AppNavBar() {
   }, [dispatch, displayOrderForm]);
 
   //open dialog
-  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     await logoutFirebaseAction();
     setOpen(false);
-  };
+  }, [logoutFirebaseAction]);
+
   return (
     <div>
       <AppBar position="sticky">
