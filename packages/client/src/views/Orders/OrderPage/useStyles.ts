@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import theme from '../../../theme';
 
 const useStyles = makeStyles({
   cartItem: {
@@ -42,6 +43,15 @@ const useStyles = makeStyles({
   },
   cardName: {
     margin: '45px',
+  },
+  cardContainer: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr',
+    gridGap: 10,
+    padding: 10,
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: 'auto',
+    },
   },
 });
 
