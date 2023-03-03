@@ -1,23 +1,40 @@
 import mongoose from 'mongoose';
-
 import { IOrder } from './../api/interfaces/interfaces';
 
+export interface IFullAddressS {
+  uId: string;
+  city: string;
+  lastName: string;
+  firstName: string;
+  address1: string;
+  country: string;
+  zip: string;
+}
+
 const orderSchema = new mongoose.Schema({
-  city: {
-    type: String,
-    required: [true, 'Orders city is missing'],
-  },
-  street: {
-    type: String,
-    required: [true, 'Orders street is missing'],
-  },
   uId: {
     type: String,
     required: [true, 'uId is missing'],
   },
-  zipCode: {
-    type: Number,
-    required: [true, 'Orders zipCode is missing'],
+  payment: {
+    type: {
+      cardName: String,
+      cardNumber: String,
+      expDate: String,
+      cvv: String,
+    },
+    required: [true, 'Orders payment is missing'],
+  },
+  fullAddress: {
+    type: {
+      city: String,
+      lastName: String,
+      firstName: String,
+      address1: String,
+      country: String,
+      zip: String,
+    },
+    required: [true, 'Orders fullAddress is missing'],
   },
   notes: {
     type: String,
@@ -25,16 +42,29 @@ const orderSchema = new mongoose.Schema({
   },
   shippingDate: {
     type: Date,
-    required: [true, 'Orders date is missing'],
+    required: [false, 'Orders date is missing'],
   },
-  items: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'products',
-    required: [true, 'Orders Items is missing'],
-  },
+  items: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'products',
+        required: [true, 'Orders Items is missing'],
+      },
+      amount: {
+        type: Number,
+        String,
+        required: [true, 'Orders Items is missing'],
+      },
+    },
+  ],
+
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: () => {
+      const date = new Date(Date.now());
+      return date.setUTCHours(date.getUTCHours());
+    },
   },
   totalPrice: {
     type: Number,
@@ -43,6 +73,18 @@ const orderSchema = new mongoose.Schema({
   amountItems: {
     type: Number,
     required: [false, 'Item amount is missing'],
+  },
+  orderNumber: {
+    type: Number,
+    default: () => {
+      const timestamp = new Date().getTime();
+      return timestamp + Math.floor(Math.random() * 1000000);
+    },
+  },
+  status: {
+    type: String,
+    enum: ['created', 'processing', 'completed'],
+    default: 'created',
   },
 });
 

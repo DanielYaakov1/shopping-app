@@ -2,7 +2,7 @@ import icon from '../../assets/images/sonae-west-shopping-ag.svg';
 import MainNavigation from '../MainNavigation';
 import { HeaderStyle } from './useStyles';
 import CartIcon from '../CartIcon';
-import { RootState } from '../../store/store';
+import { RootState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { memo, useCallback, useState } from 'react';
 import {
@@ -11,7 +11,6 @@ import {
   IItems,
   setCartModalOpen,
 } from '../../store/slices/cartSlice';
-import OrderForm from '../../views/Orders/OrderForm/OrderForm';
 import Input from '../Input/Input';
 import ProductsActions from '../../actions/ProductsActions';
 import { setProduct } from '../../store/slices/ProductSlice';
@@ -97,7 +96,6 @@ const Header = memo(() => {
             dispatch(setCheckoutOpen(true));
           }}
         />
-        {displayOrderForm && <OrderForm />}
       </MyModal>
     </div>
   );

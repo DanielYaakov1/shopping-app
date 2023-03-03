@@ -1,5 +1,7 @@
 import { IShippingOrder } from '../../interfaces';
-import Product from '../Product';
+import { IItems } from '../../store/slices/cartSlice';
+import { getFullDateAndHour, getFullDate } from '../../utils/helpers/date.helpers';
+import ComplexCard from '../complex-card';
 
 const CardOrder = (props: {
   orders: IShippingOrder[];
@@ -10,40 +12,42 @@ const CardOrder = (props: {
     cardImage: string;
     cardName: string;
     cardFooter: string;
+    cardContainer: string;
   };
 }) => {
   return (
-    <div>
-      {props.orders.map((order: IShippingOrder, index: number) => (
+    <div className="as">
+      {props.orders?.map((order: IShippingOrder, index: number) => (
         <div key={index} className={props.classes.card}>
           <div className={props.classes.cardTop}>
-            <div>Order Created: {order.createdAt}</div>
-            <div>Total Price:{order.totalPrice}</div>
+            <div>Order Created: {order.createdAt ? getFullDateAndHour(order.createdAt) : ''}</div>
+            <div>Total Price:{order.totalPrice.toFixed(2)}</div>
             <div>
               Delivery to:
-              <div>City:{order.city}</div>
-              <div>Street:{order.city}</div>
+              <div>City:{order.fullAddress.city}</div>
+              <div>Street:{order.fullAddress.address1}</div>
             </div>
-            <div>Order Number: {order.amount}</div>
+            <div>Order Number: {order.orderNumber}</div>
           </div>
           <div>
-            <div className={props.classes.cardContent}>
-              Items
-              {order.items.map((item: any, index: number) => (
-                <Product
-                  key={index}
-                  _id={item._id}
-                  name={item.name}
-                  image={item.image}
-                  price={item.price}
-                  description={item.description}
-                />
+            <div className={props.classes.cardContainer}>
+              {order.items?.map((item: IItems, index: number) => (
+                <div>
+                  <div>Amount: {item.amount}</div>
+                  <ComplexCard
+                    key={index}
+                    image={item.productId.image}
+                    title={item.productId.name}
+                    price={item.productId.price}
+                    desc={item.productId.description}
+                  />
+                </div>
               ))}
             </div>
           </div>
           <div className={props.classes.cardFooter}>
             <div>description: test should be text here</div>
-            <div>Shipping Date: {order.shippingDate}</div>
+            <div>Shipping Date: {order.shippingDate ? getFullDate(order.shippingDate) : ''}</div>
           </div>
         </div>
       ))}

@@ -1,6 +1,6 @@
 import { propsArray } from '../../components/MainNavigation/MainNavigation';
 
-const navLinks: any = [
+const navLinks: propsArray[] = [
   {
     label: 'Home ',
     activeClassName: 'activeLink',
