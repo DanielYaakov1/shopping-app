@@ -29,5 +29,15 @@ const Images: IMagesSlider[] = [
     src: sonyTvImage,
     alt: 'Image 3',
   },
+  {
+    id: 5,
+    src: 'https://cdn.pixabay.com/photo/2014/08/08/20/54/laundry-413688_1280.jpg',
+    alt: 'Image 5',
+  },
+  {
+    id: 6,
+    src: 'https://cdn.pixabay.com/photo/2016/10/26/21/05/modern-kitchen-1772638_1280.jpg',
+    alt: 'Image 6',
+  },
 ];
 export default Images;
