@@ -29,12 +29,12 @@ import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
 import CartIcon from '../CartIcon';
 import { useHistory } from 'react-router-dom';
 import SettingsMenu from '../SettingsMenu';
-import { pages } from '../../utils/constants/navBarData';
 import AlertDialog from '../AlertDialog';
 import RESOURCES from '../../resources';
 import ActionsAuth from '../../actions/auth';
 import Checkout from '../Checkout/Checkout';
 import IconButton from '@mui/material/IconButton';
+import { ROUTES } from '../../utils/constants';
 
 function AppNavBar() {
   const classes = useStyles();
@@ -70,13 +70,13 @@ function AppNavBar() {
   const handleCloseUserMenu = async (dropDownListNumber: number) => {
     switch (dropDownListNumber) {
       case 0:
-        history.replace('/logisssn');
+        history.replace('/profile');
         break;
       case 1:
-        history.replace('/wes');
+        history.replace('/account');
         break;
       case 2:
-        history.replace('/loasssn');
+        history.replace('/dashboard');
         break;
       case 3:
         setOpen(true);
@@ -127,104 +127,108 @@ function AppNavBar() {
     setOpen(false);
   }, [logoutFirebaseAction]);
 
+  const pages = [
+    { title: 'Products', urlPath: ROUTES.HOME_PAGE },
+    { title: 'orders', urlPath: ROUTES.ORDERS },
+    { title: 'about', urlPath: ROUTES.ABOUT },
+  ];
+
   return (
-    <div>
-      <AppBar position="sticky">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Typography variant="h6" noWrap component="a" href="/" sx={appIcon}>
-              LOGO
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit">
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}>
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+    <AppBar position="sticky" className={classes.headerNav}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography variant="h6" noWrap component="a" href={ROUTES.HOME_PAGE} sx={appIcon}>
+            LOGO
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit">
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}>
               {pages.map((page) => (
-                <Button
-                  href={page}
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}>
-                  {page}
-                </Button>
+                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.title}</Typography>
+                </MenuItem>
               ))}
-            </Box>
-            <Box component="form" sx={searchHeaderField} noValidate autoComplete="off">
-              <TextField
-                value={searchProduct}
-                onChange={(e) => handleSetSearch(e.target.value)}
-                id="outlined-basic"
-                label="Search"
-                variant="outlined"
-              />
-            </Box>
-            <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} />
-            <div className="modal-st">
-              <MyModal closeBtnName="X" isModalOpen={isCartModalOpen} onClose={handleCartModal}>
-                {!displayOrderForm && (
-                  <Cart
-                    items={items}
-                    totalAmount={totalAmount}
-                    checkIfTheCardIsEmpty={checkIfTheCardIsEmpty}
-                    handleIncreaseItem={handleIncreaseItem}
-                    handleDecreaseItem={handleDecreaseItem}
-                    labelButtonCheckout={'CHECK OUT'}
-                    onClickCheckOutButton={handleCheckoutForm}
-                  />
-                )}
-                {displayOrderForm && <Checkout />}
-              </MyModal>
-            </div>
-            <SettingsMenu
-              menuDropDown={classes.menuDropDown}
-              anchorElUser={anchorElUser}
-              handleOpenUserMenu={handleOpenUserMenu}
-              handleCloseUserMenu={handleCloseUserMenu}
+            </Menu>
+          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Button
+                href={page.urlPath}
+                key={page.urlPath}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}>
+                {page.title}
+              </Button>
+            ))}
+          </Box>
+          <Box component="form" sx={searchHeaderField} noValidate autoComplete="off">
+            <TextField
+              value={searchProduct}
+              onChange={(e) => handleSetSearch(e.target.value)}
+              id="outlined-basic"
+              label="Search"
+              variant="outlined"
             />
-          </Toolbar>
-        </Container>
-        <AlertDialog
-          open={open}
-          titleDialog={RESOURCES.ALERT_TITLE_TEXT}
-          bodyDialog={RESOURCES.LOGOUT_ALERT_BODY_TEXT}
-          handleClickOpen={handleClickOpen}
-          handleCancelAction={handleClose}
-          handleApprovedAction={handleLogout}
-        />
-      </AppBar>
-    </div>
+          </Box>
+          <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} />
+          <div className="modal-st">
+            <MyModal closeBtnName="X" isModalOpen={isCartModalOpen} onClose={handleCartModal}>
+              {!displayOrderForm && (
+                <Cart
+                  items={items}
+                  totalAmount={totalAmount}
+                  checkIfTheCardIsEmpty={checkIfTheCardIsEmpty}
+                  handleIncreaseItem={handleIncreaseItem}
+                  handleDecreaseItem={handleDecreaseItem}
+                  labelButtonCheckout={'CHECK OUT'}
+                  onClickCheckOutButton={handleCheckoutForm}
+                />
+              )}
+              {displayOrderForm && <Checkout />}
+            </MyModal>
+          </div>
+          <SettingsMenu
+            menuDropDown={classes.menuDropDown}
+            anchorElUser={anchorElUser}
+            handleOpenUserMenu={handleOpenUserMenu}
+            handleCloseUserMenu={handleCloseUserMenu}
+          />
+        </Toolbar>
+      </Container>
+      <AlertDialog
+        open={open}
+        titleDialog={RESOURCES.ALERT_TITLE_TEXT}
+        bodyDialog={RESOURCES.LOGOUT_ALERT_BODY_TEXT}
+        handleClickOpen={handleClickOpen}
+        handleCancelAction={handleClose}
+        handleApprovedAction={handleLogout}
+      />
+    </AppBar>
   );
 }
 export default AppNavBar;

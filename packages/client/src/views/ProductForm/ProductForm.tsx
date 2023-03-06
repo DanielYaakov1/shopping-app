@@ -22,20 +22,26 @@ const ProductForm = memo((props: { onAddToCart: any; id: string | undefined }) =
   );
 
   return (
-    <form onSubmit={submitHandler}>
-      <input
-        ref={amountInputRef}
-        name={`amount_+ ${id}`}
-        type="number"
-        min="1"
-        max="55"
-        step="1"
-        defaultValue="1"
-        placeholder="Amount"
-      />
-      <IconDrawer type="submit" />
-      {!amountIsValid && <p>Please Entered valid number 1-5</p>}
-    </form>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
+      <form onSubmit={submitHandler}>
+        <input
+          ref={amountInputRef}
+          name={`amount_+ ${id}`}
+          type="number"
+          min="1"
+          max="55"
+          step="1"
+          defaultValue="1"
+          placeholder="Amount"
+        />
+        <IconDrawer type="submit" />
+        {!amountIsValid && <p>Please Entered valid number 1-5</p>}
+      </form>
+    </div>
   );
 });
 
