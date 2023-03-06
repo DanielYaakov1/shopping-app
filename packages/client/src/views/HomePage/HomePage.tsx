@@ -12,6 +12,32 @@ import ImageSlider from '../../components/ImageSlider/ImageSlider';
 import Sorting from '../../components/Sorting';
 import { SelectChangeEvent } from '@mui/material/Select';
 import Filtering from '../../components/Filtering';
+import Carousel from 'react-spring-3d-carousel';
+import { config } from 'react-spring';
+import { v4 as uuidv4 } from 'uuid';
+
+const slides = [
+  {
+    key: uuidv4(),
+    content: <img src="https://picsum.photos/800/801/?random" alt="1" />,
+  },
+  {
+    key: uuidv4(),
+    content: <img src="https://picsum.photos/800/802/?random" alt="2" />,
+  },
+  {
+    key: uuidv4(),
+    content: <img src="https://picsum.photos/600/803/?random" alt="3" />,
+  },
+  {
+    key: uuidv4(),
+    content: <img src="https://picsum.photos/800/500/?random" alt="4" />,
+  },
+  {
+    key: uuidv4(),
+    content: <img src="https://picsum.photos/800/804/?random" alt="5" />,
+  },
+];
 
 const HomePage = () => {
   const { isLoadingProducts, products } = useSelector((state: RootState) => state.productReducer);
@@ -68,25 +94,19 @@ const HomePage = () => {
   }, [fetchProductAndPage]);
   return (
     <div>
-      <ImageSlider
-        settings={{
-          infinite: true,
-          dots: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          lazyLoad: true,
-          autoplay: true,
-          autoplaySpeed: 5000,
-        }}
-        images={Images}
-      />
+      <div style={{ width: '100%', height: '400px', margin: '10px 10px' }}>
+        <Carousel
+          slides={slides}
+          offsetRadius={2}
+          goToSlide={0}
+          showNavigation={true}
+          animationConfig={config.gentle}
+        />
+      </div>
       {isLoadingProducts ? (
         <Spinner />
       ) : (
-        <div
-          style={{
-            margin: '5px',
-          }}>
+        <div>
           <Filtering handleChange={(e) => setCategory(e.target.value)} value={category} />
           <Sorting isSortingOption={isSortingOption} handleSortingChange={handleSortingChange} />
           <DataGrid>
