@@ -5,7 +5,6 @@ import ComplexCard from '../complex-card';
 import ShipTo from './ShipTo';
 import useStyles from './useStyles';
 import React, { useState } from 'react';
-import Dialog from '@mui/material/Dialog';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const CardOrder = (props: {
@@ -21,16 +20,9 @@ const CardOrder = (props: {
   };
 }) => {
   const classes = useStyles();
-  const [isHovering, setIsHovering] = useState(false);
-  console.log('🚀 ~ file: CardOrder.tsx:23 ~ isHovering:', isHovering);
-  const handleMouseEnter = () => {
-    setIsHovering(true);
-  };
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-  };
-  const handleClick = () => {
-    setIsHovering(!isHovering);
+  const [selectedOrderIndex, setSelectedOrderIndex] = useState(-1);
+  const handleClick = (index: number) => {
+    setSelectedOrderIndex(index === selectedOrderIndex ? -1 : index);
   };
   return (
     <div>
@@ -44,7 +36,7 @@ const CardOrder = (props: {
                 SHIP TO
                 <div
                   className={classes.shipTo}
-                  onClick={handleClick}
+                  onClick={() => handleClick(index)}
                   // onMouseEnter={handleMouseEnter}
                   // onMouseLeave={handleMouseLeave}
                   style={{ display: 'flex' }}>
@@ -54,7 +46,7 @@ const CardOrder = (props: {
               </div>
               <div>Order Number: {order.orderNumber}</div>
             </div>
-            {isHovering ? <ShipTo /> : null}
+            {selectedOrderIndex === index && <ShipTo />}
             <div>
               <div className={props.classes.cardContainer}>
                 {order.items?.map((item: IItems, index: number) => (
@@ -78,7 +70,6 @@ const CardOrder = (props: {
           </div>
         ))}
       </div>
-      {/* <ShipTo></ShipTo> */}
     </div>
   );
 };
