@@ -35,6 +35,8 @@ import ActionsAuth from '../../actions/auth';
 import Checkout from '../Checkout/Checkout';
 import IconButton from '@mui/material/IconButton';
 import { ROUTES } from '../../utils/constants';
+import logoHome from '../../assets/images/1.jpeg';
+import logoHome1 from '../../assets/images/8069341.jpg';
 
 function AppNavBar() {
   const classes = useStyles();
@@ -137,9 +139,8 @@ function AppNavBar() {
     <AppBar position="sticky" className={classes.headerNav}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography variant="h6" noWrap component="a" href={ROUTES.HOME_PAGE} sx={appIcon}>
-            LOGO
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />s
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
