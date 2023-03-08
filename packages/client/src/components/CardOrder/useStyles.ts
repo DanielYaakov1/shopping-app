@@ -5,11 +5,9 @@ const useStyles = makeStyles({
   root: {},
   shipTo: {
     color: '#007185',
-    '&:hover': {
-      width: '100%',
-    },
+    display: 'flex',
+    '&:hover': {},
   },
-
   shipToContainer: {
     position: 'relative',
   },
@@ -24,7 +22,7 @@ const useStyles = makeStyles({
     borderRadius: 5,
     backgroundColor: '#fff',
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
-    maxWidth: 200,
+    maxWidth: 500,
     marginTop: 2,
   },
 });
