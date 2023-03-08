@@ -4,7 +4,7 @@ import { getFullDateAndHour, getFullDate } from '../../utils/helpers/date.helper
 import ComplexCard from '../complex-card';
 import ShipTo from './ShipTo';
 import useStyles from './useStyles';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const CardOrder = (props: {
@@ -21,9 +21,12 @@ const CardOrder = (props: {
 }) => {
   const classes = useStyles();
   const [selectedOrderIndex, setSelectedOrderIndex] = useState(-1);
-  const handleClick = (index: number) => {
-    setSelectedOrderIndex(index === selectedOrderIndex ? -1 : index);
-  };
+  const handleClick = useCallback(
+    (index: number) => {
+      setSelectedOrderIndex(index === selectedOrderIndex ? -1 : index);
+    },
+    [selectedOrderIndex]
+  );
   return (
     <div>
       <div>
@@ -31,22 +34,17 @@ const CardOrder = (props: {
           <div key={index} className={props.classes.card}>
             <div className={props.classes.cardTop}>
               <div>Order Created: {order.createdAt ? getFullDateAndHour(order.createdAt) : ''}</div>
-              <div>Total Price:{order.totalPrice.toFixed(2)}</div>
+              <div>Total Price: {order.totalPrice.toFixed(2)}</div>
               <div>
                 SHIP TO
-                <div
-                  className={classes.shipTo}
-                  onClick={() => handleClick(index)}
-                  // onMouseEnter={handleMouseEnter}
-                  // onMouseLeave={handleMouseLeave}
-                  style={{ display: 'flex' }}>
+                <div className={classes.shipTo} onClick={() => handleClick(index)}>
                   {order.fullAddress.firstName} {order.fullAddress.lastName}{' '}
                   <KeyboardArrowDownIcon />
                 </div>
               </div>
               <div>Order Number: {order.orderNumber}</div>
             </div>
-            {selectedOrderIndex === index && <ShipTo />}
+            {selectedOrderIndex === index && <ShipTo fullAddress={order.fullAddress} />}
             <div>
               <div className={props.classes.cardContainer}>
                 {order.items?.map((item: IItems, index: number) => (

@@ -18,7 +18,7 @@ interface IAddress {
   address1: string;
 }
 
-type propsFullAddress = {
+export type propsFullAddress = {
   fullAddress: IAddress;
 };
 
