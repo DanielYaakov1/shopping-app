@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import { memo } from 'react';
+import { propsFullAddress } from '../AddressForm/AddressForm';
 import useStyles from './useStyles';
 
-function ShipTo() {
+const ShipTo = memo(({ fullAddress }: propsFullAddress) => {
   const classes = useStyles();
-
   return (
     <div className={classes.shipToContainer}>
       <div className={classes.shipToContext}>
-        <p>John Doe</p>
-        <p>123 Main St</p>
-        <p>Anytown, USA 12345</p>
+        <h5>
+          {fullAddress.firstName} {fullAddress.lastName}
+        </h5>
+        <p>{fullAddress.address1}</p>
+        <p>
+          {fullAddress.city}, {fullAddress.country} {fullAddress.zip}
+        </p>
       </div>
     </div>
   );
-}
+});
 
 export default ShipTo;
-
-//    onMouseEnter={handleMouseEnter}
-//    onMouseLeave={handleMouseLeave}
-//       style={{ backgroundColor: isHovering ? 'lightgray' : 'white' }}
