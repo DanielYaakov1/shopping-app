@@ -15,8 +15,6 @@ import { setProduct } from '../../store/slices/ProductSlice';
 import ProductsActions from '../../actions/ProductsActions';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles, { appIcon, searchHeaderField } from './useStyles';
-import MyModal from '../MyModal';
-import Cart from '../Cart';
 import { setCheckoutOpen } from '../../store/slices/orderSlice';
 import { RootState } from '../../store';
 import {
@@ -32,7 +30,6 @@ import SettingsMenu from '../SettingsMenu';
 import AlertDialog from '../AlertDialog';
 import RESOURCES from '../../resources';
 import ActionsAuth from '../../actions/auth';
-import Checkout from '../Checkout/Checkout';
 import IconButton from '@mui/material/IconButton';
 import { ROUTES } from '../../utils/constants';
 
@@ -55,6 +52,11 @@ function AppNavBar() {
   const checkIfTheCardIsEmpty = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
   const handleIncreaseItem = useCallback(
     (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
+    [dispatch]
+  );
+
+  const handleDecreaseItem = useCallback(
+    (id: string) => dispatch(deleteItemFromCart(id)),
     [dispatch]
   );
 
@@ -101,10 +103,6 @@ function AppNavBar() {
     [dispatch, getAllProducts, getProductByName]
   );
 
-  const handleDecreaseItem = useCallback(
-    (id: string) => dispatch(deleteItemFromCart(id)),
-    [dispatch]
-  );
   const numberCartItem = items.reduce((currentValue, item) => {
     return currentValue + item.amount;
   }, 0);
@@ -137,9 +135,9 @@ function AppNavBar() {
     <AppBar position="sticky" className={classes.headerNav}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography variant="h6" noWrap component="a" href={ROUTES.HOME_PAGE} sx={appIcon}>
-            LOGO
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            SP
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -196,22 +194,6 @@ function AppNavBar() {
             />
           </Box>
           <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} />
-          <div className="modal-st">
-            <MyModal closeBtnName="X" isModalOpen={isCartModalOpen} onClose={handleCartModal}>
-              {!displayOrderForm && (
-                <Cart
-                  items={items}
-                  totalAmount={totalAmount}
-                  checkIfTheCardIsEmpty={checkIfTheCardIsEmpty}
-                  handleIncreaseItem={handleIncreaseItem}
-                  handleDecreaseItem={handleDecreaseItem}
-                  labelButtonCheckout={'CHECK OUT'}
-                  onClickCheckOutButton={handleCheckoutForm}
-                />
-              )}
-              {displayOrderForm && <Checkout />}
-            </MyModal>
-          </div>
           <SettingsMenu
             menuDropDown={classes.menuDropDown}
             anchorElUser={anchorElUser}
