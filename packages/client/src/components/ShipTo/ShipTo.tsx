@@ -6,6 +6,7 @@ const ShipTo = memo(({ fullAddress }: propsFullAddress) => {
   const classes = useStyles();
   return (
     <div className={classes.shipToContainer}>
+      <div className={classes.shipToArrow}></div>
       <div className={classes.shipToContext}>
         <h5>
           {fullAddress.firstName} {fullAddress.lastName}
