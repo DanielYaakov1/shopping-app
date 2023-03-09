@@ -2,7 +2,7 @@ import { IShippingOrder } from '../../interfaces';
 import { IItems } from '../../store/slices/cartSlice';
 import { getFullDateAndHour, getFullDate } from '../../utils/helpers/date.helpers';
 import ComplexCard from '../complex-card';
-import ShipTo from './ShipTo';
+import ShipTo from '../ShipTo';
 import useStyles from './useStyles';
 import React, { useCallback, useState } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
