@@ -3,7 +3,12 @@ import Spinner from '../../components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import ProductsDetailsCard from '../../components/ProductsDetailsCard';
-import { addItemToCart } from '../../store/slices/cartSlice';
+import {
+  addItemToCart,
+  deleteItemFromCart,
+  IItems,
+  setCartModalOpen,
+} from '../../store/slices/cartSlice';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import ProductsActions from '../../actions/ProductsActions';
 import { setProduct } from '../../store/slices/ProductSlice';
@@ -15,6 +20,9 @@ import Filtering from '../../components/Filtering';
 import Carousel from 'react-spring-3d-carousel';
 import { config } from 'react-spring';
 import { v4 as uuidv4 } from 'uuid';
+import Cart from '../../components/Cart/Cart';
+import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
+import { setCheckoutOpen } from '../../store/slices/orderSlice';
 
 const slides = [
   {
@@ -48,7 +56,6 @@ const HomePage = () => {
 
   const sortedProducts = useMemo(() => {
     //logic for sorting includes search result
-    //return [...(searchProduct ? searchResults : products)].sort((firstNum, lastNum) => {
     return [...products]
       .filter((product) => product.category.includes(category))
       .sort((a, b) => {
@@ -92,6 +99,33 @@ const HomePage = () => {
   useEffect(() => {
     fetchProductAndPage();
   }, [fetchProductAndPage]);
+
+  //card logic + state & function
+  const displayOrderForm = useSelector((state: RootState) => state.orderReducer.isCheckoutOpen);
+
+  const { items, isCartModalOpen, totalAmount } = useSelector(
+    (state: RootState) => state.cartReducer
+  );
+
+  const handleIncreaseItem = useCallback(
+    (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
+    [dispatch]
+  );
+
+  const handleDecreaseItem = useCallback(
+    (id: string) => dispatch(deleteItemFromCart(id)),
+    [dispatch]
+  );
+
+  const handleCheckoutForm = useCallback(() => {
+    dispatch(setCheckoutOpen(!displayOrderForm));
+  }, [dispatch, displayOrderForm]);
+
+  const handleCartModal = useCallback(
+    () => dispatch(setCartModalOpen(!isCartModalOpen)),
+    [dispatch, isCartModalOpen]
+  );
+
   return (
     <div>
       <div style={{ width: '100%', height: '400px', margin: '10px 10px' }}>
@@ -107,18 +141,54 @@ const HomePage = () => {
         <Spinner />
       ) : (
         <div>
-          <Filtering handleChange={(e) => setCategory(e.target.value)} value={category} />
-          <Sorting isSortingOption={isSortingOption} handleSortingChange={handleSortingChange} />
-          <DataGrid>
-            {products.length ? (
-              <ProductsDetailsCard products={sortedProducts} onAddToCartClicked={handleAddToCart} />
-            ) : (
-              "There isn't Products"
-            )}
-          </DataGrid>
+          <div
+            style={{
+              marginTop: 40,
+              marginLeft: 19,
+            }}>
+            <div style={{ marginBottom: 10 }}>
+              <Filtering handleChange={(e) => setCategory(e.target.value)} value={category} />
+            </div>
+            <div>
+              <Sorting
+                isSortingOption={isSortingOption}
+                handleSortingChange={handleSortingChange}
+              />
+            </div>
+          </div>
+          <div>
+            <DataGrid>
+              {products.length ? (
+                <ProductsDetailsCard
+                  products={sortedProducts}
+                  onAddToCartClicked={handleAddToCart}
+                />
+              ) : (
+                "There isn't Products"
+              )}
+            </DataGrid>
+          </div>
         </div>
       )}
+      <Cart
+        items={items}
+        isCartModalOpen={isCartModalOpen}
+        totalAmount={totalAmount}
+        displayOrderForm={displayOrderForm}
+        handleIncreaseItem={handleIncreaseItem}
+        handleDecreaseItem={handleDecreaseItem}
+        handleCartModal={handleCartModal}
+        handleCheckoutForm={handleCheckoutForm}
+      />
     </div>
   );
 };
 export default HomePage;
+
+//
+//  style={{
+//               marginTop: 40,
+//               display: 'flex',
+//               width: '50%',
+//               marginLeft: 19,
+//             }}
