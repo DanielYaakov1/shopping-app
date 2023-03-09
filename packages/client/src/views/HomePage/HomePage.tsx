@@ -56,7 +56,6 @@ const HomePage = () => {
 
   const sortedProducts = useMemo(() => {
     //logic for sorting includes search result
-    //return [...(searchProduct ? searchResults : products)].sort((firstNum, lastNum) => {
     return [...products]
       .filter((product) => product.category.includes(category))
       .sort((a, b) => {
@@ -107,7 +106,6 @@ const HomePage = () => {
   const { items, isCartModalOpen, totalAmount } = useSelector(
     (state: RootState) => state.cartReducer
   );
-  const checkIfTheCardIsEmpty = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
 
   const handleIncreaseItem = useCallback(
     (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
@@ -143,15 +141,33 @@ const HomePage = () => {
         <Spinner />
       ) : (
         <div>
-          <Filtering handleChange={(e) => setCategory(e.target.value)} value={category} />
-          <Sorting isSortingOption={isSortingOption} handleSortingChange={handleSortingChange} />
-          <DataGrid>
-            {products.length ? (
-              <ProductsDetailsCard products={sortedProducts} onAddToCartClicked={handleAddToCart} />
-            ) : (
-              "There isn't Products"
-            )}
-          </DataGrid>
+          <div
+            style={{
+              marginTop: 40,
+              marginLeft: 19,
+            }}>
+            <div style={{ marginBottom: 10 }}>
+              <Filtering handleChange={(e) => setCategory(e.target.value)} value={category} />
+            </div>
+            <div>
+              <Sorting
+                isSortingOption={isSortingOption}
+                handleSortingChange={handleSortingChange}
+              />
+            </div>
+          </div>
+          <div>
+            <DataGrid>
+              {products.length ? (
+                <ProductsDetailsCard
+                  products={sortedProducts}
+                  onAddToCartClicked={handleAddToCart}
+                />
+              ) : (
+                "There isn't Products"
+              )}
+            </DataGrid>
+          </div>
         </div>
       )}
       <Cart
@@ -168,3 +184,11 @@ const HomePage = () => {
   );
 };
 export default HomePage;
+
+//
+//  style={{
+//               marginTop: 40,
+//               display: 'flex',
+//               width: '50%',
+//               marginLeft: 19,
+//             }}
