@@ -9,11 +9,9 @@ import {
   IItems,
   setCartModalOpen,
 } from '../../store/slices/cartSlice';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import ProductsActions from '../../actions/ProductsActions';
-import { setProduct } from '../../store/slices/ProductSlice';
-import Images from '../../components/ImageSlider/Images';
-import ImageSlider from '../../components/ImageSlider/ImageSlider';
+import { addProduct } from '../../store/slices/ProductSlice';
 import Sorting from '../../components/Sorting';
 import { SelectChangeEvent } from '@mui/material/Select';
 import Filtering from '../../components/Filtering';
@@ -21,7 +19,6 @@ import Carousel from 'react-spring-3d-carousel';
 import { config } from 'react-spring';
 import { v4 as uuidv4 } from 'uuid';
 import Cart from '../../components/Cart/Cart';
-import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
 import { setCheckoutOpen } from '../../store/slices/orderSlice';
 
 const slides = [
@@ -50,9 +47,49 @@ const slides = [
 const HomePage = () => {
   const { isLoadingProducts, products } = useSelector((state: RootState) => state.productReducer);
   const dispatch = useDispatch();
-  const { getAllProducts } = ProductsActions();
+  const { getProductPerPage } = ProductsActions();
   const [isSortingOption, setIsSelectValue] = useState('');
   const [category, setCategory] = useState('');
+
+  //infinite scroll logic
+  const listInnerRef = useRef(null);
+  const [currPage, setCurrPage] = useState(1); // storing current page number
+  const [prevPage, setPrevPage] = useState(0); // storing prev page number
+  const [wasLastList, setWasLastList] = useState(false); // setting a flag to know the last list
+  const [loadingFetchProducts, setLoadingFetchProducts] = useState(false);
+
+  const fetchProducts = useCallback(async () => {
+    try {
+      setLoadingFetchProducts(true);
+      const res = await getProductPerPage(currPage, 5);
+      if (!res.products.length) {
+        setWasLastList(true);
+        return;
+      }
+      setPrevPage(currPage);
+      dispatch(addProduct(res.products));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingFetchProducts(false);
+    }
+  }, [currPage, dispatch, getProductPerPage]);
+
+  const onScroll = useCallback(() => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight === scrollHeight) {
+        setCurrPage((currPage) => currPage + 1);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!wasLastList && prevPage !== currPage) {
+      fetchProducts();
+    }
+    return () => {};
+  }, [currPage, wasLastList, prevPage, fetchProducts]);
 
   const sortedProducts = useMemo(() => {
     //logic for sorting includes search result
@@ -83,12 +120,6 @@ const HomePage = () => {
     [setIsSelectValue]
   );
 
-  const fetchProductAndPage = useCallback(async () => {
-    const { products } = await getAllProducts();
-    dispatch(setProduct(products));
-    return products;
-  }, [dispatch, getAllProducts]);
-
   const handleAddToCart = useCallback(
     (productId: string, amount: string, price: number, name: string) => {
       dispatch(addItemToCart({ productId, amount, price, name }));
@@ -96,9 +127,6 @@ const HomePage = () => {
     },
     [dispatch]
   );
-  useEffect(() => {
-    fetchProductAndPage();
-  }, [fetchProductAndPage]);
 
   //card logic + state & function
   const displayOrderForm = useSelector((state: RootState) => state.orderReducer.isCheckoutOpen);
@@ -127,7 +155,7 @@ const HomePage = () => {
   );
 
   return (
-    <div>
+    <div onScroll={onScroll} ref={listInnerRef} style={{ height: '100vh', overflowY: 'auto' }}>
       <div style={{ width: '100%', height: '400px', margin: '10px 10px' }}>
         <Carousel
           slides={slides}
@@ -167,6 +195,19 @@ const HomePage = () => {
                 "There isn't Products"
               )}
             </DataGrid>
+            {loadingFetchProducts && <Spinner />}
+            {wasLastList && (
+              <div
+                style={{
+                  textAlign: 'center',
+                  padding: 16,
+                  fontWeight: 'bold',
+                  fontSize: 16,
+                  color: '#999',
+                }}>
+                End of list
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -184,11 +225,3 @@ const HomePage = () => {
   );
 };
 export default HomePage;
-
-//
-//  style={{
-//               marginTop: 40,
-//               display: 'flex',
-//               width: '50%',
-//               marginLeft: 19,
-//             }}
