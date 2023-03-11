@@ -8,12 +8,6 @@ import { userReducer } from './slices/userSlice';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage,
-};
-
 const rootReducer = combineReducers({
   userReducer: userReducer,
   cartReducer: cartReducer,
@@ -22,6 +16,14 @@ const rootReducer = combineReducers({
   registrationReducer: registrationReducer,
   appReducer: appReducer,
 });
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+  blacklist: ['productReducer'], //blacklist this will not be persisted
+  //whitelist: [''], // only this will be persisted
+};
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
