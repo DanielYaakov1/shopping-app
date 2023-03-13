@@ -21,7 +21,7 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  blacklist: ['productReducer'], //blacklist this will not be persisted
+  blacklist: ['productReducer', 'registrationReducer'], //blacklist this will not be persisted
   //whitelist: [''], // only this will be persisted
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
