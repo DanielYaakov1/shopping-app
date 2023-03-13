@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -11,7 +11,7 @@ export type SortingProps = {
     | undefined;
 };
 
-const Sorting = ({ isSortingOption, handleSortingChange }: SortingProps) => {
+const Sorting = memo(({ isSortingOption, handleSortingChange }: SortingProps) => {
   return (
     <FormControl
       style={{
@@ -36,5 +36,5 @@ const Sorting = ({ isSortingOption, handleSortingChange }: SortingProps) => {
       </Select>
     </FormControl>
   );
-};
+});
 export default Sorting;
