@@ -9,7 +9,7 @@ import {
   IItems,
   setCartModalOpen,
 } from '../../store/slices/cartSlice';
-import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef, createRef } from 'react';
 import ProductsActions from '../../actions/ProductsActions';
 import { addProduct } from '../../store/slices/ProductSlice';
 import Sorting from '../../components/Sorting';
@@ -20,6 +20,7 @@ import { config } from 'react-spring';
 import { v4 as uuidv4 } from 'uuid';
 import Cart from '../../components/Cart/Cart';
 import { setCheckoutOpen } from '../../store/slices/orderSlice';
+import { debounce } from 'lodash';
 
 const slides = [
   {
@@ -78,18 +79,11 @@ const HomePage = () => {
   const onScroll = useCallback(() => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      if (scrollTop + clientHeight === scrollHeight) {
+      if (scrollTop + clientHeight === scrollHeight && !wasLastList) {
         setCurrPage((currPage) => currPage + 1);
       }
     }
-  }, []);
-
-  useEffect(() => {
-    if (!wasLastList && prevPage !== currPage) {
-      fetchProducts();
-    }
-    return () => {};
-  }, [currPage, wasLastList, prevPage, fetchProducts]);
+  }, [wasLastList]);
 
   const sortedProducts = useMemo(() => {
     //logic for sorting includes search result
@@ -153,6 +147,22 @@ const HomePage = () => {
     () => dispatch(setCartModalOpen(!isCartModalOpen)),
     [dispatch, isCartModalOpen]
   );
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = debounce(async () => {
+      if (!wasLastList && prevPage !== currPage && isMounted) {
+        fetchProducts();
+      }
+    }, 500);
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currPage, wasLastList, prevPage, fetchProducts]);
 
   return (
     <div onScroll={onScroll} ref={listInnerRef} style={{ height: '100vh', overflowY: 'auto' }}>
