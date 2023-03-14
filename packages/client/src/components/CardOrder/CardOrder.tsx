@@ -63,7 +63,7 @@ const CardOrder = (props: {
             </div>
             <div className={props.classes.cardFooter}>
               <div>description: test should be text here</div>
-              <div>Shipping Date: {order.shippingDate ? getFullDate(order.shippingDate) : ''}</div>
+              <div>Shipping Date: {order.shippingDate}</div>
             </div>
           </div>
         ))}
