@@ -6,23 +6,36 @@ import { setOrders } from '../../../store/slices/orderSlice';
 import { RootState } from '../../../store';
 import CardOrder from '../../../components/CardOrder';
 import useStyles from './useStyles';
+import { IShippingOrder } from '../../../interfaces';
 
 export type Props = {
   className?: string;
   children?: React.ReactNode;
 };
 
+export interface IOrderPage {
+  orders: IShippingOrder[];
+}
+
 const OrderPage = ({ className, children }: Props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { getOrderByUserId } = OrdersActions();
+  const { getOrdersByUserId } = OrdersActions();
   const userId = useSelector((state: RootState) => state.userReducer.uid);
   const { orders, isLoadingOrders } = useSelector((state: RootState) => state.orderReducer);
 
   const fetchOrdersByUserId = useCallback(async () => {
-    const { orders } = await getOrderByUserId(userId);
-    dispatch(setOrders(orders));
-  }, [dispatch, userId, getOrderByUserId]);
+    const { orders }: IOrderPage = await getOrdersByUserId(userId);
+
+    const shippingDateConvert = orders.map((order) => {
+      const shippingDate = new Date(order.shippingDate || '');
+      const createDate = new Date(order.createdAt || '');
+      order.shippingDate = shippingDate;
+      order.createdAt = createDate;
+      return order;
+    });
+    dispatch(setOrders(shippingDateConvert));
+  }, [dispatch, userId, getOrdersByUserId]);
 
   useEffect(() => {
     fetchOrdersByUserId();

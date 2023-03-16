@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import TextField from '@mui/material/TextField';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { setProduct } from '../../store/slices/ProductSlice';
 import ProductsActions from '../../actions/ProductsActions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,20 +45,8 @@ function AppNavBar() {
   const [open, setOpen] = useState(false);
 
   //card
-  const { items, isCartModalOpen, totalAmount } = useSelector(
-    (state: RootState) => state.cartReducer
-  );
+  const { items, isCartModalOpen } = useSelector((state: RootState) => state.cartReducer);
   const displayOrderForm = useSelector((state: RootState) => state.orderReducer.isCheckoutOpen);
-  const checkIfTheCardIsEmpty = useCallback(() => checkGreaterNumberInArray(items, 0), [items]);
-  const handleIncreaseItem = useCallback(
-    (item: IItems) => dispatch(addItemToCart({ ...item, amount: 1 })),
-    [dispatch]
-  );
-
-  const handleDecreaseItem = useCallback(
-    (id: string) => dispatch(deleteItemFromCart(id)),
-    [dispatch]
-  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -67,9 +55,7 @@ function AppNavBar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => setAnchorElNav(null);
-
-  const handleCloseUserMenu = async (dropDownListNumber: number) => {
+  const handleCloseUserMenuAndNavigate = async (dropDownListNumber: number) => {
     switch (dropDownListNumber) {
       case 0:
         history.replace('/profile');
@@ -125,11 +111,25 @@ function AppNavBar() {
     setOpen(false);
   }, [logoutFirebaseAction]);
 
-  const pages = [
-    { title: 'Products', urlPath: ROUTES.HOME_PAGE },
-    { title: 'orders', urlPath: ROUTES.ORDERS },
-    { title: 'about', urlPath: ROUTES.ABOUT },
-  ];
+  const pages = useMemo(
+    () => [
+      { title: 'Products', urlPath: ROUTES.HOME_PAGE },
+      { title: 'orders', urlPath: ROUTES.ORDERS },
+      { title: 'about', urlPath: ROUTES.ABOUT },
+    ],
+    []
+  );
+  const handleCloseNavMenuAndNavigate = useCallback(
+    (index: number) => {
+      debugger;
+      const routePath = pages[index].urlPath;
+      if (routePath) {
+        history.replace(routePath);
+      }
+      setAnchorElNav(null);
+    },
+    [history, pages]
+  );
 
   return (
     <AppBar position="sticky" className={classes.headerNav}>
@@ -162,23 +162,23 @@ function AppNavBar() {
                 horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              onClose={handleCloseNavMenuAndNavigate}
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}>
-              {pages.map((page) => (
-                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+              {pages.map((page, index) => (
+                <MenuItem key={page.title} onClick={() => handleCloseNavMenuAndNavigate(index)}>
                   <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Button
                 href={page.urlPath}
                 key={page.urlPath}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleCloseNavMenuAndNavigate(index)}
                 sx={{ my: 2, color: 'white', display: 'block' }}>
                 {page.title}
               </Button>
@@ -198,7 +198,7 @@ function AppNavBar() {
             menuDropDown={classes.menuDropDown}
             anchorElUser={anchorElUser}
             handleOpenUserMenu={handleOpenUserMenu}
-            handleCloseUserMenu={handleCloseUserMenu}
+            handleCloseUserMenu={handleCloseUserMenuAndNavigate}
           />
         </Toolbar>
       </Container>
