@@ -55,7 +55,9 @@ export default function Checkout() {
   const { items, totalAmount, isCartModalOpen } = useSelector(
     (state: RootState) => state.cartReducer
   );
-  const { fullAddress, isCheckoutOpen } = useSelector((state: RootState) => state.orderReducer);
+  const { fullAddress, isCheckoutOpen, shippingDate } = useSelector(
+    (state: RootState) => state.orderReducer
+  );
   const { city, zip, lastName, firstName, address1, country } = useSelector(
     (state: RootState) => state.orderReducer.fullAddress
   );
@@ -97,7 +99,7 @@ export default function Checkout() {
         }),
         uId: uid,
         totalPrice: totalAmount,
-        shippingDate: undefined,
+        shippingDate: shippingDate,
       });
       const { order } = res;
       setResult(order);
@@ -113,6 +115,7 @@ export default function Checkout() {
     paymentDetails,
     items,
     uid,
+    shippingDate,
     totalAmount,
     dispatch,
   ]);
@@ -125,7 +128,7 @@ export default function Checkout() {
     (step: number) => {
       switch (step) {
         case 0:
-          return <AddressForm fullAddress={fullAddress} />;
+          return <AddressForm fullAddress={fullAddress} shippingDate={shippingDate} />;
         case 1:
           return (
             <PaymentForm handleInputChange={handleInputChange} paymentDetails={paymentDetails} />
@@ -136,7 +139,7 @@ export default function Checkout() {
           throw new Error('Unknown step');
       }
     },
-    [fullAddress, handleInputChange, paymentDetails]
+    [fullAddress, handleInputChange, paymentDetails, shippingDate]
   );
 
   return (
