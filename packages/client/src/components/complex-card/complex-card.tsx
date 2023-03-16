@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
+import theme from '../theme';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -29,7 +30,7 @@ const ComplexCard = ({ image, price, title, desc }: IComplexCardProps) => {
         flexGrow: 1,
         backgroundColor: (theme) => (theme.palette.mode === 'dark' ? '#1A2027' : '#fff'),
       }}>
-      <Grid container spacing={2} height={'150px'}>
+      <Grid container spacing={2} height={theme.breakpoints.down('sm') ? '100%' : '150px'}>
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
             <Img alt="complex" src={image} />

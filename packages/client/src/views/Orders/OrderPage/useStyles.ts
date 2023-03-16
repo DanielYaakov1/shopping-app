@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '0.5rem',
+    [theme.breakpoints.down('sm')]: {
+      display: 'inline-block',
+    },
   },
   cardContent: {
     maxWidth: '30%',

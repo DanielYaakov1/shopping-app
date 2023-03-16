@@ -12,7 +12,7 @@ const OrdersActions = () => {
   const getAllOrders = useCallback(async () => {}, []);
   const getOrder = useCallback(async () => {}, []);
 
-  const getOrderByUserId = useCallback(
+  const getOrdersByUserId = useCallback(
     //Route to get order by userId
     async (uid: string) => {
       try {
@@ -43,6 +43,6 @@ const OrdersActions = () => {
     [dispatch, httpRequest]
   );
   const updateOrder = useCallback(async () => {}, []);
-  return { getOrderByUserId, updateOrder, createOrder, getOrder, getAllOrders };
+  return { getOrdersByUserId, updateOrder, createOrder, getOrder, getAllOrders };
 };
 export default OrdersActions;

@@ -1,6 +1,6 @@
 import { IShippingOrder } from '../../interfaces';
 import { IItems } from '../../store/slices/cartSlice';
-import { getFullDateAndHour, getFullDate } from '../../utils/helpers/date.helpers';
+import { getFullDateAndHour } from '../../utils/helpers/date.helpers';
 import ComplexCard from '../complex-card';
 import ShipTo from '../ShipTo';
 import useStyles from './useStyles';
@@ -63,7 +63,9 @@ const CardOrder = (props: {
             </div>
             <div className={props.classes.cardFooter}>
               <div>description: test should be text here</div>
-              <div>Shipping Date: {order.shippingDate}</div>
+              <div>
+                Shipping Date: {order.shippingDate ? getFullDateAndHour(order.shippingDate) : ''}
+              </div>
             </div>
           </div>
         ))}
