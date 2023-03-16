@@ -6,8 +6,13 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch } from 'react-redux';
-import { setAddressFields } from '../../store/slices/orderSlice';
+import { setAddressFields, setShippingDate } from '../../store/slices/orderSlice';
 import { isEmptyField } from '../../utils/helpers/validation.helper';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import useStorageService from '../../services/useStorageService';
 
 interface IAddress {
   city: string;
@@ -20,10 +25,10 @@ interface IAddress {
 
 export type propsFullAddress = {
   fullAddress: IAddress;
+  shippingDate?: Date | null;
 };
 
-const AddressForm = ({ fullAddress }: propsFullAddress) => {
-  const [address2, setAddress2] = useState('');
+const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
   const dispatch = useDispatch();
   const { city, zip, lastName, firstName, address1, country } = fullAddress;
   const [lastNameError, setLastNameError] = useState(false);
@@ -56,6 +61,15 @@ const AddressForm = ({ fullAddress }: propsFullAddress) => {
   const handleBlurZip = useCallback(() => {
     setZipError(isEmptyField(zip));
   }, [zip]);
+
+  const [value, setValue] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
+  const storageService = useStorageService();
+
+  const handleChange = (newValue: Date | null) => {
+    setValue(newValue);
+    dispatch(setShippingDate(newValue));
+    storageService.setItem('date', String(value));
+  };
 
   return (
     <React.Fragment>
@@ -117,18 +131,6 @@ const AddressForm = ({ fullAddress }: propsFullAddress) => {
             helperText={address1Error ? 'Field cannot be empty' : ''}
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            value={address2}
-            onChange={(e) => setAddress2(e.target.value)}
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
-            variant="standard"
-          />
-        </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -143,15 +145,6 @@ const AddressForm = ({ fullAddress }: propsFullAddress) => {
             onBlur={handleBlurCity}
             error={cityError}
             helperText={cityError ? 'Field cannot be empty' : ''}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="state"
-            name="state"
-            label="State/Province/Region"
-            fullWidth
-            variant="standard"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -185,6 +178,16 @@ const AddressForm = ({ fullAddress }: propsFullAddress) => {
             error={countryError}
             helperText={countryError ? 'Field cannot be empty' : ''}
           />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateTimePicker
+              label="Date&Time picker"
+              value={shippingDate}
+              onChange={handleChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel

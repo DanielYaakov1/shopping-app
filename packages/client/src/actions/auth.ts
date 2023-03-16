@@ -1,5 +1,4 @@
-import { setStorageApi } from '../services/storageApi';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setErrorMessage } from '../store/slices/registrationSlice';
 import { setAppAuthenticated, setLoadingApp } from '../store/slices/appSlice';
@@ -10,13 +9,21 @@ import { ROUTES } from '../utils/constants';
 import Cookies from 'js-cookie';
 import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { auth } from './config/configFB';
+import useStorageService from '../services/useStorageService';
+import { firebaseErrors } from './data/firebase-error';
 
 const ActionsAuth = () => {
   const dispatch = useDispatch();
+  const storageService = useStorageService();
   const { httpRequest } = useHttp();
-
   const history = useHistory();
   const [getUser, setGetUser] = useState(true);
+
+  const handleErrorFirebase = useCallback((error: string) => {
+    const errorMessage =
+      firebaseErrors[error] || 'An unknown error occurred. Please try again later.';
+    return errorMessage;
+  }, []);
 
   const loginFirebase = useCallback(
     async (email: string, password: string, params: string) => {
@@ -25,14 +32,14 @@ const ActionsAuth = () => {
           email: email,
           password: password,
         });
-        setStorageApi('token ', response.token);
+        storageService.setItem('token', response.token);
         return response;
       } catch (error: any) {
-        dispatch(setErrorMessage(error.response.data.message));
+        dispatch(setErrorMessage(handleErrorFirebase(error.response.data.message)));
         throw error;
       }
     },
-    [dispatch, httpRequest]
+    [dispatch, handleErrorFirebase, httpRequest, storageService]
   );
 
   const checkTokenIsExpired = useCallback(async () => {

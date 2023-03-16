@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '10px',
     justifyContent: 'space-evenly',
     fontStyle: 'italic',
+    [theme.breakpoints.down('sm')]: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   },
   price: {},
   card: {
@@ -41,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     marginBottom: '1rem',
     color: theme.palette.primary.main,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   card1: {
     maxWidth: '30%',
