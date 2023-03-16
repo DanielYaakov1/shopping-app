@@ -7,11 +7,13 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  getProductsPerPage,
 } from '../controllers/products-controller';
 
 export const productsRouter = Router();
 
 productsRouter.get('/', getAllProducts);
+productsRouter.post('/get-products-count', getProductsPerPage);
 productsRouter.get('/:name', getProductByName);
 productsRouter.post('/', createProduct);
 productsRouter.put('/', updateProduct);

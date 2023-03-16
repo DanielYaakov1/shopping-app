@@ -5,7 +5,7 @@ export interface IShippingOrder {
   createdAt?: Date | undefined;
   items: any;
   //shippingDate: Date | null;
-  shippingDate: any;
+  shippingDate: Date | null;
   uId: string | undefined;
   totalPrice: number;
   orderNumber?: string;

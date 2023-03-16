@@ -73,7 +73,7 @@ const ProductsActions = () => {
       //get productPerPage
       //const paginationItem = limitItem ? parseInt(limitItem) : 2;
       try {
-        dispatch(setLoadingProducts(true));
+        //dispatch(setLoadingProducts(true));
         const response = await httpRequest(ROUTES.PAGINATION_API, 'POST', {
           page: pageNumber,
           limit: productPerPage,
@@ -83,10 +83,10 @@ const ProductsActions = () => {
       } catch (err) {
         throw err;
       } finally {
-        dispatch(setLoadingProducts(false));
+        //dispatch(setLoadingProducts(false));
       }
     },
-    [dispatch, httpRequest]
+    [httpRequest]
   );
   return {
     getProductPerPage,

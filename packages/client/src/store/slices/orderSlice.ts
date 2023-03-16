@@ -23,6 +23,7 @@ export interface IOrder {
   didOrderSuccessfully: boolean;
   isErrorOrder: string;
   fullAddress: IFullAddress;
+  shippingDate: Date | null;
 }
 
 const initialState: IOrder = {
@@ -40,6 +41,7 @@ const initialState: IOrder = {
     country: '',
     zip: '',
   },
+  shippingDate: null,
 };
 
 export const orderSlice = createSlice({
@@ -70,6 +72,9 @@ export const orderSlice = createSlice({
     setFullAddress(state, action: PayloadAction<IFullAddress>) {
       state.fullAddress = action.payload;
     },
+    setShippingDate(state, action: PayloadAction<Date | null>) {
+      state.shippingDate = action.payload;
+    },
   },
 });
 export const {
@@ -81,5 +86,6 @@ export const {
   setDidOrderSuccessfully,
   setErrorOrder,
   setFullAddress,
+  setShippingDate,
 } = orderSlice.actions;
 export const orderReducer = orderSlice.reducer;

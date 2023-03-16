@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import theme from '../theme';
 
 export const useStyles = makeStyles(() => ({
   cartItem: {
@@ -9,6 +10,9 @@ export const useStyles = makeStyles(() => ({
     padding: '1rem 0',
     margin: '1rem 0',
     marginInlineEnd: '2rem',
+    [theme.breakpoints.down('sm')]: {
+      marginInlineEnd: '10px',
+    },
     '& button': {
       font: 'inherit',
       fontWeight: 'bold',
