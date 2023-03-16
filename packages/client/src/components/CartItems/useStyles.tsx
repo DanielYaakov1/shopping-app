@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import theme from '../theme';
 
 export const useStyles = makeStyles({
   totalAmount: {
@@ -20,6 +21,10 @@ export const useStyles = makeStyles({
   cartItemList: {
     listStyleType: 'none',
     color: '#4e4c4b',
+    [theme.breakpoints.down('sm')]: {
+      margin: 5,
+      padding: 5,
+    },
   },
   btnCtn: {
     margin: '1rem 1.5rem',

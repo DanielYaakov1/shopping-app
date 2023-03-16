@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -11,7 +11,7 @@ export interface FilterProps {
 
 const categories = ['TV', 'Radio', 'Sofa'];
 
-const Filtering = ({ value, handleChange }: FilterProps) => {
+const Filtering = memo(({ value, handleChange }: FilterProps) => {
   return (
     <FormControl
       style={{
@@ -39,5 +39,5 @@ const Filtering = ({ value, handleChange }: FilterProps) => {
       </Select>
     </FormControl>
   );
-};
+});
 export default Filtering;
