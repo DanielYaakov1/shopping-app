@@ -67,7 +67,6 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
 
   const handleChange = (newValue: Date | null) => {
     setValue(newValue);
-    debugger;
     dispatch(setShippingDate(newValue));
     storageService.setItem('date', String(value));
   };
