@@ -6,6 +6,7 @@ import ShipTo from '../ShipTo';
 import useStyles from './useStyles';
 import React, { useCallback, useState } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import OrderStatus from '../../views/Orders/order-status';
 
 const CardOrder = (props: {
   orders: IShippingOrder[];
@@ -48,7 +49,7 @@ const CardOrder = (props: {
             <div>
               <div className={props.classes.cardContainer}>
                 {order.items?.map((item: IItems, index: number) => (
-                  <div>
+                  <div key={index}>
                     <div>Amount: {item.amount}</div>
                     <ComplexCard
                       key={index}
@@ -59,6 +60,12 @@ const CardOrder = (props: {
                     />
                   </div>
                 ))}
+              </div>
+              <div
+                style={{
+                  margin: 20,
+                }}>
+                <OrderStatus status={order.status || 0} />
               </div>
             </div>
             <div className={props.classes.cardFooter}>
