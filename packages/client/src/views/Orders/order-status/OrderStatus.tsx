@@ -30,20 +30,3 @@ const OrderStatus = memo(({ status }: IOrderStatus) => {
 });
 
 export default OrderStatus;
-
-// const getStatusIndex = (statusString) => {
-//   switch (statusString) {
-//     case 'Created':
-//       return 0;
-//     case 'Processing':
-//       return 1;
-//     case 'Shipped':
-//       return 2;
-//     case 'Delivered':
-//       return 3;
-//     default:
-//       return 0;
-//   }
-// };
-//
-// const statusIndex = getStatusIndex(status);
