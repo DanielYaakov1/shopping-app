@@ -121,7 +121,6 @@ function AppNavBar() {
   );
   const handleCloseNavMenuAndNavigate = useCallback(
     (index: number) => {
-      debugger;
       const routePath = pages[index].urlPath;
       if (routePath) {
         history.replace(routePath);
