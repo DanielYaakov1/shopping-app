@@ -156,7 +156,7 @@ const HomePage = () => {
       if (!wasLastList && prevPage !== currPage && isMounted) {
         fetchProducts();
       }
-    }, 500);
+    }, 1000);
 
     fetchData();
     return () => {
@@ -205,7 +205,6 @@ const HomePage = () => {
                 "There isn't Products"
               )}
             </DataGrid>
-            {loadingFetchProducts && <Spinner />}
             {wasLastList && (
               <div
                 style={{
@@ -221,6 +220,17 @@ const HomePage = () => {
           </div>
         </div>
       )}
+      <div
+        style={{
+          position: 'absolute',
+          top: '100%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '50%',
+          textAlign: 'center',
+        }}>
+        {loadingFetchProducts && <Spinner />}
+      </div>
       <Cart
         items={items}
         isCartModalOpen={isCartModalOpen}
