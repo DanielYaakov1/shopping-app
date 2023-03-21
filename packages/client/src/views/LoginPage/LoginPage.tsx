@@ -96,6 +96,11 @@ export default function Login() {
       dispatch(setErrorMessage('Something went wrong!'));
     }
   };
+
+  const hand = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    return isLoginMode ? '/login' : '/signup';
+  };
   return (
     <Container
       component="main"
@@ -179,7 +184,10 @@ export default function Login() {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2" onClick={switchLoginModeHandler}>
+                    <Link
+                      href={isLoginMode ? '/login' : '/signup'}
+                      variant="body2"
+                      onClick={switchLoginModeHandler}>
                       {isLoginMode ? "Don't have an account ? signup" : 'have an account ? login'}
                     </Link>
                   </Grid>
