@@ -23,6 +23,8 @@ const useStyles = makeStyles(() => ({
   },
   btnContainer: {
     margin: '5px',
+    display: 'flex',
+    justifyContent: 'center',
   },
 }));
 export default useStyles;
