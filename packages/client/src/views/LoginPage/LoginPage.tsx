@@ -97,10 +97,6 @@ export default function Login() {
     }
   };
 
-  const hand = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    return isLoginMode ? '/login' : '/signup';
-  };
   return (
     <Container
       component="main"
