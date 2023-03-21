@@ -80,8 +80,8 @@ export default function Login() {
 
   const googleProvider = async () => {
     try {
-      const test = await loginWithGoogle();
-      return test;
+      const res = await loginWithGoogle();
+      return res;
     } catch (err) {
       console.log(err);
       dispatch(setErrorMessage('Something went wrong!'));
@@ -89,8 +89,8 @@ export default function Login() {
   };
   const facebookProvider = async () => {
     try {
-      const test = await loginWithFacebook();
-      return test;
+      const res = await loginWithFacebook();
+      return res;
     } catch (err) {
       console.log(err);
       dispatch(setErrorMessage('Something went wrong!'));
