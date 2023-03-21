@@ -1,6 +1,6 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import HomePage from '../../../views/HomePage';
-import Login from '../../../views/LoginPage';
+import LoginPage from '../../../views/LoginPage';
 import PageNotFound from '../../../views/PageNotFound/PageNotFound';
 import Orders from '../../../views/Orders/OrderPage/OrderPage';
 import AppNavBar from '../../AppNavBar/AppNavBar';
@@ -36,7 +36,7 @@ export const PublicRouter = () => {
     <>
       <Switch>
         <Route exact path={'/login'}>
-          <Login />
+          <LoginPage />
         </Route>
         <Route exact path={'*'}>
           <Redirect to={'/login'} />

@@ -4,6 +4,7 @@ export enum EFirebaseErrorAuthentication {
   WEAK_PASSWORD = 'Firebase: Error (auth/weak-password).',
   USER_NOT_FOUND = 'Firebase: Error (auth/user-not-found).',
   INVALID_PASSWORD = 'Firebase: Error (auth/wrong-password).',
+  SIGNUP_WEAK_PASSWORD = 'Firebase: Password should be at least 6 characters (auth/weak-password).',
 }
 
 const handleErrorFirebase = (error: string) => {
@@ -16,7 +17,8 @@ const handleErrorFirebase = (error: string) => {
     case EFirebaseErrorAuthentication.INVALID_EMAIL:
       errorMessage = 'Invalid email address. Please check your email and try again.';
       break;
-    case EFirebaseErrorAuthentication.WEAK_PASSWORD:
+    case (EFirebaseErrorAuthentication.WEAK_PASSWORD,
+    EFirebaseErrorAuthentication.SIGNUP_WEAK_PASSWORD):
       errorMessage = 'Password is too weak. Please choose a stronger password.';
       break;
     case EFirebaseErrorAuthentication.USER_NOT_FOUND:
