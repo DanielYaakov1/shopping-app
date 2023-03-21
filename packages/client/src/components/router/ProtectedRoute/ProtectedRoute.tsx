@@ -38,6 +38,9 @@ export const PublicRouter = () => {
         <Route exact path={'/login'}>
           <LoginPage />
         </Route>
+        <Route exact path={'/signup'}>
+          <LoginPage />
+        </Route>
         <Route exact path={'*'}>
           <Redirect to={'/login'} />
         </Route>
