@@ -73,7 +73,7 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant='h6' gutterBottom>
         Shipping address
       </Typography>
       <Grid container spacing={3}>
@@ -84,12 +84,12 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
             onChange={(e) =>
               dispatch(setAddressFields({ data: e.target.value, field: 'firstName' }))
             }
-            id="firstName"
-            name="firstName"
-            label="First name"
+            id='firstName'
+            name='firstName'
+            label='First name'
             fullWidth
-            autoComplete="given-name"
-            variant="standard"
+            autoComplete='given-name'
+            variant='standard'
             onBlur={handleBlurFirstName}
             error={firstNameError}
             helperText={firstNameError ? 'Field cannot be empty' : ''}
@@ -102,12 +102,12 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
             onChange={(e) =>
               dispatch(setAddressFields({ data: e.target.value, field: 'lastName' }))
             }
-            id="lastName"
-            name="lastName"
-            label="Last name"
+            id='lastName'
+            name='lastName'
+            label='Last name'
             fullWidth
-            autoComplete="family-name"
-            variant="standard"
+            autoComplete='family-name'
+            variant='standard'
             onBlur={handleBlurLastName}
             error={lastNameError}
             helperText={lastNameError ? 'Field cannot be empty' : ''}
@@ -120,12 +120,12 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
             onChange={(e) =>
               dispatch(setAddressFields({ data: e.target.value, field: 'address1' }))
             }
-            id="address1"
-            name="address1"
-            label="Address line 1"
+            id='address1'
+            name='address1'
+            label='Address line 1'
             fullWidth
-            autoComplete="shipping address-line1"
-            variant="standard"
+            autoComplete='shipping address-line1'
+            variant='standard'
             onBlur={handleBlurAddress1}
             error={address1Error}
             helperText={address1Error ? 'Field cannot be empty' : ''}
@@ -136,12 +136,12 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
             required
             value={city}
             onChange={(e) => dispatch(setAddressFields({ data: e.target.value, field: 'city' }))}
-            id="city"
-            name="city"
-            label="City"
+            id='city'
+            name='city'
+            label='City'
             fullWidth
-            autoComplete="shipping address-level2"
-            variant="standard"
+            autoComplete='shipping address-level2'
+            variant='standard'
             onBlur={handleBlurCity}
             error={cityError}
             helperText={cityError ? 'Field cannot be empty' : ''}
@@ -152,12 +152,12 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
             required
             value={zip}
             onChange={(e) => dispatch(setAddressFields({ data: e.target.value, field: 'zip' }))}
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
+            id='zip'
+            name='zip'
+            label='Zip / Postal code'
             fullWidth
-            autoComplete="shipping postal-code"
-            variant="standard"
+            autoComplete='shipping postal-code'
+            variant='standard'
             onBlur={handleBlurZip}
             error={zipError}
             helperText={zipError ? 'Field cannot be empty' : ''}
@@ -168,12 +168,12 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
             required
             value={country}
             onChange={(e) => dispatch(setAddressFields({ data: e.target.value, field: 'country' }))}
-            id="country"
-            name="country"
-            label="Country"
+            id='country'
+            name='country'
+            label='Country'
             fullWidth
-            autoComplete="shipping country"
-            variant="standard"
+            autoComplete='shipping country'
+            variant='standard'
             onBlur={handleBlurCountry}
             error={countryError}
             helperText={countryError ? 'Field cannot be empty' : ''}
@@ -182,7 +182,7 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
         <Grid item xs={12} sm={6}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
-              label="Date&Time picker"
+              label='Date&Time picker'
               value={shippingDate}
               onChange={handleChange}
               renderInput={(params) => <TextField {...params} />}
@@ -191,8 +191,8 @@ const AddressForm = ({ fullAddress, shippingDate }: propsFullAddress) => {
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
+            control={<Checkbox color='secondary' name='saveAddress' value='yes' />}
+            label='Use this address for payment details'
           />
         </Grid>
       </Grid>
