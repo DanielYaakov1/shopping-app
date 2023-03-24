@@ -70,10 +70,7 @@ const ProductsActions = () => {
   }
   const getProductPerPage = useCallback(
     async (pageNumber: number, productPerPage?: string | number) => {
-      //get productPerPage
-      //const paginationItem = limitItem ? parseInt(limitItem) : 2;
       try {
-        //dispatch(setLoadingProducts(true));
         const response = await httpRequest(ROUTES.PAGINATION_API, 'POST', {
           page: pageNumber,
           limit: productPerPage,
@@ -83,7 +80,6 @@ const ProductsActions = () => {
       } catch (err) {
         throw err;
       } finally {
-        //dispatch(setLoadingProducts(false));
       }
     },
     [httpRequest]

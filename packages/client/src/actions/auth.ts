@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setErrorMessage } from '../store/slices/registrationSlice';
 import { setAppAuthenticated, setLoadingApp } from '../store/slices/appSlice';
@@ -55,12 +55,10 @@ const ActionsAuth = () => {
       }
       dispatch(setAppAuthenticated(response.ok));
       //TODO: fix end point check token expired (should be return all object and not token + uid+ isAdmin)
-      //dispatch(setUser({ ...user }));
       dispatch(setLoadingApp(false));
     } catch (err) {
       console.log(err);
     } finally {
-      //dispatch(setLoadingApp(false));
     }
   }, [dispatch, history]);
 
