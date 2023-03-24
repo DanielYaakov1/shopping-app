@@ -21,12 +21,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IFullAddress, setCheckoutOpen } from '../../store/slices/orderSlice';
-import {
-  cartInitialState,
-  IItems,
-  setCartModalOpen,
-  updateAllCartState,
-} from '../../store/slices/cartSlice';
+import { cartInitialState, IItems, updateAllCartState } from '../../store/slices/cartSlice';
 import ActionsOrders from '../../actions/OrdersActions';
 import { IShippingOrder } from '../../interfaces';
 
@@ -52,41 +47,23 @@ export default function Checkout() {
   );
 
   const { uid } = useSelector((state: RootState) => state.userReducer);
-  const { items, totalAmount, isCartModalOpen } = useSelector(
-    (state: RootState) => state.cartReducer
-  );
+  const { items, totalAmount } = useSelector((state: RootState) => state.cartReducer);
   const { fullAddress, isCheckoutOpen, shippingDate } = useSelector(
     (state: RootState) => state.orderReducer
   );
-  const { city, zip, lastName, firstName, address1, country } = useSelector(
-    (state: RootState) => state.orderReducer.fullAddress
-  );
-  //const { isCartModalOpen } = useSelector((state: RootState) => state.cartReducer);
+
   const { createOrder } = ActionsOrders();
-
   const steps = ['Shipping address', 'Payment details', 'Review your order'];
-
-  const handleCartModal = useCallback(
-    () => dispatch(setCartModalOpen(!isCartModalOpen)),
-    [dispatch, isCartModalOpen]
-  );
-
-  function hasEmptyValues(fullAddress: IFullAddress): boolean {
-    const values = Object.values(fullAddress);
-    return values.every((value) => value.trim());
-  }
 
   const handleCheckoutForm = useCallback(() => {
     dispatch(setCheckoutOpen(!isCheckoutOpen));
   }, [dispatch, isCheckoutOpen]);
 
-  const isFullAddressFieldEmpty: boolean =
-    !city.trim() ||
-    !lastName.trim() ||
-    !firstName.trim() ||
-    !zip.trim() ||
-    !country.trim() ||
-    !address1.trim();
+  const allValuesAreNonEmpty = useCallback(
+    (obj: Partial<IFullAddress>): boolean =>
+      Object.values(obj).every((value) => !!value && String(value).trim() !== ''),
+    []
+  );
 
   const handleNext = useCallback(async () => {
     if (activeStep === steps.length - 1) {
@@ -103,7 +80,6 @@ export default function Checkout() {
       });
       const { order } = res;
       setResult(order);
-      //dispatch(setCheckoutOpen(false));
       dispatch(updateAllCartState(cartInitialState));
     }
     setActiveStep(activeStep + 1);
@@ -146,9 +122,9 @@ export default function Checkout() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar
-        position="absolute"
-        color="default"
-        className="zzz"
+        position='absolute'
+        color='default'
+        className='zzz'
         elevation={1}
         sx={{
           position: 'relative',
@@ -158,7 +134,7 @@ export default function Checkout() {
         }}>
         <Toolbar>
           <IconButton
-            aria-label="close"
+            aria-label='close'
             onClick={handleCheckoutForm}
             sx={{
               position: 'absolute',
@@ -170,9 +146,9 @@ export default function Checkout() {
         </Toolbar>
         {activeStep === 0 ? <ArrowBackIcon onClick={handleCheckoutForm} /> : null}
       </AppBar>
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-          <Typography component="h1" variant="h4" align="center">
+      <Container component='main' maxWidth='sm' sx={{ mb: 4 }}>
+        <Paper variant='outlined' sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+          <Typography component='h1' variant='h4' align='center'>
             Checkout
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
@@ -184,10 +160,10 @@ export default function Checkout() {
           </Stepper>
           {activeStep === steps.length ? (
             <React.Fragment>
-              <Typography variant="h5" gutterBottom>
+              <Typography variant='h5' gutterBottom>
                 Thank you for your order.
               </Typography>
-              <Typography variant="subtitle1">
+              <Typography variant='subtitle1'>
                 Your order number is #{result?.orderNumber}. We have emailed your order
                 confirmation, and will send you an update when your order has shipped.
               </Typography>
@@ -202,8 +178,8 @@ export default function Checkout() {
                   </Button>
                 )}
                 <Button
-                  disabled={isFullAddressFieldEmpty ? true : false}
-                  variant="contained"
+                  disabled={!allValuesAreNonEmpty(fullAddress)}
+                  variant='contained'
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}>
                   {activeStep === steps.length - 1 ? 'Place order' : 'Next'}

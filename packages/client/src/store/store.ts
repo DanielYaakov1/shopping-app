@@ -32,15 +32,5 @@ export const store = configureStore({
   }),
 });
 export const persistor = persistStore(store);
-// export const store = configureStore({
-//   reducer: {
-//     registrationReducer: registrationReducer,
-//     appReducer: appReducer,
-//     productReducer: productReducer,
-//     cartReducer: cartReducer,
-//     orderReducer: orderReducer,
-//     userReducer: userReducer,
-//   },
-// });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

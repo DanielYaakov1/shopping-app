@@ -25,23 +25,23 @@ import { debounce } from 'lodash';
 const slides = [
   {
     key: uuidv4(),
-    content: <img src="https://picsum.photos/800/801/?random" alt="1" />,
+    content: <img src='https://picsum.photos/800/801/?random' alt='1' />,
   },
   {
     key: uuidv4(),
-    content: <img src="https://picsum.photos/800/802/?random" alt="2" />,
+    content: <img src='https://picsum.photos/800/802/?random' alt='2' />,
   },
   {
     key: uuidv4(),
-    content: <img src="https://picsum.photos/600/803/?random" alt="3" />,
+    content: <img src='https://picsum.photos/600/803/?random' alt='3' />,
   },
   {
     key: uuidv4(),
-    content: <img src="https://picsum.photos/800/500/?random" alt="4" />,
+    content: <img src='https://picsum.photos/800/500/?random' alt='4' />,
   },
   {
     key: uuidv4(),
-    content: <img src="https://picsum.photos/800/804/?random" alt="5" />,
+    content: <img src='https://picsum.photos/800/804/?random' alt='5' />,
   },
 ];
 

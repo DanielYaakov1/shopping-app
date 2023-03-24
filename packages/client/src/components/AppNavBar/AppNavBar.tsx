@@ -17,13 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles, { appIcon, searchHeaderField } from './useStyles';
 import { setCheckoutOpen } from '../../store/slices/orderSlice';
 import { RootState } from '../../store';
-import {
-  addItemToCart,
-  deleteItemFromCart,
-  IItems,
-  setCartModalOpen,
-} from '../../store/slices/cartSlice';
-import { checkGreaterNumberInArray } from '../../utils/helpers/array.helpers';
+import { setCartModalOpen } from '../../store/slices/cartSlice';
 import CartIcon from '../CartIcon';
 import { useHistory } from 'react-router-dom';
 import SettingsMenu from '../SettingsMenu';
@@ -131,25 +125,25 @@ function AppNavBar() {
   );
 
   return (
-    <AppBar position="sticky" className={classes.headerNav}>
-      <Container maxWidth="xl">
+    <AppBar position='sticky' className={classes.headerNav}>
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <Typography variant="h6" noWrap component="a" href={ROUTES.HOME_PAGE} sx={appIcon}>
+          <Typography variant='h6' noWrap component='a' href={ROUTES.HOME_PAGE} sx={appIcon}>
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             SP
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
               onClick={handleOpenNavMenu}
-              color="inherit">
+              color='inherit'>
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
@@ -167,7 +161,7 @@ function AppNavBar() {
               }}>
               {pages.map((page, index) => (
                 <MenuItem key={page.title} onClick={() => handleCloseNavMenuAndNavigate(index)}>
-                  <Typography textAlign="center">{page.title}</Typography>
+                  <Typography textAlign='center'>{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -183,13 +177,13 @@ function AppNavBar() {
               </Button>
             ))}
           </Box>
-          <Box component="form" sx={searchHeaderField} noValidate autoComplete="off">
+          <Box component='form' sx={searchHeaderField} noValidate autoComplete='off'>
             <TextField
               value={searchProduct}
               onChange={(e) => handleSetSearch(e.target.value)}
-              id="outlined-basic"
-              label="Search"
-              variant="outlined"
+              id='outlined-basic'
+              label='Search'
+              variant='outlined'
             />
           </Box>
           <CartIcon numberCartItem={numberCartItem} onClick={handleCartModal} />
