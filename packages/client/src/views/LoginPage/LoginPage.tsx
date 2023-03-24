@@ -22,8 +22,8 @@ import {
 import { checkEmailIsValid } from '../../utils/helpers/validation.helper';
 import { RootState } from '../../store';
 import { setUser } from '../../store/slices/userSlice';
-import { ReactComponent as FacebookButton } from '../../assets/images/facebook.svg';
-import { ReactComponent as GoogleButton } from '../../assets/images/google.svg';
+import { ReactComponent as FacebookButton } from '../../assets/svg/facebook.svg';
+import { ReactComponent as GoogleButton } from '../../assets/svg/google.svg';
 import useStyles from './useStyles';
 
 export default function Login() {
@@ -52,7 +52,6 @@ export default function Login() {
           return history.push('/');
         } else {
           dispatch(setErrorMessage('Something went wrong'));
-          //dispatch(setErrorMessage(handle.message));
         }
       } else {
         dispatch(setErrorMessage('Please fill all fields'));
@@ -99,7 +98,7 @@ export default function Login() {
 
   return (
     <Container
-      component="main"
+      component='main'
       maxWidth={'xl'}
       style={{
         paddingRight: 0,
@@ -134,55 +133,55 @@ export default function Login() {
                 flexDirection: 'column',
                 alignItems: 'center',
               }}>
-              <Typography component="h1" variant="h5">
+              <Typography component='h1' variant='h5'>
                 {formTypeLabel}
               </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                 <TextField
-                  margin="normal"
+                  margin='normal'
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id='email'
+                  label='Email Address'
+                  name='email'
+                  autoComplete='email'
                   autoFocus
                   placeholder={'example@gamil.com'}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <TextField
-                  margin="normal"
+                  margin='normal'
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
+                  name='password'
+                  label='Password'
+                  type='password'
+                  id='password'
+                  autoComplete='current-password'
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
+                  control={<Checkbox value='remember' color='primary' />}
+                  label='Remember me'
                 />
                 <Button
                   disabled={isDisableSubmitButton}
-                  type="submit"
+                  type='submit'
                   fullWidth
-                  variant="contained"
+                  variant='contained'
                   sx={{ mt: 3, mb: 2 }}>
                   {formTypeLabel}
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="#" variant="body2">
+                    <Link href='#' variant='body2'>
                       Forgot password?
                     </Link>
                   </Grid>
                   <Grid item>
                     <Link
                       href={isLoginMode ? '/login' : '/signup'}
-                      variant="body2"
+                      variant='body2'
                       onClick={switchLoginModeHandler}>
                       {isLoginMode ? "Don't have an account ? signup" : 'have an account ? login'}
                     </Link>
