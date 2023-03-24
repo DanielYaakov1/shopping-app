@@ -9,7 +9,7 @@ type UseInputReturn = {
   isValid: boolean;
   hasError: boolean;
   valueChangedHandler: (event: ChangeEvent<HTMLInputElement>) => void;
-  inputBlurHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+  inputBlurHandler: (event: React.FocusEvent<HTMLInputElement>) => void;
   reset: () => void;
 };
 
@@ -24,7 +24,7 @@ const useInput = ({ validateValue }: UseInputProps): UseInputReturn => {
     setEnteredInputValue(event.target.value);
   };
 
-  const inputBlurHandler = () => {
+  const inputBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsTouched(true);
   };
 
