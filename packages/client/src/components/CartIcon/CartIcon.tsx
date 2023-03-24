@@ -24,15 +24,15 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 const CartIcon = memo(({ numberCartItem, onClick }: props) => {
   return (
     <IconButton
-      size="small"
-      aria-label="show 4 new mails"
-      color="inherit"
+      size='small'
+      aria-label='show 4 new mails'
+      color='inherit'
       onClick={onClick}
       sx={{
         marginRight: '10px',
         borderRadius: 2,
       }}>
-      <StyledBadge badgeContent={numberCartItem} color="error">
+      <StyledBadge badgeContent={numberCartItem} color='error'>
         <ShoppingBagOutlinedIcon />
       </StyledBadge>
     </IconButton>

@@ -13,7 +13,6 @@ const useStyles = makeStyles({
   card: {
     maxWidth: '80%',
     margin: '1% 8%',
-    //border: '1px solid #ccc',
     boxShadow: '0 0 5px #ccc',
     borderRadius: '8px 8px 0 0',
     border: '1px #D5D9D9 solid',

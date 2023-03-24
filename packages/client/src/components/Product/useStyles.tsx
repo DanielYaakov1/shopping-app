@@ -49,14 +49,6 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
-  card1: {
-    maxWidth: '30%',
-    margin: '1%',
-    border: '1px solid #ccc',
-    boxShadow: '0 0 5px #ccc',
-    textAlign: 'center',
-    marginBottom: '1rem',
-  },
 }));
 
 export default useStyles;

@@ -66,7 +66,6 @@ export const signupCognito = async (req: Request, res: Response, next: NextFunct
     const { Username, Password } = req.body;
     const authHandler = new AwsCognitoHandler();
     const userCredential = await authHandler.register(Username, Password);
-    //res.cookie('fbAuth', userCredential.token);
     res.header('authorization-bearer', userCredential.UserSub);
     res.send(userCredential);
   } catch (err) {
@@ -79,7 +78,6 @@ export const loginCognito = async (req: Request, res: Response, next: NextFuncti
     const { USERNAME, PASSWORD } = req.body;
     const authHandler = new AwsCognitoHandler();
     const userCredential = await authHandler.login(USERNAME, PASSWORD);
-    //res.cookie('fbAuth', userCredential.token);
     res.header('authorization-bearer', userCredential.token);
     res.send({ ...userCredential, isAdmin: true });
   } catch (err) {

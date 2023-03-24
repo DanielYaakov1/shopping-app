@@ -25,17 +25,14 @@ const AlertDialog = ({
 }: AlertDialogProps) => {
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button> */}
       <Dialog
         open={open}
         onClose={handleCancelAction}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">{titleDialog}</DialogTitle>
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <DialogTitle id='alert-dialog-title'>{titleDialog}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">{bodyDialog}</DialogContentText>
+          <DialogContentText id='alert-dialog-description'>{bodyDialog}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancelAction}>Disagree</Button>
