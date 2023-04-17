@@ -1,4 +1,4 @@
-🛍️ Overview 🛍️
+🛍️ Overview 🛍️🛍️
 
 shopping app is a user-friendly platform that enables customers to browse and purchase items easily. It comes with useful features such as a shopping cart and checkout process, making it a convenient shopping experience for all users.
 
